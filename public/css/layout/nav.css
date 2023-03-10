@@ -1,0 +1,22 @@
+.nav-con{
+    display: flex;
+    align-items: center;
+    background-color: #1B3168;
+    padding-left: 125px;
+    height: 111px;
+}
+.nav-img-con{
+    height: 111px;
+}
+.nav-img-con img{
+    background-color: #FFFFFF;
+    width: 244px;
+    height: 111px;
+}
+.nav-link-con ul{
+    display: flex;
+}
+.nav-link-con a{
+    padding: 17px 35px;
+    color: #FFFFFF;
+}
