@@ -20,3 +20,35 @@
     padding: 17px 35px;
     color: #FFFFFF;
 }
+@media screen and (min-width: 1200px) {
+    .brg{
+        display: none;
+    }
+    .nav-link-con{
+        display: flex!important;
+    }
+    .nav-img-con{
+        display: flex!important;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .nav-link-con{
+        margin: 20px 0;
+        width: 33%;
+        display: none;
+    }
+    .nav-link-con ul{
+        gap: 20px 50px;
+        flex-direction: column;
+    }
+    .brg{
+        padding-left: 60%;
+    }
+    .nav-con{
+        height: fit-content;
+    }
+    .brg svg{
+        width: 50px;
+        height: 50px;
+    }
+}
