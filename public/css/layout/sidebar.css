@@ -1,4 +1,35 @@
 .sidebar-con{
+    padding-top: 32px;
     width: 30%;
-    background-color: blue;
+    /* background-color: blue; */
+}
+
+.sidebar-items-con{
+    margin: 14px;
+}
+
+.sidebar-items-con h2{
+    font-size: large;
+    color: #B6A886;
+}
+
+.sidebar-items-con div{
+    display: flex;
+    flex-direction: column;
+    margin-top: 14px;
+}
+
+.sidebar-items-con div a{
+    font-size: 14px;
+    margin: 4px 0;
+    color: #000;
+}
+
+.sidebar-items-con div a:active{
+    color: #000;
+}
+
+.sidebar-items-con div a span{
+    font-size: large;
+    font-weight: bold;
 }
