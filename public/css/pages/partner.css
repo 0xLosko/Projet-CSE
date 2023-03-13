@@ -1,0 +1,45 @@
+.partner-con{
+    width: 70%;
+    padding-left: 17px;
+}
+.partner-con h1{
+    margin-top: 110px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #B6A886;
+}
+.view-more{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    color: #384B7B;
+
+}
+.partner-items-con{
+    margin-top: 40px;
+    font-size: 14px;
+    text-align: center;
+}
+.partner-items div{
+    justify-content: center;
+    align-items: center;
+    gap: 0 10px;
+    margin-top: 5px;
+    display: flex;
+}
+.partner-items div img{
+    height: 10px;
+    width: 20px;
+}
+.partner-items-con p{
+    color: #B6A886;
+}
+.partner-img{
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+}
