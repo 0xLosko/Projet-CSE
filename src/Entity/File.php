@@ -15,10 +15,10 @@ class File
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nameOrigine = null;
+    private ?string $originalName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nameFile = null;
+    private ?string $fileName = null;
 
     #[ORM\Column(length: 255)]
     private ?string $altFile = null;
@@ -35,31 +35,34 @@ class File
     #[ORM\OneToOne(mappedBy: 'idFile', cascade: ['persist', 'remove'])]
     private ?Partner $idFile = null;
 
+    #[ORM\ManyToOne(inversedBy: 'file')]
+    private ?Offer $offer = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNameOrigine(): ?string
+    public function getOriginalName(): ?string
     {
-        return $this->nameOrigine;
+        return $this->originalName;
     }
 
-    public function setNameOrigine(string $nameOrigine): self
+    public function setOriginalName(string $originalName): self
     {
-        $this->nameOrigine = $nameOrigine;
+        $this->originalName = $originalName;
 
         return $this;
     }
 
-    public function getNameFile(): ?string
+    public function getFileName(): ?string
     {
-        return $this->nameFile;
+        return $this->fileName;
     }
 
-    public function setNameFile(string $nameFile): self
+    public function setFileName(string $fileName): self
     {
-        $this->nameFile = $nameFile;
+        $this->fileName = $fileName;
 
         return $this;
     }
@@ -125,6 +128,18 @@ class File
         }
 
         $this->idFile = $idFile;
+
+        return $this;
+    }
+
+    public function getOffer(): ?Offer
+    {
+        return $this->offer;
+    }
+
+    public function setOffer(?Offer $offer): self
+    {
+        $this->offer = $offer;
 
         return $this;
     }
