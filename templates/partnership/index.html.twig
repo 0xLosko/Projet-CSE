@@ -6,15 +6,29 @@
     <div class="partner-con">
         <h1>Nos partenaires</h1>
         <div class="partner-items-con">
-            <div class="partner-items">
-                <img class="partner-img" src="" alt="">
-                <p>"texte synthetique"</p>
-                <div>
-                    <h2>Nom etp</h2>
-                    <img src="images/Vectorlink.svg">
-                </div>
+            <div>
+                {% set i = 0 %}
+                {% for partner in partners %}
+                    {% set i = i + 1 %}
+                    <div class="partner-items">
+                        <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile()) }}" alt="">
+                        <p>"{{ partner.description }}"</p>
+                        <div>
+                            <h2>{{ partner.name }}</h2>
+                            <img src="{{ asset('images/Vectorlink.svg') }}" onclick="location.href = '{{ partner.link }}'">
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+            <div>
+                {% if i == 9 %}
+                    <a class="view-more" href="{{ path('partnership-all')}}">Voir plus</a>
+                {% else %}
+                    <a class="view-more" href="{{ path('partnership') }}">Voir moins</a>
+                {% endif %}
+            </div>
+
         </div>
-        <p class="view-more">Voir plus</p>
+
     </div>
 {% endblock %}
