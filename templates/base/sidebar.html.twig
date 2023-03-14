@@ -30,6 +30,9 @@
         <h2>Nos partenaires</h2>
         {# Les info de contact #}
         <div>
+            {% for partner in rdmPartners %}
+                {{ partner.name }}
+            {% endfor %}
 
         </div>
         <a class="discover-partners" href="{{ path('partnership') }}">Découvrir tous nos partenaires</a>
