@@ -1,7 +1,6 @@
 .sidebar-con{
     padding-top: 32px;
     width: 30%;
-    /* background-color: blue; */
 }
 
 .sidebar-items-con{
@@ -12,7 +11,6 @@
     font-size: large;
     color: #B6A886;
 }
-
 .sidebar-items-con div{
     display: flex;
     flex-direction: column;
@@ -32,4 +30,19 @@
 .sidebar-items-con div a span{
     font-size: large;
     font-weight: bold;
+}
+.blue{
+    font-size: 14px!important;
+    color: #1B3168;
+}
+
+
+
+
+.discover-partners{
+    text-align: center;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration-line: underline;
+    color: #000000;
 }
