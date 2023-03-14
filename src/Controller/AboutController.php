@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\SidebarPartnersProvider;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,9 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AboutController extends AbstractController
 {
     #[Route('/about', name: 'about')]
-    public function index(): Response
+    public function index(ManagerRegistry $em, SidebarPartnersProvider $side): Response
     {
+        $rdmPartners = $side->getRandomPartners($em);
         return $this->render('about/index.html.twig', [
+            'rdmPartners' => $rdmPartners,
         ]);
     }
 }
