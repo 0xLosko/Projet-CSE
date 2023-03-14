@@ -22,18 +22,24 @@
         <div>
             <a> <span>></span> Par téléphone : <span class="blue">+33303030303</span></a>
             <a> <span>></span> Par email : <span class="blue">cse@lyceestvincent.fr</span></a>
-            <a> <span>></span> Au lycée : <span class="blue">Bureau du CSE (1er étage bâtiment Saint-Vincent)</span></a>
+            <a> <span>></span> Au lycée : <span class="blue">Bureau du CSE<br>(1er étage bâtiment Saint-Vincent)</span></a>
         </div>
     </div>
 
     <div class="sidebar-items-con">
         <h2>Nos partenaires</h2>
         {# Les info de contact #}
-        <div>
+        <div class="car-con">
             {% for partner in rdmPartners %}
-                {{ partner.name }}
+                <div class="car-items-con-{{ partner.id }}" {% if not loop.first %}style="display:none;" {% endif %}id="wrap">
+                    <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile()) }}" alt="">
+                </div>
             {% endfor %}
-
+        </div>
+        <div class="car-con-btn">
+            {% for partner in rdmPartners %}
+                <button class="btn-car{{ loop.first ? ' selected' : '' }}" value="{{ partner.id }}"></button>
+            {% endfor %}
         </div>
         <a class="discover-partners" href="{{ path('partnership') }}">Découvrir tous nos partenaires</a>
     </div>

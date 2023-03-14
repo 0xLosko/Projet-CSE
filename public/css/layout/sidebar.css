@@ -35,14 +35,30 @@
     font-size: 14px!important;
     color: #1B3168;
 }
-
-
-
-
 .discover-partners{
     text-align: center;
     font-size: 14px;
     line-height: 17px;
     text-decoration-line: underline;
     color: #000000;
+}
+.car-con-btn{
+    flex-direction: row!important;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin: 10px 0;
+    gap: 0 5px;
+}
+
+.car-con-btn button{
+    height: 11px;
+    width: 11px;
+    background-color: #acc3e6;
+    border: none;
+    border-radius: 360px;
+}
+
+.selected{
+    background-color: #2a5a99!important;
 }
