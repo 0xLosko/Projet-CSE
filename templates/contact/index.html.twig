@@ -2,7 +2,15 @@
 
 {% block title %}Contact{% endblock %}
 
-{% block content %}<div class="main-con">
-    <h1>Contactez nous</h1>
-</div>
+{% block content %}
+    <div class="contact-con">
+        <h1>Contactez-nous</h1>
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.message) }}
+            <button type="submit">Envoyer</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
