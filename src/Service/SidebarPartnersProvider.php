@@ -4,7 +4,7 @@ namespace App\Service;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Partner;
 
-class sidebarPartnersProvider
+class SidebarPartnersProvider
 {
     public function getRandomPartners(ManagerRegistry $em): array
     {

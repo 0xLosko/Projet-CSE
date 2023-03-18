@@ -19,7 +19,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form);
+            dd($form);
         }
 
         return $this->render('contact/index.html.twig', [
