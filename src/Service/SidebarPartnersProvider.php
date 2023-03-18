@@ -1,14 +1,20 @@
 <?php
 namespace App\Service;
 
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Partner;
 
 class SidebarPartnersProvider
 {
-    public function getRandomPartners(ManagerRegistry $em): array
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $partners = $em->getRepository(Partner::class)->findAll();
+        $this->entityManager = $entityManager;
+    }
+    public function getRandomPartners(): array
+    {
+        $partners = $this->entityManager->getRepository(Partner::class)->findAll();
         $randomKeys = array_rand($partners, 3);
         foreach($partners as $key => $partner){
             if(!in_array($key, $randomKeys)){

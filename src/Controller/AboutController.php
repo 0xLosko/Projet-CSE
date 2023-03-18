@@ -11,9 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AboutController extends AbstractController
 {
     #[Route('/about', name: 'about')]
-    public function index(ManagerRegistry $em, SidebarPartnersProvider $side): Response
+    public function index(SidebarPartnersProvider $side): Response
     {
-        $rdmPartners = $side->getRandomPartners($em);
+        $rdmPartners = $side->getRandomPartners();
         return $this->render('about/index.html.twig', [
             'rdmPartners' => $rdmPartners,
         ]);

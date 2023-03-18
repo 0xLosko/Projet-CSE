@@ -15,7 +15,7 @@ class PartnershipController extends AbstractController
     public function index(ManagerRegistry $em,  SidebarPartnersProvider $side): Response
     {
         $partners = $em->getRepository(Partner::class)->getPartners(true);
-        $rdmPartners = $side->getRandomPartners($em);
+        $rdmPartners = $side->getRandomPartners();
         return $this->render('partnership/index.html.twig', [
                         'partners' => $partners,
                         'rdmPartners' => $rdmPartners,

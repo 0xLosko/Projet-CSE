@@ -13,7 +13,7 @@ class TicketingController extends AbstractController
     #[Route('/ticketing', name: 'ticketing')]
     public function index(ManagerRegistry $em, SidebarPartnersProvider $side): Response
     {
-        $rdmPartners = $side->getRandomPartners($em);
+        $rdmPartners = $side->getRandomPartners();
         return $this->render('ticketing/index.html.twig', [
             'rdmPartners' => $rdmPartners,
         ]);
