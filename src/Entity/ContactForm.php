@@ -14,6 +14,12 @@ class ContactForm
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $nameContact = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $surnameContact = null;
+
     #[ORM\Column(length: 255)]
     private ?string $emailContact = null;
 
@@ -26,6 +32,25 @@ class ContactForm
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function getNameContact(): ?string
+    {
+        return $this->nameContact;
+    }
+
+    public function setNameContact(?string $name): void
+    {
+        $this->nameContact = $name;
+    }
+
+    public function getSurnameContact(): ?string
+    {
+        return $this->surnameContact;
+    }
+
+    public function setSurnameContact(?string $surnameContact): void
+    {
+        $this->surnameContact = $surnameContact;
     }
 
     public function getEmailContact(): ?string
