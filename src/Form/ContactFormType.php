@@ -17,17 +17,8 @@ class ContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Votre prénom',
-                'required' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer votre prénom',
-                    ]),
-                ],
-            ])
             ->add('lastName', TextType::class, [
-                'label' => 'Votre nom',
+                'label' => 'Nom :',
                 'required' => false,
                 'constraints' => [
                     new NotBlank([
@@ -35,8 +26,17 @@ class ContactFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('name', TextType::class, [
+                'label' => 'Prénom :',
+                'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre prénom',
+                    ]),
+                ],
+            ])
             ->add('email', EmailType::class, [
-                'label' => 'Votre adresse e-mail',
+                'label' => 'Mail :',
                 'required' => false,
                 'constraints' => [
                     new NotBlank([
@@ -45,7 +45,7 @@ class ContactFormType extends AbstractType
                 ],
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'Message',
+                'label' => 'Message :',
                 'required' => false,
                 'constraints' => [
                     new NotBlank([
@@ -54,7 +54,7 @@ class ContactFormType extends AbstractType
                 ],
             ])
             ->add('subscribeToNewsletter', CheckboxType::class, [
-                'label' => 'S\'inscrire à la newsletter',
+                'label' => 'S\'inscrire à la newsletter ?',
                 'required' => false,
             ])
             ->add('security', TurnstileType::class, [
