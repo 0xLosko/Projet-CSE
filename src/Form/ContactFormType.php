@@ -47,6 +47,11 @@ class ContactFormType extends AbstractType
             ->add('message', TextareaType::class, [
                 'label' => 'Message',
                 'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre message',
+                    ]),
+                ],
             ])
             ->add('subscribeToNewsletter', CheckboxType::class, [
                 'label' => 'S\'inscrire à la newsletter',

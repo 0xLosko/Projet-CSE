@@ -6,8 +6,11 @@
     <div class="contact-con">
         <h1>Contactez-nous</h1>
         {{ form_start(form) }}
-
-
         {{ form_end(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
