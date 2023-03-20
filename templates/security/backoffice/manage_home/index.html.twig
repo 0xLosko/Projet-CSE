@@ -1,0 +1,15 @@
+{% extends './security/backoffice/base.html.twig' %}
+{% block content %}
+    <div class="home-con">
+        {{ form_start(form) }}
+            {{ form_widget(form.textContent, {'value' : homeContent}) }}
+            {{ form_rest(form) }}
+            <input type="submit" value="Modifier">
+        {{ form_end(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="form-row">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
