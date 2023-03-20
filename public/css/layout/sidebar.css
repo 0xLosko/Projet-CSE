@@ -66,6 +66,7 @@
 .survey{
     background-color: #1B3168;
     text-align: center;
+    width: 258px;
 }
 
 .survey h2{
@@ -80,6 +81,32 @@
 }
 
 .survey-act{
-    flex-direction: row;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     font-size: 11px;
+    height: 40px;
+    margin: 0;
+}
+
+.survey-act button{
+    width: 120px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+}
+
+.proposals-con{
+    padding: 21px 24px;
+}
+
+.proposal div{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.proposal div input{
+    width: auto;
 }

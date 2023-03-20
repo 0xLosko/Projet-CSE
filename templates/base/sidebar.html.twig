@@ -6,21 +6,21 @@
     <div class="survey">
         <h2>Votre avis compte</h2>
         <div class="survey-content">
+        <pre>
+        </pre>
             {{ form_start(formSurvey) }}
                 <p>
-                    {# {{ form_label() }} #}
+                    {{ txtQuestion }}
                 </p>
-
-                <div class="survey-proposals-con">
+                <div class="proposals-con">
+                    {% for p in formSurvey.proposal %}
+                        <div class="proposal">
+                            {{ form_row(p) }}
+                        </div>
+                    {% endfor %}
                 </div>
             {{ form_end(formSurvey) }}
         </div>
-        {# {% for proposal in surveyProposals %}
-            <input type="radio" name="{{ proposal.id }}" value="{{ proposal.id }}">
-            <label for="{{ proposal.id }}">
-                {{ proposal.textProposal }}
-            </label>
-        {% endfor %} #}
         <div class="survey-act">
             <button type="">Voir les réponses</button>
             <button type="submit">Valider</button>
