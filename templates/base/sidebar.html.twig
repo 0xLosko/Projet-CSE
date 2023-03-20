@@ -3,9 +3,28 @@
         {# Chemin d'accès #}
     </div>
 
-    <div class="sidebar-items-con">
+    <div class="survey">
         <h2>Votre avis compte</h2>
-        {# Le sondage #}
+        <div class="survey-content">
+        <pre>
+        </pre>
+            {{ form_start(form) }}
+                <p>
+                    {{ question }}
+                </p>
+                <div class="proposals-con">
+                    {% for p in form.proposal %}
+                        <div class="proposal">
+                            {{ form_row(p) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="survey-act">
+            <button type="">Voir les réponses</button>
+            <button type="submit">Valider</button>
+        </div> 
     </div>
 
     <div class="sidebar-items-con">
