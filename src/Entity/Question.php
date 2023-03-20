@@ -25,7 +25,7 @@ class Question
     #[ORM\Column]
     private ?bool $available = null;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Proposal::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Proposal::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $proposals;
 
     public function __construct()
