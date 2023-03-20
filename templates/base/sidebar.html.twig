@@ -8,18 +8,18 @@
         <div class="survey-content">
         <pre>
         </pre>
-            {{ form_start(formSurvey) }}
+            {{ form_start(form) }}
                 <p>
-                    {{ txtQuestion }}
+                    {{ question }}
                 </p>
                 <div class="proposals-con">
-                    {% for p in formSurvey.proposal %}
+                    {% for p in form.proposal %}
                         <div class="proposal">
                             {{ form_row(p) }}
                         </div>
                     {% endfor %}
                 </div>
-            {{ form_end(formSurvey) }}
+            {{ form_end(form) }}
         </div>
         <div class="survey-act">
             <button type="">Voir les réponses</button>

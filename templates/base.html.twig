@@ -28,7 +28,7 @@
     <body>
         {% block body %}
             <div class="main-con">
-                {% include './base/sidebar.html.twig' %}
+                {{ render(controller('App\\Controller\\SidebarController::sidebarBuilder')) }}
                 {% block content %}
                 {% endblock %}
             </div>

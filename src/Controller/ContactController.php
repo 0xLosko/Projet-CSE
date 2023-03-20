@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\SidebarPartnersProvider;
 use App\Form\ContactFormType;
 use App\Entity\ContactForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,9 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 class ContactController extends AbstractController
 {
     #[route(path: "/contact", name: "contact")]
-    public function home (SidebarPartnersProvider $side, Request $request, EntityManagerInterface $entityManager): Response
+    public function home (Request $request, EntityManagerInterface $entityManager): Response
     {
-        $rdmPartners = $side->getRandomPartners();
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
 
@@ -36,7 +34,6 @@ class ContactController extends AbstractController
         }
 
         return $this->render('contact/index.html.twig', [
-            'rdmPartners' => $rdmPartners,
             'form' => $form->createView(),
         ]);
     }
