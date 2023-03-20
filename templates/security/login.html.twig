@@ -1,0 +1,35 @@
+<head>
+    <link rel="stylesheet" href="{{ asset('css/security/login-form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+
+<div class="form-login-con">
+    <form method="post">
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1>Formulaire de connexion</h1>
+        <div>
+            <label for="inputUsername">Identifiant</label>
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+        </div>
+        <div>
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        </div>
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+        <button class="btn btn-lg btn-primary" type="submit">
+            Se connecter
+        </button>
+        {% if error %}
+            <div class="error-form">
+                <p>email et/ou mot de passe incorrect(s)</p>
+            </div>
+        {% endif %}
+    </form>
+</div>
