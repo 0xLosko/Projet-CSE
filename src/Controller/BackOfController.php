@@ -18,28 +18,4 @@ class BackOfController extends AbstractController
     {
         return $this->render('security/backoffice/base.html.twig');
     }
-
-    #[Route('/backoffice/gerer-accueil', name: 'manage_home')]
-    public function manageHome(ManagerRegistry $mr, Request $request,EntityManagerInterface $em): Response
-    {
-        $responseContent = new ContentPage();
-
-        $currentPage = $mr->getRepository(Page::class)->findOneBy(['namePage' => 'Accueil']);
-        $oldHomeContent = $mr->getRepository(ContentPage::class)->findOneBy(['page' => $currentPage]);
-
-        $form = $this->createForm(HomeType::class, $responseContent);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $oldHomeContent->setTextContent($responseContent->getTextContent());
-            $em->flush();
-            $session = $request->getSession();
-            $session->getFlashBag()->add('success', 'cette modification a été prise en compte.');
-        }
-
-        return $this->render('security/backoffice/manage_home/index.html.twig', [
-            'homeContent' => $oldHomeContent->getTextContent(),
-            'form' => $form->createView(),
-        ]);
-    }
 }
