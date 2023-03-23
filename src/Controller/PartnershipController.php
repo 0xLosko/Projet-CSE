@@ -6,9 +6,9 @@ use App\Entity\File;
 use App\Entity\Partner;
 use App\Form\PartnerType;
 use App\Repository\PartnerRepository;
+use App\Repository\FileRepository;
 use App\Service\SidebarPartnersProvider;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Float_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +45,7 @@ class PartnershipController extends AbstractController
     }
 
     #[Route('backoffice/gerer-les-partenaires/nouveau', name: 'app_partner_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PartnerRepository $partnerRepository,EntityManagerInterface $em,SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(PartnerType::class);
         $form->handleRequest($request);
@@ -56,16 +56,15 @@ class PartnershipController extends AbstractController
             //file insert
 
             $fileResponse = $Response['file'];
-            $originalFilename = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
-
+            $originalFileName = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
             $file = new File();
-            $file->setOriginalName($originalFilename);
-            $file->setFileName($originalFilename);
-            $file->setAltFile($originalFilename);
+            $file->setOriginalName($fileResponse->getClientOriginalName());
+            $file->setFileName($Response['nameFile']);
+            $file->setAltFile($Response['nameAltFile']);
             $file->setSizeFile($fileResponse->getSize());
             $file->setDateFile(new \DateTime());
 
-            $safeFilename = $slugger->slug($originalFilename);
+            $safeFilename = $slugger->slug($originalFileName);
             $newFilename = $safeFilename.'-'.uniqid().'.'.$fileResponse->guessExtension();
             try {
                 $fileResponse->move(
@@ -76,7 +75,7 @@ class PartnershipController extends AbstractController
                 dd('Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
             }
 
-            $file->setPathFile('/uploads/file/' . $newFilename);
+            $file->setPathFile($newFilename);
             $em->persist($file);
             $em->flush();
             //insert partner
@@ -115,9 +114,12 @@ class PartnershipController extends AbstractController
     }
 
     #[Route('backoffice/gerer-les-partenaires/{id}', name: 'app_partner_delete', methods: ['POST'])]
-    public function delete(Request $request, Partner $partner, PartnerRepository $partnerRepository): Response
+    public function delete(Request $request, Partner $partner, PartnerRepository $partnerRepository, FileRepository $fileRepository): Response
     {
+        $file = $partner->getIdFile()->getPathFile();
         if ($this->isCsrfTokenValid('delete'.$partner->getId(), $request->request->get('_token'))) {
+            unlink($this->getParameter('file_directory') . '/' . $file);
+            $fileRepository->remove($partner->getIdFile(), true);
             $partnerRepository->remove($partner, true);
         }
 
