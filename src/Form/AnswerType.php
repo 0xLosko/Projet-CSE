@@ -7,6 +7,7 @@ use App\Entity\Proposal;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,6 +27,9 @@ class AnswerType extends AbstractType
                 },
                 'choice_label' => 'textProposal',
                 'expanded' => true,
+            ])
+            ->add('send', SubmitType::class, [
+                'attr' => ['class' => 'save'],
             ])
         ;
     }
