@@ -29,7 +29,7 @@ class PartnershipController extends AbstractController
     }
 
     #[Route('/partenariats/tous-les-partenaires/', name: 'partnership-all')]
-    public function allPartners(ManagerRegistry $em,  SidebarPartnersProvider $side): Response
+    public function allPartners(ManagerRegistry $em): Response
     {
         $partners = $em->getRepository(Partner::class)->getPartners(false);
         return $this->render('partnership/index.html.twig', [
@@ -74,10 +74,10 @@ class PartnershipController extends AbstractController
             } catch (FileException $e) {
                 dd('Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
             }
-
-            $file->setPathFile($newFilename);
+            $file->setPathFile('/uploads/file/' . $newFilename);
             $em->persist($file);
             $em->flush();
+
             //insert partner
             $partner = new Partner();
             $partner ->setName($Response['name']);
@@ -117,8 +117,10 @@ class PartnershipController extends AbstractController
     public function delete(Request $request, Partner $partner, PartnerRepository $partnerRepository, FileRepository $fileRepository): Response
     {
         $file = $partner->getIdFile()->getPathFile();
+        $pattern = "/\/uploads\/file\//";
+        $newFile = preg_replace($pattern, "", $file);
         if ($this->isCsrfTokenValid('delete'.$partner->getId(), $request->request->get('_token'))) {
-            unlink($this->getParameter('file_directory') . '/' . $file);
+            unlink($this->getParameter('file_directory') . '/' . $newFile);
             $fileRepository->remove($partner->getIdFile(), true);
             $partnerRepository->remove($partner, true);
         }

@@ -11,7 +11,7 @@
                 {% for partner in partners %}
                     {% set i = i + 1 %}
                     <div class="partner-items">
-                        <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile()) }}" alt="">
+                        <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile())}}" alt="{{ asset(partner.getIdFile().getAltFile()) }}">
                         <p>"{{ partner.description }}"</p>
                         <div>
                             <h2>{{ partner.name }}</h2>
