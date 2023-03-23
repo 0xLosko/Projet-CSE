@@ -19,14 +19,14 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $reponseContact = new ContactForm();
-            $reponseContact->setNameContact($data['name']);
-            $reponseContact->setSurnameContact($data['lastName']);
-            $reponseContact->setEmailContact($data['email']);
-            $reponseContact->setContentMessage($data['message']);
-            $reponseContact->setDateMessage(new \DateTime());
+            $responseContact = new ContactForm();
+            $responseContact->setNameContact($data['name']);
+            $responseContact->setSurnameContact($data['lastName']);
+            $responseContact->setEmailContact($data['email']);
+            $responseContact->setContentMessage($data['message']);
+            $responseContact->setDateMessage(new \DateTime());
 
-            $entityManager->persist($reponseContact);
+            $entityManager->persist($responseContact);
             $entityManager->flush();
             $form = $this->createForm(ContactFormType::class); // réinitialiser le formulaire
             $session = $request->getSession();

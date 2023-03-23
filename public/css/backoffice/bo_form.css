@@ -5,5 +5,15 @@ form div{
     width: 100%;
 }
 .form-btn{
-    margin: 15px 0;
+    margin: 15px 0 100px 0;
+}
+textarea, input[type=text]{
+    text-align: left;
+    width: 340px;
+    padding-left: 10px;
+    max-width: 340px;
+    height: 27px;
+    border: 0;
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 11px;
 }

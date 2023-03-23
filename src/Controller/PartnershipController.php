@@ -7,7 +7,6 @@ use App\Entity\Partner;
 use App\Form\PartnerType;
 use App\Repository\PartnerRepository;
 use App\Repository\FileRepository;
-use App\Service\SidebarPartnersProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
