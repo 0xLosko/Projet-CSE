@@ -1,0 +1,9 @@
+form div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.form-btn{
+    margin: 15px 0;
+}

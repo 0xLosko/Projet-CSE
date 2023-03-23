@@ -20,13 +20,13 @@
                 <a href="{{ path("contact") }}">Contact</a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                {% if 'backoffice' in app.request.get('_route') %}
+                {% if 'backoffice' in app.request.uri %}
                     <li>
                         <a href="{{ asset('logout') }}">Se deconnecter</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{{ asset('backoffice') }}">Espace administrateur</a>
+                        <a href="{{ asset('backoffice') }}">Espace Administrateur</a>
                     </li>
                 {% endif %}
             {% endif %}

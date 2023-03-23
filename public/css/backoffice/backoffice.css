@@ -1,0 +1,38 @@
+.main-con{
+    margin-top: 50px!important;
+    gap: 10%;
+}
+.sidebar-con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 180px;
+    background-color: #D1D5DA;
+    border-radius: 7px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    gap: 30px;
+    height: fit-content;
+    min-height: 400px;
+    padding: 20px 20px;
+}
+.sidebar-con div{
+    width: 100%;
+    height: 40px;
+    border-radius: 11px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.sidebar-con div>a{
+    color: grey;
+}
+.sidebar-con div:hover{
+    background-color: #FFFFFF;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.return-link{
+    color: #1B3168;
+    font-weight: bold;
+}
