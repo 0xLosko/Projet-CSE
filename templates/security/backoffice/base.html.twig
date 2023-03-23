@@ -1,9 +1,13 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/security/backoffice.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/layout/nav.css') }}">
+    <script src="{{ asset('js/nav-resp.js') }}"></script>
 </head>
 
-<body>
+<header>
+    {% include './base/nav.html.twig' %}
+</header>
 {% block body %}
     <div class="main-con">
         <div class="sidebar-con">
@@ -25,4 +29,3 @@
     </div>
 
 {% endblock %}
-</body>
