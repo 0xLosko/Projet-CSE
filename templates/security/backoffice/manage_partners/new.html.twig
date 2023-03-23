@@ -1,0 +1,11 @@
+{% extends './security/backoffice/base.html.twig' %}
+
+{% block content %}
+    <div class="home-con">
+        <h1>Ajouter un nouveau partenaire</h1>
+
+        {{ include('security/backoffice/manage_partners/_form.html.twig') }}
+
+        <a href="{{ path('manage_partners') }}">Retourner aux partenaires</a>
+    </div>
+{% endblock %}
