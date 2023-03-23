@@ -19,9 +19,11 @@
                     <td>{{ partner.name }}</td>
                     <td>{{ partner.description }}</td>
                     <td>{{ partner.link }}</td>
-                    <td class="btn-con">
-                        {{ include('security/backoffice/manage_partners/_delete_form.html.twig') }}
-                        <a href="{{ path('app_partner_edit', {'id': partner.id}) }}">Modifier</a>
+                    <td>
+                        <div class="btn-con">
+                            {{ include('security/backoffice/manage_partners/_delete_form.html.twig') }}
+                            <a href="{{ path('app_partner_edit', {'id': partner.id}) }}">Modifier</a>
+                        </div>
                     </td>
                 </tr>
             {% else %}

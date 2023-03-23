@@ -34,8 +34,11 @@
 @media screen and (max-width: 1200px) {
     .nav-link-con{
         margin: 20px 0;
-        width: 244px;
+        width: fit-content;
         display: none;
+    }
+    .nav-link-con a{
+        width: 100%;
     }
     .nav-link-con ul{
         gap: 20px 50px;

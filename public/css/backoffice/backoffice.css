@@ -32,7 +32,10 @@
     background-color: #FFFFFF;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.return-link{
+.return-link {
+    margin: 50px 0;
+}
+.return-link a{
     color: #1B3168;
     font-weight: bold;
 }

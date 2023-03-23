@@ -1,4 +1,20 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_row(form.name, {'value' : partner.name|default()}) }}
+    {{ form_row(form.description, {'value' : partner.description|default()}) }}
+    {{ form_row(form.link, {'value' : partner.link|default()}) }}
+    <div class="form-file-con">
+        {% if partner is defined %}
+            <div class="form-file-img">
+                <img src="{{ partner.getIdFile().getPathFile() }}">
+            </div>
+        {% endif %}
+        <div>
+            {{ form_row(form.file, {'value' : partner.getIdFile().getPathFile()|default()}) }}
+        </div>
+    </div>
+    {{ form_row(form.nameFile, {'value' : partner.getIdFile().getFileName()|default()}) }}
+    {{ form_row(form.nameAltFile, {'value' : partner.getIdFile().getAltFile()|default()}) }}
+    <div class="form-btn-con">
+        <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(form) }}

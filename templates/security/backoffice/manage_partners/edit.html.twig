@@ -4,8 +4,10 @@
     <div class="home-con">
         <h1>Modifier le partenaire ({{ partner.name }})</h1>
 
-        {{ include('security/backoffice/manage_partners/_form.html.twig', {'button_label': 'Modifier'}) }}
+        {{ include('security/backoffice/manage_partners/_form.html.twig', {'partner': partner,'button_label': 'Modifier'}) }}
 
-        <a class="return-link" href="{{ path('manage_partners') }}">< Retourner aux partenaires</a>
+        <div class="return-link">
+            <a href="{{ path('manage_partners') }}">< Retourner aux partenaires</a>
+        </div>
     </div>
 {% endblock %}

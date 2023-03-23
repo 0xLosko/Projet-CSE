@@ -6,6 +6,8 @@
 
         {{ include('security/backoffice/manage_partners/_form.html.twig') }}
 
-        <a class="return-link" href="{{ path('manage_partners') }}">< Retourner aux partenaires</a>
+        <div class="return-link">
+            <a href="{{ path('manage_partners') }}">< Retourner aux partenaires</a>
+        </div>
     </div>
 {% endblock %}
