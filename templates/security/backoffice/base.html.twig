@@ -17,16 +17,16 @@
         </header>
         <div class="main-con">
             <div class="sidebar-con">
-                <div>
+                <div class="{% if 'accueil' in app.request.uri %}active {% endif %}">
                     <a href=" {{ path('manage_home') }}">Gerer l'accueil</a>
                 </div>
-                <div>
+                <div class="{% if 'partenaires' in app.request.uri %}active {% endif %}">
                     <a href="{{ path('manage_partners') }}">Gerer les partenaires</a>
                 </div>
-                <div>
-                    <a href="{{ path('manage_admin') }}">Gerer les comptes administrateurs</a>
+                <div class="{% if 'administrateurs' in app.request.uri %}active {% endif %}">
+                    <a href="{{ path('manage_admin') }}">Gerer les administrateurs</a>
                 </div>
-                <div>
+                <div class="{% if 'aconfig' in app.request.uri %}active {% endif %}">
                     <a href="">Gerer l'accueil</a>
                 </div>
             </div>

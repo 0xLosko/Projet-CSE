@@ -7,8 +7,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-width: 180px;
-    background-color: #D1D5DA;
+    min-width: 200px;
+    background-color: #2764f6;
     border-radius: 7px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     gap: 30px;
@@ -26,10 +26,10 @@
     padding-left: 10px;
 }
 .sidebar-con div>a{
-    color: grey;
+    color: #FFFFFF;
 }
 .sidebar-con div:hover{
-    background-color: #FFFFFF;
+    background-color: #4a7df6;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .return-link {
@@ -38,4 +38,7 @@
 .return-link a{
     color: #1B3168;
     font-weight: bold;
+}
+.active{
+    background-color: #4a7df6;
 }
