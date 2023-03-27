@@ -2,8 +2,44 @@
 
 {% block title %}À propos de nous{% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/pages/about.css') }}">
+{% endblock %}
+
 {% block content %}
-    <div class="main-con">
-        <h1>À propos de nous</h1>
+    <div class="about-con">
+        <section class="">
+            <h2>Équipe</h2>
+            <p>Liste des membres</p>
+        </section>
+
+        <section class="">
+            <h2>Nos actions menées</h2>
+            <div class="actions">
+                {% for line in actions %}
+                    <p>
+                        {{ line }}
+                    </p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Règlement</h2>
+            <p>
+                {{ rule.getTextContent() }}
+            </p>
+        </section>
+
+        <section>
+            <h2>Information supplémentaire</h2>
+            <div>
+                {% for line in additional_info %}
+                    <p>
+                        {{ line }}
+                    </p>
+                {% endfor %}
+            </div>
+        </section>
     </div>
 {% endblock %}
