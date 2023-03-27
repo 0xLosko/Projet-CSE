@@ -53,7 +53,7 @@ section *{
     display: flex;
     padding: 4px;
     width: 640px;
-    height: 200px;
+    max-height: 200px;
     white-space: nowrap;
     overflow-x: auto;
 }
@@ -63,7 +63,8 @@ section *{
 }
 
 .scroll img{
-    width: 150px;
+    max-width: 150px;
+    max-height: 150px;
 }
 .scroll p{
     text-align: center;
