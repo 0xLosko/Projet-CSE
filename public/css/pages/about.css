@@ -24,3 +24,19 @@ section *{
 .rule{
     text-align: center;
 }
+
+.s-h-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #384B7B;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.02em;
+}
+
+.s-h-btn *:hover{
+    cursor: pointer;
+}
