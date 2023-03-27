@@ -1,0 +1,38 @@
+{% extends './security/backoffice/base.html.twig' %}
+
+{% block content %}
+    <div class="home-con">
+        <h1>Gérer les administrateurs</h1>
+        <a class="add-btn" href="{{ path('app_admin_new') }}">Ajouter un administrateur</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for admin in admins %}
+                <tr>
+                    <td>{{ admin.username }}</td>
+                    <td>
+                        <div class="btn-con">
+                            {{ include('security/backoffice/manage_admin/_delete_form.html.twig') }}
+                            <a href="{{ path('app_admin_edit', {'id': admin.id}) }}">Modifier</a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Pas de résultats trouvés</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
