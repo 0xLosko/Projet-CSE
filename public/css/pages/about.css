@@ -23,24 +23,24 @@ section *{
 
 
 /* width */
-::-webkit-scrollbar {
+.scroll::-webkit-scrollbar{
     height: 15px;
     width: 15px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.scroll::-webkit-scrollbar-track {
     border-radius: 10px;
 }
  
 /* Handle */
-::-webkit-scrollbar-thumb {
+.scroll::-webkit-scrollbar-thumb {
     background: #B6A886; 
     border-radius: 10px;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.scroll::-webkit-scrollbar-thumb:hover {
     background: #93886e; 
 }
 
@@ -58,12 +58,15 @@ section *{
     overflow-x: auto;
 }
 
-.scroll div{
+.scroll>div{
     margin-right: 10px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .scroll img{
-    max-width: 150px;
     max-height: 150px;
 }
 .scroll p{

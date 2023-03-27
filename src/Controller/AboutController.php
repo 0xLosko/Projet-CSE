@@ -31,7 +31,6 @@ class AboutController extends AbstractController
         $aboutAdditionalInfo = $em->getRepository(ContentPage::class)->findOneBy(
             array('page' => $currentPage, 'positionPage' => 'additional-info')
         );
-
         $actionsLines = explode("\n", $aboutActions->getTextContent());
         $actionsLines = array_diff($actionsLines, [""]);
 
