@@ -48,3 +48,7 @@ table {
     max-width: 82%;
     margin: 0 auto;
 }
+.active{
+    background-color: #B6A886;
+    border-radius: 8px;
+}

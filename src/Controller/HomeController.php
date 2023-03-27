@@ -15,8 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class HomeController extends AbstractController
 {
-    #[route(path: "/", name: "home")]
-    public function home(ManagerRegistry $em): Response
+    #[route(path: "/accueil", name: "home")]
+    public function home (ManagerRegistry $em): Response
     {
         $currentPage = $em->getRepository(Page::class)->findOneBy(['namePage' => 'home']);
         $homeContent = $em->getRepository(ContentPage::class)->findOneBy(['page' => $currentPage])->getTextContent();

@@ -5,19 +5,19 @@
     <div class="nav-link-con">
         <ul>
             <li>
-                <a href="{{ path('home') }}">Accueil</a>
+                <a class="{% if '/accueil' in app.request.uri %}active{% endif %}" href="{{ path('home') }}">Accueil</a>
             </li>
             <li>
-                <a href="{{ path('partnership') }}">Partenariats</a>
+                <a class="{% if 'partenariats' in app.request.uri %}active{% endif %}" href="{{ path('partnership') }}">Partenariats</a>
             </li>
             <li>
-                <a href="{{ path('about') }}">A propos de nous</a>
+                <a class="{% if 'propos' in app.request.uri %}active{% endif %}" href="{{ path('about') }}">A propos de nous</a>
             </li>
             <li>
-                <a href="{{ path("ticketing") }}">Billetterie</a>
+                <a class="{% if 'billeterie' in app.request.uri %}active{% endif %}"href="{{ path("ticketing") }}">Billetterie</a>
             </li>
             <li>
-                <a href="{{ path("contact") }}">Contact</a>
+                <a class="{% if 'contact' in app.request.uri %}active{% endif %}"href="{{ path("contact") }}">Contact</a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% if 'backoffice' in app.request.uri %}
