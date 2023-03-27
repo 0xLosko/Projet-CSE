@@ -1,5 +1,6 @@
 .about-con{
-    margin: 100px 0 0 90px;
+    width: 90%;
+    margin: 100px 0 0 80px;
 }
 
 section{
@@ -36,7 +37,7 @@ h2{
 }
 
 section>div{
-    width: 100%;
+    width: 90%;
     margin: 10px 0 10px 50px;
 }
 
@@ -53,7 +54,7 @@ section p{
 
 .scroll{
     display: flex;
-    width: 640px;
+    width: 550px;
     max-height: 200px;
     white-space: nowrap;
     overflow-x: auto;
@@ -71,8 +72,13 @@ section p{
     max-height: 150px;
 }
 
-.act{
+.info-con{
+    width: 90%;
+}
+
+.act, .rule, .info-sup{
     margin-bottom: 20px;
+    width: 90%;
 }
 
 .s-h-btn{
