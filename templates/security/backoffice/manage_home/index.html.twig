@@ -1,4 +1,10 @@
 {% extends './security/backoffice/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_manage_home.css') }}">
+{% endblock %}
+
 {% block content %}
     <div class="home-con">
         {{ form_start(form) }}

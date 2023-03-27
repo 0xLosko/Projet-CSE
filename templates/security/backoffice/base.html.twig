@@ -1,33 +1,37 @@
-<head>
-    <link rel="stylesheet" href="{{ asset('css/backoffice/backoffice.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/layout/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_table.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_form.css') }}">
-    <script src="{{ asset('js/nav-resp.js') }}"></script>
-</head>
-
-<header>
-    {% include './base/nav.html.twig' %}
-</header>
-{% block body %}
-    <div class="main-con">
-        <div class="sidebar-con">
-            <div>
-                <a href=" {{ path('manage_home') }}">Gerer l'accueil</a>
-            </div>
-            <div>
-                <a href="{{ path('manage_partners') }}">Gerer les partenaires</a>
-            </div>
-            <div>
-                <a href="">Gerer l'accueil</a>
-            </div>
-            <div>
-                <a href="">Gerer l'accueil</a>
-            </div>
-        </div>
-        {% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/backoffice/backoffice.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/layout/nav.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/backoffice/bo_table.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/backoffice/bo_form.css') }}">
+            <script src="{{ asset('js/nav-resp.js') }}"></script>
         {% endblock %}
-    </div>
-
-{% endblock %}
+    </head>
+    {% block body %}
+        <header>
+            {% include './base/nav.html.twig' %}
+        </header>
+        <div class="main-con">
+            <div class="sidebar-con">
+                <div>
+                    <a href=" {{ path('manage_home') }}">Gerer l'accueil</a>
+                </div>
+                <div>
+                    <a href="{{ path('manage_partners') }}">Gerer les partenaires</a>
+                </div>
+                <div>
+                    <a href="">Gerer l'accueil</a>
+                </div>
+                <div>
+                    <a href="">Gerer l'accueil</a>
+                </div>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+</html>
