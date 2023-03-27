@@ -10,14 +10,16 @@
     <div class="about-con">
         <section class="">
             <h2>Équipe</h2>
-            <p>Liste des membres</p>
+            <div>
+                <p>Liste des membres</p>
+            </div>
         </section>
 
         <section class="">
             <h2>Nos actions menées</h2>
             <div class="actions">
                 {% for line in actions %}
-                    <p>
+                    <p class="act">
                         {{ line }}
                     </p>
                 {% endfor %}
@@ -26,9 +28,11 @@
 
         <section>
             <h2>Règlement</h2>
-            <p>
-                {{ rule.getTextContent() }}
-            </p>
+            <div>
+                <p class="rule">
+                    {{ rule.getTextContent() }}
+                </p>
+            </div>
         </section>
 
         <section>
@@ -42,4 +46,8 @@
             </div>
         </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/about-actions.js') }}"></script>
 {% endblock %}
