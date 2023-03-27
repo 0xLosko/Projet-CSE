@@ -21,6 +21,29 @@ section *{
     letter-spacing: -0.02em;
 }
 
+
+/* width */
+::-webkit-scrollbar {
+    height: 15px;
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #B6A886; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #93886e; 
+}
+
 .scroll, .scroll *{
     padding: 0;
 }
