@@ -2,8 +2,61 @@
 
 {% block title %}À propos de nous{% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/pages/about.css') }}">
+{% endblock %}
+
 {% block content %}
-    <div class="main-con">
-        <h1>À propos de nous</h1>
+    <div class="about-con">
+        <section class="">
+            <h2>Équipe</h2>
+            <div class="scroll">
+                {% for member in members %}
+                    <div>
+                        <img src="{{ asset(member.getFile().getPathFile())}}">
+                        <p>{{ member.getFirstName() }} {{ member.getName() }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="">
+            <h2>Nos actions menées</h2>
+            <div class="actions">
+                {% for line in actions %}
+                    <p class="act">
+                        {{ line }}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="s-h-btn">
+                <a class="show-act">Voir plus</a>
+                <a class="hide-act">Voir moins</a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Règlement</h2>
+            <div>
+                <p class="rule">
+                    {{ rule.getTextContent() }}
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Information supplémentaire</h2>
+            <div>
+                {% for line in additional_info %}
+                    <p>
+                        {{ line }}
+                    </p>
+                {% endfor %}
+            </div>
+        </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/about-actions.js') }}"></script>
 {% endblock %}

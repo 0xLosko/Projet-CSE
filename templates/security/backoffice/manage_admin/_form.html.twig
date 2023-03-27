@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.username, {'value' : admin.username|default()}) }}
+    {{ form_row(form.password) }}
+    <div class="form-btn-con">
+        <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

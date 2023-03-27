@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ContentPage;
+use App\Entity\Page;
 use App\Form\HomeType;
 use App\Repository\PageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,10 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Page;
+
 class HomeController extends AbstractController
 {
-    #[route(path: "/", name: "home")]
+    #[route(path: "/accueil", name: "home")]
     public function home (ManagerRegistry $em): Response
     {
         $currentPage = $em->getRepository(Page::class)->findOneBy(['namePage' => 'home']);
@@ -24,6 +25,7 @@ class HomeController extends AbstractController
             'homeContent' => $homeContent,
         ]);
     }
+
     #[Route('/backoffice/gerer-accueil', name: 'manage_home')]
     public function manageHome(ManagerRegistry $mr, Request $request,EntityManagerInterface $em): Response
     {

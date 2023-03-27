@@ -38,6 +38,9 @@ class File
     #[ORM\ManyToOne(inversedBy: 'file')]
     private ?Offer $offer = null;
 
+    #[ORM\OneToOne(mappedBy: 'file', cascade: ['persist', 'remove'])]
+    private ?Member $member = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,6 +143,23 @@ class File
     public function setOffer(?Offer $offer): self
     {
         $this->offer = $offer;
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(Member $member): self
+    {
+        // set the owning side of the relation if necessary
+        if ($member->getFile() !== $this) {
+            $member->setFile($this);
+        }
+
+        $this->member = $member;
 
         return $this;
     }

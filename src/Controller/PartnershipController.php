@@ -22,6 +22,7 @@ class PartnershipController extends AbstractController
     public function index(ManagerRegistry $em): Response
     {
         $partners = $em->getRepository(Partner::class)->getPartners(true);
+
         return $this->render('partnership/index.html.twig', [
             'partners' => $partners,
         ]);
@@ -31,10 +32,12 @@ class PartnershipController extends AbstractController
     public function allPartners(ManagerRegistry $em): Response
     {
         $partners = $em->getRepository(Partner::class)->getPartners(false);
+        
         return $this->render('partnership/index.html.twig', [
             'partners' => $partners,
         ]);
     }
+
     #[Route('backoffice/gerer-les-partenaires', name: 'manage_partners', methods: ['GET'])]
     public function manage_partners(PartnerRepository $partnerRepository): Response
     {
@@ -64,7 +67,7 @@ class PartnershipController extends AbstractController
             $file->setDateFile(new \DateTime());
 
             $safeFilename = $slugger->slug($originalFileName);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$fileResponse->guessExtension();
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileResponse->guessExtension();
             try {
                 $fileResponse->move(
                     $this->getParameter('file_directory'),
@@ -79,10 +82,10 @@ class PartnershipController extends AbstractController
 
             //insert partner
             $partner = new Partner();
-            $partner ->setName($Response['name']);
-            $partner ->setDescription($Response['description']);
-            $partner ->setLink($Response['link']);
-            $partner ->setIdFile($file);
+            $partner->setName($Response['name']);
+            $partner->setDescription($Response['description']);
+            $partner->setLink($Response['link']);
+            $partner->setIdFile($file);
 
             $em->persist($partner);
             $em->flush();
@@ -115,7 +118,7 @@ class PartnershipController extends AbstractController
             $file->setDateFile(new \DateTime());
 
             $safeFilename = $slugger->slug($originalFileName);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$fileResponse->guessExtension();
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileResponse->guessExtension();
             try {
                 $fileResponse->move(
                     $this->getParameter('file_directory'),
@@ -135,10 +138,10 @@ class PartnershipController extends AbstractController
             $fileRepository->save($file);
 
             //update partner
-            $partner ->setName($Response['name']);
-            $partner ->setDescription($Response['description']);
-            $partner ->setLink($Response['link']);
-            $partner ->setIdFile($file);
+            $partner->setName($Response['name']);
+            $partner->setDescription($Response['description']);
+            $partner->setLink($Response['link']);
+            $partner->setIdFile($file);
 
             $partnerRepository->save($partner, true);
 
@@ -157,7 +160,7 @@ class PartnershipController extends AbstractController
         $file = $partner->getIdFile()->getPathFile();
         $pattern = "/\/uploads\/file\//";
         $newFile = preg_replace($pattern, "", $file);
-        if ($this->isCsrfTokenValid('delete'.$partner->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $partner->getId(), $request->request->get('_token'))) {
             unlink($this->getParameter('file_directory') . '/' . $newFile);
             $fileRepository->remove($partner->getIdFile(), true);
             $partnerRepository->remove($partner, true);
