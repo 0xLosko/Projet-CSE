@@ -21,6 +21,31 @@ section *{
     letter-spacing: -0.02em;
 }
 
+.scroll, .scroll *{
+    padding: 0;
+}
+
+.scroll{
+    margin-left: 120px;
+    display: flex;
+    padding: 4px;
+    width: 640px;
+    height: 200px;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.scroll div{
+    margin-right: 10px;
+}
+
+.scroll img{
+    width: 150px;
+}
+.scroll p{
+    text-align: center;
+}
+
 .rule{
     text-align: center;
 }
