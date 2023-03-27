@@ -1,0 +1,13 @@
+{% extends './security/backoffice/base.html.twig' %}
+
+{% block content %}
+    <div class="home-con">
+        <h1>Modifier le compte administrateur</h1>
+
+        {{ include('security/backoffice/manage_admin/_form.html.twig', {'admin': admin,'button_label': 'Modifier'}) }}
+
+        <div class="return-link">
+            <a href="{{ path('manage_admin') }}">< Retourner aux administrateurs</a>
+        </div>
+    </div>
+{% endblock %}
