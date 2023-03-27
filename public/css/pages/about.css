@@ -2,25 +2,9 @@
     margin: 100px 0 0 90px;
 }
 
-h2{
-    color: #B6A886;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-}
-
 section{
-    margin-bottom: 34px;
+    margin-bottom: 80px;
 }
-
-section *{
-    padding: 10px 0 5px 34px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    letter-spacing: -0.02em;
-}
-
 
 /* width */
 .scroll::-webkit-scrollbar{
@@ -44,14 +28,31 @@ section *{
     background: #93886e; 
 }
 
+h2{
+    color: #B6A886;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+section>div{
+    width: 100%;
+    margin: 10px 0 10px 50px;
+}
+
+section p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+}
+
 .scroll, .scroll *{
     padding: 0;
 }
 
 .scroll{
-    margin-left: 120px;
     display: flex;
-    padding: 4px;
     width: 640px;
     max-height: 200px;
     white-space: nowrap;
@@ -69,12 +70,9 @@ section *{
 .scroll img{
     max-height: 150px;
 }
-.scroll p{
-    text-align: center;
-}
 
-.rule{
-    text-align: center;
+.act{
+    margin-bottom: 20px;
 }
 
 .s-h-btn{
