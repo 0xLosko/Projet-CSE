@@ -11,13 +11,11 @@
         <section class="">
             <h2>Équipe</h2>
             <div class="scroll">
-                {% for i in range(0, 10) %}
-                    {% for member in members %}
-                        <div>
-                            <img src="{{ asset(member.getFile().getPathFile())}}">
-                            <p>{{ member.getFirstName() }} {{ member.getName() }}</p>
-                        </div>
-                    {% endfor %}
+                {% for member in members %}
+                    <div>
+                        <img src="{{ asset(member.getFile().getPathFile())}}">
+                        <p>{{ member.getFirstName() }} {{ member.getName() }}</p>
+                    </div>
                 {% endfor %}
             </div>
         </section>
