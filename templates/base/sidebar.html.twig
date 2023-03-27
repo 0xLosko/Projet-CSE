@@ -9,8 +9,6 @@
     <div class="survey">
         <h2>Votre avis compte</h2>
         <div class="survey-content">
-        <pre>
-        </pre>
             {{ form_start(form) }}
                 <p>
                     {{ question }}
@@ -22,12 +20,13 @@
                         </div>
                     {% endfor %}
                 </div>
+                <div class="survey-act">
+                    <button type="">Voir les réponses</button>
+                    {# <button type="submit">Valider</button> #}
+                    {{ form_row(form.send) }}
+                </div> 
             {{ form_end(form) }}
         </div>
-        <div class="survey-act">
-            <button type="">Voir les réponses</button>
-            <button type="submit">Valider</button>
-        </div> 
     </div>
 
     <div class="sidebar-items-con">

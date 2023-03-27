@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     #[route(path: "/", name: "home")]
     public function home (ManagerRegistry $em): Response
     {
-        $currentPage = $em->getRepository(Page::class)->findOneBy(['namePage' => 'Accueil']);
+        $currentPage = $em->getRepository(Page::class)->findOneBy(['namePage' => 'home']);
         $homeContent = $em->getRepository(ContentPage::class)->findOneBy(['page' => $currentPage])->getTextContent();
 
         return $this->render('home/index.html.twig', [
