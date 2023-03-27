@@ -1,0 +1,90 @@
+.about-con{
+    margin: 100px 0 0 90px;
+}
+
+h2{
+    color: #B6A886;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+section{
+    margin-bottom: 34px;
+}
+
+section *{
+    padding: 10px 0 5px 34px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    height: 15px;
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #B6A886; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #93886e; 
+}
+
+.scroll, .scroll *{
+    padding: 0;
+}
+
+.scroll{
+    margin-left: 120px;
+    display: flex;
+    padding: 4px;
+    width: 640px;
+    height: 200px;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.scroll div{
+    margin-right: 10px;
+}
+
+.scroll img{
+    width: 150px;
+}
+.scroll p{
+    text-align: center;
+}
+
+.rule{
+    text-align: center;
+}
+
+.s-h-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #384B7B;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.02em;
+}
+
+.s-h-btn *:hover{
+    cursor: pointer;
+}
