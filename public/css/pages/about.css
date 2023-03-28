@@ -96,3 +96,9 @@ section p{
 .s-h-btn *:hover{
     cursor: pointer;
 }
+
+@media(max-width: 1024px){
+    .scroll{
+        width: 450px;
+    }
+}
