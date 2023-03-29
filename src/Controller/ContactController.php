@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ContactController extends AbstractController
 {
     #[route(path: "/contact", name: "contact")]
-    public function home (Request $request, EntityManagerInterface $entityManager): Response
+    public function home (Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
@@ -26,8 +26,8 @@ class ContactController extends AbstractController
             $responseContact->setContentMessage($data['message']);
             $responseContact->setDateMessage(new \DateTime());
 
-            $entityManager->persist($responseContact);
-            $entityManager->flush();
+            $em->persist($responseContact);
+            $em->flush();
             $form = $this->createForm(ContactFormType::class); // réinitialiser le formulaire
             $session = $request->getSession();
             $session->getFlashBag()->add('success', 'Votre message a été envoyé avec succès.');
@@ -36,5 +36,15 @@ class ContactController extends AbstractController
         return $this->render('contact/index.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[route(path: "backoffice/consulter-les-messages/", name:"manage_message")]
+    public  function viewMessages (Request $request, EntityManagerInterface $em): Response
+    {
+        $messages = $em->getRepository(ContactForm::class)->findAll();
+
+        return $this->render('security/backoffice/manage_message/index.html.twig', [
+        'messages' => $messages,
+    ]);
     }
 }
