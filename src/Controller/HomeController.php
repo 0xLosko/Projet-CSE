@@ -31,7 +31,7 @@ class HomeController extends AbstractController
     {
         $responseContent = new ContentPage();
 
-        $currentPage = $mr->getRepository(Page::class)->findOneBy(['namePage' => 'Accueil']);
+        $currentPage = $mr->getRepository(Page::class)->findOneBy(['namePage' => 'home']);
         $oldHomeContent = $mr->getRepository(ContentPage::class)->findOneBy(['page' => $currentPage]);
 
         $form = $this->createForm(HomeType::class, $responseContent);
