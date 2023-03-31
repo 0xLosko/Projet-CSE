@@ -3,9 +3,14 @@
 namespace App\Form;
 
 
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -52,12 +57,12 @@ class PartnerType extends AbstractType
             ])
             ->add('file', FileType::class, [
                 'label' => 'Logo:',
-                'required' => true,
-                'constraints' => [
+                'required' => ($options['isModify'] ? false : true),
+                'constraints' => ($options['isModify'] ? [] : [
                     new NotBlank([
                         'message' => 'Le fichier ne peut pas être vide.',
                     ]),
-                ],
+                ]),
             ])
             ->add('nameFile', TextType::class, [
                 'label' => 'Nom du logo:',
@@ -83,6 +88,14 @@ class PartnerType extends AbstractType
                     ]),
                 ],
             ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'isModify' => false,
+        ]);
+        $resolver->setAllowedTypes('isModify', 'bool');
     }
 
 }
