@@ -28,15 +28,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column]
-    #[Assert\Length(
-        min:7,
-        minMessage:"Le mot de passe doit contenir au moins {{ limit }} caractères."
-    )]
-    #[Assert\Regex(
-        pattern:"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{7,}$/",
-        match:true,
-        message:"Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et 7 caractères."
-    )]
     private ?string $password = null;
 
     public function getId(): ?int
