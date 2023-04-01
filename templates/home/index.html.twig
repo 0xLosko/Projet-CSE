@@ -11,5 +11,12 @@
             {{ homeContent }}
         </div>
         <h2>Dernières offres ponctuelles</h2>
+        <div class="limited-offers-con">
+            {% for offer in limitedOffers %}
+                <div>
+                    {{ offer.titleOffer }}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
