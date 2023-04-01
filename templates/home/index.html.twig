@@ -12,11 +12,15 @@
         </div>
         <h2>Dernières offres ponctuelles</h2>
         <div class="limited-offers-con">
-            {% for offer in limitedOffers %}
+            {% for offer in limitedOffers.data %}
                 <div>
                     {{ offer.titleOffer }}
                 </div>
             {% endfor %}
+            {% set path = 'home' %}
+            {% set pages = limitedOffers.pages %}
+            {% set currentPage = limitedOffers.page %}
+            {% include "base/pagination.html.twig" %}
         </div>
     </div>
 {% endblock %}

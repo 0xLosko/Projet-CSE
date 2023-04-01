@@ -17,11 +17,14 @@ use Doctrine\Persistence\ManagerRegistry;
 class HomeController extends AbstractController
 {
     #[route(path: "/accueil", name: "home")]
-    public function home (ManagerRegistry $em): Response
+    public function home (ManagerRegistry $em,Request $request): Response
     {
+        //search page in url
+        $page = $request->query->getInt('page', 1);
+
         $currentPage = $em->getRepository(Page::class)->findOneBy(['namePage' => 'home']);
         $homeContent = $em->getRepository(ContentPage::class)->findOneBy(['page' => $currentPage])->getTextContent();
-        $limitedOffers = $em->getRepository(Offer::class)->findBy(['typeOffer' => 0]);
+        $limitedOffers = $em->getRepository(Offer::class)->findOfferPaginated($page, 0,3);
         return $this->render('home/index.html.twig', [
             'homeContent' => $homeContent,
             'limitedOffers' => $limitedOffers,
