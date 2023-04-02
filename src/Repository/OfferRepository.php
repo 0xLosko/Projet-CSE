@@ -48,18 +48,24 @@ class OfferRepository extends ServiceEntityRepository
         $limit = abs($limit);
 
         $result = [];
-
-        $query = $this->getEntityManager()->createQueryBuilder()
-            ->select('o')
-            ->from('App\Entity\Offer', 'o')
-            ->where("o.typeOffer = '$typeOffer'")
-            ->setMaxResults($limit)
-            ->setFirstResult(($page * $limit) - $limit);
+        if($typeOffer != 3){
+            $query = $this->getEntityManager()->createQueryBuilder()
+                ->select('o')
+                ->from('App\Entity\Offer', 'o')
+                ->where("o.typeOffer = '$typeOffer'")
+                ->setMaxResults($limit)
+                ->setFirstResult(($page * $limit) - $limit);
+        } else {
+            $query = $this->getEntityManager()->createQueryBuilder()
+                ->select('o')
+                ->from('App\Entity\Offer', 'o')
+                ->setMaxResults($limit)
+                ->setFirstResult(($page * $limit) - $limit);
+        }
 
         $paginator = new Paginator($query);
 
         $data = $paginator->getQuery()->getResult();
-
         if(empty($data)){
             return $result;
         }

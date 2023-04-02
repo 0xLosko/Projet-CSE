@@ -14,7 +14,7 @@
                 <a class="{% if 'propos' in app.request.uri %}active{% endif %}" href="{{ path('about') }}">A propos de nous</a>
             </li>
             <li>
-                <a class="{% if 'billeterie' in app.request.uri %}active{% endif %}"href="{{ path("ticketing") }}">Billetterie</a>
+                <a class="{% if 'billeterie' in app.request.uri %}active{% endif %}"href="{{ path("ticketing", {'typeoffer': 1}) }}">Billetterie</a>
             </li>
             <li>
                 <a class="{% if 'contact' in app.request.uri %}active{% endif %}"href="{{ path("contact") }}">Contact</a>

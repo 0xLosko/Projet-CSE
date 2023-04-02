@@ -1,9 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Billetterie{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/pages/ticketing.css') }}">
+{% endblock %}
 
 {% block content %}
-<div class="main-con">
-    <h1>Billetterie</h1>
-</div>
+    <div class="home-con">
+        <div class="info-cse">
+            <h1>Billeterie</h1>
+        </div>
+        <h2>Dernières offres ponctuelles</h2>
+        <form>
+            <select name="typeoffre">
+                <option value="3">tous</option>
+                <option value="1">limité</option>
+                <option value="0">permanents</option>
+            </select>
+            <button type="submit">Filtrer</button>
+        </form>
+        <div class="limited-offers-con">
+            {% for offer in Offers.data %}
+                <div>
+                    {{ offer.titleOffer }}
+                </div>
+            {% endfor %}
+            {% set path = 'ticketing' %}
+            {% set pages = Offers.pages %}
+            {% set currentPage = Offers.page %}
+            {% include "base/pagination.html.twig" %}
+        </div>
+    </div>
 {% endblock %}
