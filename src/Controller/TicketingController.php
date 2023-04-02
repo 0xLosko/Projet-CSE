@@ -24,6 +24,7 @@ class TicketingController extends AbstractController
         return $this->render('ticketing/index.html.twig',[
             'Offers' => $offers,
             'request' => $request,
+            'typeOffers' => $typeOffers,
         ]);
     }
 }

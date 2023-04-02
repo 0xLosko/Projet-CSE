@@ -12,9 +12,9 @@
         <h2>Dernières offres ponctuelles</h2>
         <form>
             <select name="typeoffre">
-                <option value="3">tous</option>
-                <option value="1">limité</option>
-                <option value="0">permanents</option>
+                <option value="3" {% if typeOffers == 3 %}selected{% endif %}>tous</option>
+                <option value="1" {% if typeOffers == 1 %}selected{% endif %}>limité</option>
+                <option value="0" {% if typeOffers == 0 %}selected{% endif %}>permanents</option>
             </select>
             <button type="submit">Filtrer</button>
         </form>
@@ -27,6 +27,10 @@
             {% set path = 'ticketing' %}
             {% set pages = Offers.pages %}
             {% set currentPage = Offers.page %}
+            {% if typeOffers != 3 %}
+                {% set pathParams = {typeoffre: typeOffers} %}
+                {% set path = path ~ '?' ~ pathParams|url_encode %}
+            {% endif %}
             {% include "base/pagination.html.twig" %}
         </div>
     </div>
