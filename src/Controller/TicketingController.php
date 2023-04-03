@@ -28,6 +28,7 @@ class TicketingController extends AbstractController
             'typeOffers' => $typeOffers,
         ]);
     }
+
     #[Route('/billeterie/{id}', name: 'showOffer', methods: ['GET'])]
     public function showOneOffer(EntityManagerInterface $em, int $id): Response
     {
@@ -37,6 +38,16 @@ class TicketingController extends AbstractController
         return $this->render('ticketing/one-offer.html.twig',[
             'offer' => $offer[0],
             'fileOffers' =>$filesOffer,
+        ]);
+    }
+
+    #[Route('/backoffice-gerer-les-offres', name: 'manage_offers')]
+    public function manageOffers(EntityManagerInterface $em): Response
+    {
+        $offers = $em->getRepository(Offer::class)->findAll();
+
+        return $this->render('security/backoffice/manage_offers/index.html.twig',[
+            'offers' => $offers,
         ]);
     }
 }

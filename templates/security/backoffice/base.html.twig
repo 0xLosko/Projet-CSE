@@ -25,7 +25,10 @@
                     <a href="{{ path('manage_partners') }}">Gerer les partenaires</a>
                 </div>
                 <div class="{% if 'administrateurs' in app.request.uri %}active_sb{% endif %}">
-                    <a href="{{ path('manage_admin') }}">Gerer les administrateurs</a>
+                    <a href="{{ path('manage_admins') }}">Gerer les administrateurs</a>
+                </div>
+                <div class="{% if 'offres' in app.request.uri %}active_sb{% endif %}">
+                    <a href="{{ path('manage_offers') }}">Gerer les offres</a>
                 </div>
                 <div class="{% if 'message' in app.request.uri %}active_sb{% endif %}">
                     <a href="{{ path('manage_message') }}">Consulter les messages</a>
