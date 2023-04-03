@@ -24,7 +24,8 @@ class SidebarController extends AbstractController
         );
 
         $form = $this->createForm(AnswerType::class, null, [
-            'action' => $this->generateUrl('home'), // on spécifie l'action sur laquelle on va transmettre nos données.
+            'action' => $this->generateUrl('answer'), // on spécifie l'action sur laquelle on va transmettre nos données.
+            'method' => 'POST',
             'question' => $activeQuestion
         ]);
         $form->handleRequest($request);

@@ -29,6 +29,7 @@ class AnswerType extends AbstractType
                 'expanded' => true,
             ])
             ->add('send', SubmitType::class, [
+                'label' => 'Valider',
                 'attr' => ['class' => 'save'],
             ])
         ;
