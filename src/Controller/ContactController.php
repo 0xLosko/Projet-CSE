@@ -27,8 +27,8 @@ class ContactController extends AbstractController
             $responseContact->setContentMessage($data['message']);
             $responseContact->setDateMessage(new \DateTime());
 
-            $em->persist($responseContact);
-            $em->flush();
+            $entityManager->persist($responseContact);
+            $entityManager->flush();
             $form = $this->createForm(ContactFormType::class); // réinitialiser le formulaire
             $session = $request->getSession();
 
