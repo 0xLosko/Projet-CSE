@@ -18,7 +18,7 @@ class TicketingController extends AbstractController
         //search page in url
         $page = $request->query->getInt('page', 1);
         //search typeoffers in url
-        $typeOffers = $request->query->getInt('typeoffre', 3);
+        $typeOffers = $request->query->getInt('typeoffre', 2);
 
         $offers = $em->getRepository(Offer::class)->findOfferPaginated($page, $typeOffers,5);
         return $this->render('ticketing/index.html.twig',[
