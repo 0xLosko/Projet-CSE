@@ -26,9 +26,9 @@
 .disabled a{
     color: #C4CDD5;
 }
-.active{
+.activePagination{
     border: 1px solid #4200FF;
 }
-.active a{
+.activePagination a{
     color: #4200FF;
 }

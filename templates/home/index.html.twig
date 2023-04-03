@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set timezoneApp = app.request.server.get('APP_TIMEZONE') %}
+
 {% block css %}
     <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
 {% endblock %}
@@ -13,14 +15,24 @@
         <h2>Dernières offres ponctuelles</h2>
         <div class="limited-offers-con">
             {% for offer in limitedOffers.data %}
-                <div>
-                    {{ offer.titleOffer }}
+                <div class="limited-offer-items">
+                    <div class="info-offer-con">
+                        <div class="info-offer-type"><p>OFFRE PONCTUELLE</p></div>
+                        <p>Publié le {{ offer.startDateDisplay|date("j/m/Y") }} - Du {{ offer.startDateValid|date("j/m/Y") }} au {{ offer.endDateValid|date("j/m/Y") }}</p>
+                    </div>
+                    <div class="body-offer-items">
+                        <div class="title-offer"><h3>{{ offer.titleOffer }}</h3></div>
+                        <div><p>{{ offer.descriptionOffer }}</p></div>
+                    </div>
+                    <div class="footer-offer-items">
+                        <a href="">EN SAVOIR PLUS ></a>
+                    </div>
                 </div>
             {% endfor %}
-            {% set path = 'home' %}
-            {% set pages = limitedOffers.pages %}
-            {% set currentPage = limitedOffers.page %}
-            {% include "base/pagination.html.twig" %}
         </div>
+        {% set path = 'home' %}
+        {% set pages = limitedOffers.pages %}
+        {% set currentPage = limitedOffers.page %}
+        {% include "base/pagination.html.twig" %}
     </div>
 {% endblock %}
