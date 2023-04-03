@@ -1,9 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Billetterie{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/pages/ticketing.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/layout/card-offer.css') }}">
+{% endblock %}
 
 {% block content %}
-<div class="main-con">
-    <h1>Billetterie</h1>
-</div>
+    <div class="ticketing-con">
+        <h1>Billeterie</h1>
+        <form class="filter-offers">
+            <select name="typeoffre">
+                <option value="2" {% if typeOffers == 2 %}selected{% endif %}>tous</option>
+                <option value="1" {% if typeOffers == 1 %}selected{% endif %}>limité</option>
+                <option value="0" {% if typeOffers == 0 %}selected{% endif %}>permanents</option>
+            </select>
+            <button type="submit">Filtrer</button>
+        </form>
+        <div class="offers-con">
+            {% for offer in Offers.data %}
+                <div class="offer-items">
+                    <div class="info-offer-con">
+                        <div class="info-offer-type"><p>{{ offer.typeOffer == 0 ? 'OFFRE PONCTUELLE' : 'OFFRE PERMANENTE' }}</p></div>
+                        <p>Publié le {{ offer.startDateDisplay|date("j/m/Y") }} - Du {{ offer.startDateValid|date("j/m/Y") }} au {{ offer.endDateValid|date("j/m/Y") }}</p>
+                    </div>
+                    <div class="body-offer-items">
+                        <div class="title-offer"><h3>{{ offer.titleOffer }}</h3></div>
+                        <div><p>{{ offer.descriptionOffer }}</p></div>
+                    </div>
+                    <div class="footer-offer-items">
+                        <a href="{{ path('showOffer', {'id': offer.id}) }}">EN SAVOIR PLUS ></a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% set path = 'ticketing' %}
+            {% set pages = Offers.pages %}
+            {% set currentPage = Offers.page %}
+            {% if typeOffers != 3 %}
+                {% set pathParams = {typeoffre: typeOffers} %}
+                {% set path = path ~ '?' ~ pathParams|url_encode %}
+            {% endif %}
+            {% include "base/pagination.html.twig" %}
+        </div>
+    </div>
 {% endblock %}

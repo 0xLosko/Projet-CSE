@@ -39,12 +39,23 @@
                         {{ form_errors(form.message) }}
                     </div>
                 </div>
-                <div class="newsletter-con form-row">
-                    {{ form_label(form.subscribeToNewsletter) }}
+                <div class="checkbox-con form-row">
                     <div>
-                        {{ form_widget(form.subscribeToNewsletter) }}
-                        {{ form_errors(form.subscribeToNewsletter) }}
+                        {{ form_label(form.subscribeToNewsletter) }}
+                        <div>
+                            {{ form_widget(form.subscribeToNewsletter) }}
+                            {{ form_errors(form.subscribeToNewsletter) }}
+                        </div>
                     </div>
+                    <div>
+                        {{ form_label(form.cgu) }}
+                        <div>
+                            {{ form_widget(form.cgu) }}
+                        </div>
+                    </div>
+                    {{ form_errors(form.cgu) }}
+                </div>
+                <div class="form-row">
                 </div>
                 <div class="captcha-con form-row">
                     {{ form_label(form.security) }}

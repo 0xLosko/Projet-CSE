@@ -1,0 +1,31 @@
+.home-con{
+    display: flex;
+    gap: 20px;
+    height: fit-content;
+    width: 70%;
+    flex-wrap: wrap;
+}
+.msg-items{
+    min-height: 150px;
+    height: fit-content;
+    width: 200px;
+    background-color: #ececec;
+    border-radius: 11px;
+    padding: 20px 40px;
+}
+.msg-items div{
+    margin-bottom: 15px;
+}
+.top-msg-items{
+    display: flex;
+    justify-content: space-between;
+}
+.message-con-items{
+    margin-top: 5px;
+    min-height: 50px;
+    height: fit-content;
+    word-wrap : break-word;
+}
+.date-msg-items{
+    text-align: center;
+}

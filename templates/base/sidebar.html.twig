@@ -22,7 +22,6 @@
                 </div>
                 <div class="survey-act">
                     <button type="">Voir les réponses</button>
-                    {# <button type="submit">Valider</button> #}
                     {{ form_row(form.send) }}
                 </div> 
             {{ form_end(form) }}
@@ -32,7 +31,7 @@
     <div class="sidebar-items-con">
         <h2>Accès rapide</h2>
         <div>
-            <a href="{{ path('ticketing') }}"> <span>></span> Offres permanentes / Billetteries</a>
+            <a href="{{ path("ticketing") }}"> <span>></span> Offres permanentes / Billetteries</a>
             <a href="{{ path('contact') }}"> <span>></span> Nous contacter</a>
         </div>
     </div>

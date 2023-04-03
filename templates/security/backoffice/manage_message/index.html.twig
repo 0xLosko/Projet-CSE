@@ -1,0 +1,33 @@
+{% extends './security/backoffice/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_manage_message.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="home-con">
+        {% for message in messages %}
+            <div class="msg-items">
+                <div class="top-msg-items">
+                    <div>
+                        <p>Nom: {{ message.nameContact }}</p>
+                    </div>
+                    <div>
+                        <p>Prenom: {{ message.surnameContact }}</p>
+                    </div>
+                </div>
+                <div class="email-con-items">
+                    <p>Mail: {{ message.emailContact }}</p>
+                </div>
+                <div>
+                    <p>Message:</p>
+                    <p class="message-con-items">{{ message.contentMessage }}</p>
+                </div>
+                <div>
+                    <p class="date-msg-items">{{ message.dateMessage|date("d/m/Y") }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

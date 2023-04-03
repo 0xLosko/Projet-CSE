@@ -1,0 +1,34 @@
+.paginations{
+    display: flex;
+    gap: 8px;
+}
+.paginations-con{
+    margin: 24px 0 56px;
+}
+.page-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    background: #FFFFFF;
+    border: 1px solid #DFE3E8;
+    border-radius: 4px;
+}
+.page-item a{
+    color: #212B36;
+    font-weight: bold;
+}
+.disabled{
+    background-color: #919EAB;
+    opacity: 0.5;
+}
+.disabled a{
+    color: #C4CDD5;
+}
+.activePagination{
+    border: 1px solid #4200FF;
+}
+.activePagination a{
+    color: #4200FF;
+}

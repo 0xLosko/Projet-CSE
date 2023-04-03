@@ -26,8 +26,8 @@
                 <div class="{% if 'administrateurs' in app.request.uri %}active_sb{% endif %}">
                     <a href="{{ path('manage_admin') }}">Gerer les administrateurs</a>
                 </div>
-                <div class="{% if 'aconfig' in app.request.uri %}active_sb{% endif %}">
-                    <a href="">Gerer l'accueil</a>
+                <div class="{% if 'message' in app.request.uri %}active_sb{% endif %}">
+                    <a href="{{ path('manage_message') }}">Consulter les messages</a>
                 </div>
             </div>
             {% block content %}

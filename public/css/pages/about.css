@@ -1,5 +1,32 @@
 .about-con{
-    margin: 100px 0 0 90px;
+    width: 90%;
+    margin: 100px 0 0 80px;
+}
+
+section{
+    margin-bottom: 80px;
+}
+
+/* width */
+.scroll::-webkit-scrollbar{
+    height: 15px;
+    width: 15px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+ 
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    background: #B6A886; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+    background: #93886e; 
 }
 
 h2{
@@ -9,39 +36,16 @@ h2{
     line-height: 24px;
 }
 
-section{
-    margin-bottom: 34px;
+section>div{
+    width: 90%;
+    margin: 10px 0 10px 50px;
 }
 
-section *{
-    padding: 10px 0 5px 34px;
+section p{
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     letter-spacing: -0.02em;
-}
-
-
-/* width */
-::-webkit-scrollbar {
-    height: 15px;
-    width: 15px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #B6A886; 
-    border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #93886e; 
 }
 
 .scroll, .scroll *{
@@ -49,29 +53,32 @@ section *{
 }
 
 .scroll{
-    margin-left: 120px;
     display: flex;
-    padding: 4px;
-    width: 640px;
+    width: 550px;
     max-height: 200px;
     white-space: nowrap;
     overflow-x: auto;
 }
 
-.scroll div{
+.scroll>div{
     margin-right: 10px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .scroll img{
-    max-width: 150px;
     max-height: 150px;
 }
-.scroll p{
-    text-align: center;
+
+.info-con{
+    width: 90%;
 }
 
-.rule{
-    text-align: center;
+.act, .rule, .info-sup{
+    margin-bottom: 20px;
+    width: 90%;
 }
 
 .s-h-btn{
@@ -88,4 +95,10 @@ section *{
 
 .s-h-btn *:hover{
     cursor: pointer;
+}
+
+@media(max-width: 1024px){
+    .scroll{
+        width: 450px;
+    }
 }

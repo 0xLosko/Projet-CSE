@@ -9,7 +9,7 @@
             </div>
         {% endif %}
         <div>
-            {{ form_row(form.file, {'value' : partner.getIdFile().getPathFile()|default()}) }}
+            {{ form_row(form.file) }}
         </div>
     </div>
     {{ form_row(form.nameFile, {'value' : partner.getIdFile().getFileName()|default()}) }}
