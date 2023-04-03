@@ -23,6 +23,11 @@
                 </div> 
             {{ form_end(form) }}
         </div>
+        {% for message in app.flashes('success') %}
+            <div class="form-row">
+                {{ message }}
+            </div>
+        {% endfor %}
     </div>
 
     <div class="sidebar-items-con">
