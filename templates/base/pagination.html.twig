@@ -16,7 +16,7 @@
                     </li>
                 {% endif %}
                 {% for page in 1..pages %}
-                    <li class="page-item {{ (page == currentPage) ? 'active' : '' }}">
+                    <li class="page-item {{ (page == currentPage) ? 'activePagination' : '' }}">
                         <a href="{{ url('ticketing', {page: page, typeoffre: typeOffers}) }}" class="page-link">{{ page }}</a>
                     </li>
                 {% endfor %}
@@ -42,7 +42,7 @@
                     </li>
                 {% endif %}
                 {% for page in 1..pages %}
-                    <li class="page-item {{ (page == currentPage) ? 'active' : '' }}">
+                    <li class="page-item {{ (page == currentPage) ? 'activePagination' : '' }}">
                         <a href="{{ path(path, {page: page}) }}" class="page-link">{{ page }}</a>
                     </li>
                 {% endfor %}
