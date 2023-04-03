@@ -20,6 +20,9 @@
                 <div class="{% if 'accueil' in app.request.uri %}active_sb{% endif %}">
                     <a href=" {{ path('manage_home') }}">Gerer l'accueil</a>
                 </div>
+                <div class="{% if 'sondage' in app.request.uri %}active_sb{% endif %}">
+                    <a href=" {{ path('manage_survey') }}">Gerer le sondage</a>
+                </div>
                 <div class="{% if 'partenaires' in app.request.uri %}active_sb{% endif %}">
                     <a href="{{ path('manage_partners') }}">Gerer les partenaires</a>
                 </div>

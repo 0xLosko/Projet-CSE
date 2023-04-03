@@ -8,6 +8,7 @@ use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AnswerSurveyController extends AbstractController
@@ -43,5 +44,15 @@ class AnswerSurveyController extends AbstractController
         $refererPathInfo  = Request::create($referer)->getPathInfo();
 
         return $this->redirect($refererPathInfo);
+    }
+
+    #[Route('/backoffice/gerer-sondage', name: 'manage_survey')]
+    public function manageSurvey(): Response
+    {
+        // $responseContent = new ContentPage();
+
+        return $this->render('security/backoffice/manage_survey/index.html.twig', [
+            'test' => 'test',
+        ]);
     }
 }
