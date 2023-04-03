@@ -18,6 +18,7 @@ class AnswerSurveyController extends AbstractController
         Request $request,
         QuestionRepository $questionRepository)
     {
+        $session = $request->getSession();
         $answer = new Answer();
         $activeQuestion = $questionRepository->findOneBy(
             array('available' => 1)
@@ -35,6 +36,7 @@ class AnswerSurveyController extends AbstractController
             // faire un try catch
             $em->persist($answer);
             $em->flush();
+            $session->getFlashBag()->add('success', 'Votre réponse a bien été envoyée.');
         }
 
         $referer = $request->headers->get('referer');
