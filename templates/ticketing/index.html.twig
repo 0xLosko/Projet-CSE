@@ -2,6 +2,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{{ asset('css/pages/ticketing.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/layout/card-offer.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -27,7 +28,7 @@
                         <div><p>{{ offer.descriptionOffer }}</p></div>
                     </div>
                     <div class="footer-offer-items">
-                        <a href="">EN SAVOIR PLUS ></a>
+                        <a href="{{ path('showOffer', {'id': offer.id}) }}">EN SAVOIR PLUS ></a>
                     </div>
                 </div>
             {% endfor %}

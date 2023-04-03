@@ -2,6 +2,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/layout/card-offer.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -11,9 +12,9 @@
             {{ homeContent }}
         </div>
         <h2>Dernières offres ponctuelles</h2>
-        <div class="limited-offers-con">
+        <div class="offers-con">
             {% for offer in limitedOffers.data %}
-                <div class="limited-offer-items">
+                <div class="offer-items">
                     <div class="info-offer-con">
                         <div class="info-offer-type"><p>OFFRE PONCTUELLE</p></div>
                         <p>Publié le {{ offer.startDateDisplay|date("j/m/Y") }} - Du {{ offer.startDateValid|date("j/m/Y") }} au {{ offer.endDateValid|date("j/m/Y") }}</p>
@@ -23,7 +24,7 @@
                         <div><p>{{ offer.descriptionOffer }}</p></div>
                     </div>
                     <div class="footer-offer-items">
-                        <a href="">EN SAVOIR PLUS ></a>
+                        <a href="{{ path('showOffer', {'id': offer.id}) }}">EN SAVOIR PLUS ></a>
                     </div>
                 </div>
             {% endfor %}

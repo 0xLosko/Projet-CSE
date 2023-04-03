@@ -27,4 +27,13 @@ class TicketingController extends AbstractController
             'typeOffers' => $typeOffers,
         ]);
     }
+    #[Route('/billeterie/{id}', name: 'showOffer', methods: ['GET'])]
+    public function showOneOffer(EntityManagerInterface $em, int $id): Response
+    {
+        $offer = $em->getRepository(Offer::class)->findBy(['id' => $id]);
+
+        return $this->render('ticketing/one-offer.html.twig',[
+            'offer' => $offer[0]
+        ]);
+    }
 }
