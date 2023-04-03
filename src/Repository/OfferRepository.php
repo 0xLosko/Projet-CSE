@@ -48,7 +48,7 @@ class OfferRepository extends ServiceEntityRepository
         $limit = abs($limit);
 
         $result = [];
-        if($typeOffer != 3){
+        if($typeOffer != 2){
             $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('o')
                 ->from('App\Entity\Offer', 'o')
