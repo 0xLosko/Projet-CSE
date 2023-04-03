@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ContactController extends AbstractController
 {
     #[route(path: "/contact", name: "contact")]
-    public function home (Request $request, EntityManagerInterface $em): Response
+    public function home (Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);

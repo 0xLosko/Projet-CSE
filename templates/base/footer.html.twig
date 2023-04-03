@@ -19,8 +19,16 @@
         <h4>Inscrivez-vous aux offres</h4>
         <p>Reçevez un email à chaque nouvelle offre<br>sur le site internet.</p>
         <div>
-            <input type="text" placeholder="Saisissez-votre email">
-            <button>S'inscrire</button>
+            <form action="{{ path('subscribe') }}" method="POST">
+                <input type="text" placeholder="Saisissez-votre email" name="email">
+                <button>S'inscrire</button>
+            </form>
         </div>
     </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="form-row">
+            {{ message }}
+        </div>
+    {% endfor %}
 </div>
