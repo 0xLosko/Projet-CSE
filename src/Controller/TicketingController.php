@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\File;
 use App\Entity\Offer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ class TicketingController extends AbstractController
         //search typeoffers in url
         $typeOffers = $request->query->getInt('typeoffre', 2);
 
-        $offers = $em->getRepository(Offer::class)->findOfferPaginated($page, $typeOffers,5);
+        $offers = $em->getRepository(Offer::class)->findOfferPaginated($page, $typeOffers,4);
         return $this->render('ticketing/index.html.twig',[
             'Offers' => $offers,
             'request' => $request,
@@ -31,9 +32,11 @@ class TicketingController extends AbstractController
     public function showOneOffer(EntityManagerInterface $em, int $id): Response
     {
         $offer = $em->getRepository(Offer::class)->findBy(['id' => $id]);
+        $filesOffer= $em->getRepository(File::class)->findBy(['offer' => $offer]);
 
         return $this->render('ticketing/one-offer.html.twig',[
-            'offer' => $offer[0]
+            'offer' => $offer[0],
+            'fileOffers' =>$filesOffer,
         ]);
     }
 }
