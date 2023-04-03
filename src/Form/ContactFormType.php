@@ -57,6 +57,15 @@ class ContactFormType extends AbstractType
                 'label' => 'S\'inscrire à la newsletter ?',
                 'required' => false,
             ])
+            ->add('cgu', CheckboxType::class, [
+                'label' => 'Conditions générales d\'utilisation',
+                'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez accepter les conditions générales d\'utilisation',
+                    ]),
+                ],
+            ])
             ->add('security', TurnstileType::class, [
                 'attr' => ['data-action' => 'contact'],
                 'label' => false,

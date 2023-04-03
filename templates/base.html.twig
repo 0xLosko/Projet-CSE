@@ -21,9 +21,11 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
     <header>
         {% include './base/nav.html.twig' %}
     </header>
+
     <body>
         {% block body %}
             <div class="main-con">
@@ -34,6 +36,7 @@
 
         {% endblock %}
     </body>
+
     <footer>
         {% include './base/footer.html.twig' %}
     </footer>
