@@ -1,5 +1,8 @@
 <div class="sidebar-con">
     <div>
+        <pre>
+            {{ dump(data) }}
+        </pre>
         {# Chemin d'accès #}
     </div>
 
@@ -17,12 +20,13 @@
                         </div>
                     {% endfor %}
                 </div>
+                <div class="survey-act">
+                    <button type="">Voir les réponses</button>
+                    {# <button type="submit">Valider</button> #}
+                    {{ form_row(form.send) }}
+                </div> 
             {{ form_end(form) }}
         </div>
-        <div class="survey-act">
-            <button type="">Voir les réponses</button>
-            <button type="submit">Valider</button>
-        </div> 
     </div>
 
     <div class="sidebar-items-con">
