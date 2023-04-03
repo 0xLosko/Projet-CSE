@@ -12,14 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * I am using a PHP trait to isolate each snippet in a file.
- * This code should be called from a Symfony controller extending AbstractController (as of Symfony 4.2)
- * or Symfony\Bundle\FrameworkBundle\Controller\Controller (Symfony <= 4.1).
- * Services are injected in the main controller constructor.
- *
- * @property RouterInterface $router
- */
 class AnswerSurveyController extends AbstractController
 {
     #[Route('/answerSurvey', name: 'answer', methods:"POST")]
