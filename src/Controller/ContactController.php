@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ContactFormType;
 use App\Entity\ContactForm;
+use App\Entity\NewsletterRegistration;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 class ContactController extends AbstractController
@@ -30,6 +31,17 @@ class ContactController extends AbstractController
             $entityManager->flush();
             $form = $this->createForm(ContactFormType::class); // réinitialiser le formulaire
             $session = $request->getSession();
+
+            if ($data["subscribeToNewsletter"] == true) {
+                $subscriber = new NewsletterRegistration();
+                $subscriber->setEmailSubscriber($data['email']);
+                $subscriber->setDateSubscriber(new \DateTime());
+                $subscriber->setCguAccepted($data['cgu']);
+
+                $entityManager->persist($subscriber);
+                $entityManager->flush();
+            }
+
             $session->getFlashBag()->add('success', 'Votre message a été envoyé avec succès.');
         }
 
