@@ -1,0 +1,62 @@
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/layout/pagination.css') }}">
+{% endblock %}
+
+{% if pages > 1 %}
+    <div class="paginations-con">
+        {% if typeOffers is defined %}
+            <ul class="paginations">
+                {% if currentPage > 1 %}
+                    <li class="page-item">
+                        <a href="{{ url('ticketing', {page: currentPage - 1, typeoffre: typeOffers}) }}" class="page-link">&lt;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&lt;</a>
+                    </li>
+                {% endif %}
+                {% for page in 1..pages %}
+                    <li class="page-item {{ (page == currentPage) ? 'active' : '' }}">
+                        <a href="{{ url('ticketing', {page: page, typeoffre: typeOffers}) }}" class="page-link">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                {% if currentPage < pages %}
+                    <li class="page-item">
+                        <a href="{{ url('ticketing', {page: currentPage + 1, typeoffre: typeOffers}) }}" class="page-link">&gt;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&gt;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% else %}
+            <ul class="paginations">
+                {% if currentPage > 1 %}
+                    <li class="page-item">
+                        <a href="{{ path(path, {page: currentPage - 1}) }}" class="page-link">&lt;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&lt;</a>
+                    </li>
+                {% endif %}
+                {% for page in 1..pages %}
+                    <li class="page-item {{ (page == currentPage) ? 'active' : '' }}">
+                        <a href="{{ path(path, {page: page}) }}" class="page-link">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                {% if currentPage < pages %}
+                    <li class="page-item">
+                        <a href="{{ path(path, {page: currentPage + 1}) }}" class="page-link">&gt;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&gt;</a>
+                    </li>
+                {% endif %}
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+{% endif %}

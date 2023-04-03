@@ -8,7 +8,7 @@
     align-items: center;
     flex-direction: column;
     min-width: 200px;
-    background-color: #2764f6;
+    background-color: #1B3168;
     border-radius: 7px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     gap: 30px;
@@ -29,7 +29,7 @@
     color: #FFFFFF;
 }
 .sidebar-con div:hover{
-    background-color: #4a7df6;
+    background-color: #344b82;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .return-link {
@@ -40,5 +40,5 @@
     font-weight: bold;
 }
 .active_sb{
-    background-color: #4a7df6;
+    background-color: #344b82;
 }

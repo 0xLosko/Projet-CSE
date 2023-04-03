@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 class Offer
@@ -22,6 +23,8 @@ class Offer
     #[ORM\Column(type: Types::TEXT)]
     private ?string $descriptionOffer = null;
 
+    #[ORM\Column(length: 255)]
+    private ?int $typeOffer = null;
     #[ORM\Column(length: 255)]
     private ?string $linkOffer = null;
 
@@ -78,6 +81,14 @@ class Offer
         $this->descriptionOffer = $descriptionOffer;
 
         return $this;
+    }
+    public function getTypeOffer(): ?int
+    {
+        return $this->typeOffer;
+    }
+    public function setTypeOffer(?int $typeOffer): void
+    {
+        $this->typeOffer = $typeOffer;
     }
 
     public function getLinkOffer(): ?string

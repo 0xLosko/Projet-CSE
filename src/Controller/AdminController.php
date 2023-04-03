@@ -28,7 +28,9 @@ class AdminController extends AbstractController
     public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'isModify' => false,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +55,9 @@ class AdminController extends AbstractController
     #[Route('backoffice/gerer-les-administrateurs/{id}/modifier', name: 'app_admin_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'isModify' => true,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

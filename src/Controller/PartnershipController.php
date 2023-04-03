@@ -101,48 +101,56 @@ class PartnershipController extends AbstractController
     #[Route('backoffice/gerer-les-partenaires/{id}/modifier', name: 'app_partner_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Partner $partner, PartnerRepository $partnerRepository, SluggerInterface $slugger, FileRepository $fileRepository): Response
     {
-        $form = $this->createForm(PartnerType::class);
+        $form = $this->createForm(PartnerType::class,null,[
+            'isModify' => true,
+        ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $Response = $form->getData();
-
             //update file
             $fileResponse = $Response['file'];
-            $originalFileName = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
-            $file = new File();
-            $file->setOriginalName($fileResponse->getClientOriginalName());
-            $file->setFileName($Response['nameFile']);
-            $file->setAltFile($Response['nameAltFile']);
-            $file->setSizeFile($fileResponse->getSize());
-            $file->setDateFile(new \DateTime());
+            if(isset($fileResponse)){
+                $originalFileName = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
+                $file = new File();
+                $file->setOriginalName($fileResponse->getClientOriginalName());
+                $file->setFileName($Response['nameFile']);
+                $file->setAltFile($Response['nameAltFile']);
+                $file->setSizeFile($fileResponse->getSize());
+                $file->setDateFile(new \DateTime());
 
-            $safeFilename = $slugger->slug($originalFileName);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileResponse->guessExtension();
-            try {
-                $fileResponse->move(
-                    $this->getParameter('file_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                dd('Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
+                $safeFilename = $slugger->slug($originalFileName);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileResponse->guessExtension();
+                try {
+                    $fileResponse->move(
+                        $this->getParameter('file_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dd('Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
+                }
+
+                //delete old file in Server Storage
+                $fileOld = $partner->getIdFile()->getPathFile();
+                $pattern = "/\/uploads\/file\//";
+                $newFile = preg_replace($pattern, "", $fileOld);
+                unlink($this->getParameter('file_directory') . '/' . $newFile);
+                //save new file
+                $file->setPathFile('/uploads/file/' . $newFilename);
+                $fileRepository->save($file);
+
+                //update partner
+                $partner->setName($Response['name']);
+                $partner->setDescription($Response['description']);
+                $partner->setLink($Response['link']);
+                $partner->setIdFile($file);
+
             }
-
-            //delete old file in Server Storage
-            $fileOld = $partner->getIdFile()->getPathFile();
-            $pattern = "/\/uploads\/file\//";
-            $newFile = preg_replace($pattern, "", $fileOld);
-            unlink($this->getParameter('file_directory') . '/' . $newFile);
-            //save new file
-            $file->setPathFile('/uploads/file/' . $newFilename);
-            $fileRepository->save($file);
-
-            //update partner
-            $partner->setName($Response['name']);
-            $partner->setDescription($Response['description']);
-            $partner->setLink($Response['link']);
-            $partner->setIdFile($file);
-
+            else
+            {
+                $partner->setName($Response['name']);
+                $partner->setDescription($Response['description']);
+                $partner->setLink($Response['link']);
+            }
             $partnerRepository->save($partner, true);
 
             return $this->redirectToRoute('manage_partners', [], Response::HTTP_SEE_OTHER);
