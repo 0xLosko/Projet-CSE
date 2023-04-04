@@ -1,0 +1,13 @@
+{% extends './security/backoffice/base.html.twig' %}
+
+{% block content %}
+    <div class="home-con">
+        <h1>Modifier l'offre</h1>
+
+        {{ include('security/backoffice/manage_offers/_form.html.twig', {'offer': offer,'button_label': 'Modifier'}) }}
+
+        <div class="return-link">
+            <a href="{{ path('manage_offers') }}">< Retourner aux offres</a>
+        </div>
+    </div>
+{% endblock %}

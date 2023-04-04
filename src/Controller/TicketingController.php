@@ -87,21 +87,21 @@ class TicketingController extends AbstractController
         ]);
     }
 
-//    #[Route('backoffice/gerer-les-offres/{$id}/modifier', name: 'app_offer_edit', methods: ['GET', 'POST'])]
-//    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository): Response
-//    {
-//        $form = $this->createForm(OfferType::class, $offer);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $offerRepository->save($offer, true);
-//
-//            return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
-//        }
-//
-//        return $this->renderForm('offer/edit.html.twig', [
-//            'offer' => $offer,
-//            'form' => $form,
-//        ]);
-//    }
+    #[Route('backoffice/gerer-les-offres/{id}/modifier', name: 'app_offer_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository): Response
+    {
+        $form = $this->createForm(OfferType::class, $offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $offerRepository->save($offer, true);
+
+            return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('security/backoffice/manage_offers/edit.html.twig', [
+            'offer' => $offer,
+            'form' => $form,
+        ]);
+    }
 }
