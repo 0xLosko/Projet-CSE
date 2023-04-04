@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\File;
 use App\Entity\Offer;
 use App\Entity\User;
+use App\Form\OfferType;
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,7 +56,7 @@ class TicketingController extends AbstractController
         ]);
     }
 
-    #[Route('backoffice/gerer-les-offres/{id}', name: 'app_offer_delete', methods: ['POST'])]
+    #[Route('backoffice/gerer-les-offres/{id}/supprimer', name: 'app_offer_delete', methods: ['POST'])]
     public function delete(Request $request, int $id, EntityManagerInterface $em, OfferRepository $offerRepository): Response
     {
         $currentOffer = $em->getRepository(Offer::class)->findBy(['id' => $id])[0];
@@ -66,4 +67,41 @@ class TicketingController extends AbstractController
 
         return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('backoffice/gerer-les-offres/nouvelle-offre', name: 'app_offer_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, OfferRepository $offerRepository): Response
+    {
+        $offer = new Offer();
+        $form = $this->createForm(OfferType::class, $offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $offerRepository->save($offer, true);
+
+            return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('security/backoffice/manage_offers/new.html.twig', [
+            'offer' => $offer,
+            'form' => $form,
+        ]);
+    }
+
+//    #[Route('backoffice/gerer-les-offres/{$id}/modifier', name: 'app_offer_edit', methods: ['GET', 'POST'])]
+//    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository): Response
+//    {
+//        $form = $this->createForm(OfferType::class, $offer);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $offerRepository->save($offer, true);
+//
+//            return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//        return $this->renderForm('offer/edit.html.twig', [
+//            'offer' => $offer,
+//            'form' => $form,
+//        ]);
+//    }
 }

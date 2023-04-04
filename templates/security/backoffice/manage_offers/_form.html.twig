@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+    {{ form_row(form.titleOffer, {'value' : partner.name|default()}) }}
+    {{ form_row(form.descriptionOffer, {'value' : partner.description|default()}) }}
+    {{ form_row(form.linkOffer, {'value' : partner.link|default()}) }}
+    {{ form_row(form.typeOffer, {'value' : partner.getIdFile().getFileName()|default()}) }}
+    {{ form_row(form.sortNumber, {'value' : partner.link|default()}) }}
+    <p>Date d'affichage</p>
+    <div class="form-wrapper">
+        {{ form_row(form.startDateDisplay, {'value' : partner.name|default()}) }}
+        <div><p>au</p></div>
+        {{ form_row(form.endDateDisplay, {'value' : partner.description|default()}) }}
+    </div>
+    <p>Date de validité</p>
+    <div class="form-wrapper">
+        {{ form_row(form.startDateValid, {'value' : partner.name|default()}) }}
+        <div><p>au</p></div>
+        {{ form_row(form.endDateValid, {'value' : partner.description|default()}) }}
+    </div>
+    {{ form_row(form.numberPlaces, {'value' : partner.getIdFile().getFileName()|default()}) }}
+<div class="form-btn-con">
+    <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form) }}
+
