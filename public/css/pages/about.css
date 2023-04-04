@@ -1,8 +1,20 @@
 .about-con{
-    width: 90%;
-    margin: 100px 0 0 80px;
+    width: 70%;
+    padding-left: 17px;
 }
-
+.about-con h1{
+    margin-top: 110px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #B6A886;
+}
+h2{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #B6A886;
+}
 section{
     margin-bottom: 80px;
 }
@@ -27,13 +39,6 @@ section{
 /* Handle on hover */
 .scroll::-webkit-scrollbar-thumb:hover {
     background: #93886e; 
-}
-
-h2{
-    color: #B6A886;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
 }
 
 section>div{

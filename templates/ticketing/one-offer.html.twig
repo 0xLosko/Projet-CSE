@@ -1,1 +1,33 @@
-{{ offer.titleOffer }}
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/pages/one-offer.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="one-offer-con">
+        <div class="return-con">
+            <a href="javascript:history.back()">&lsaquo; Retourner en arrière</a>
+        </div>
+        <div class="offer-img-con">
+            {% for fileOffer in fileOffers %}
+                <div class="offer-img-items">
+                    <img src="{{ asset(fileOffer.getPathFile()) }}">
+                </div>
+            {% endfor %}
+        </div>
+        <div class="offer-info-con">
+            <div class="offer-title">
+                <h2>{{ offer.titleOffer }}</h2>
+                <img src="{{ asset('images/Vectorlink.svg') }}" onclick="location.href = '{{ offer.linkOffer }}'">
+            </div>
+            <div class="offer-desc">
+                <p>{{ offer.descriptionOffer }}</p>
+                <p class="info-nb">Nombre de place : {{ offer.numberPlaces }}</p>
+            </div>
+            <div>
+                <p><p>Publié le {{ offer.startDateDisplay|date("j/m/Y") }} - Du {{ offer.startDateValid|date("j/m/Y") }} au {{ offer.endDateValid|date("j/m/Y") }}</p></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

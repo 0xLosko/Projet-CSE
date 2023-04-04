@@ -15,12 +15,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminController extends AbstractController
 {
-    #[Route('/backoffice/gerer-les-administrateurs', name: 'manage_admin')]
+    #[Route('/backoffice/gerer-les-administrateurs', name: 'manage_admins')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $allAdmins = $entityManager->getRepository(User::class)->findAll();
 
-        return $this->render('security/backoffice/manage_admin/index.html.twig',[
+        return $this->render('security/backoffice/manage_admins/index.html.twig',[
             'admins' => $allAdmins,
         ]);
     }
@@ -43,10 +43,10 @@ class AdminController extends AbstractController
             $user->setRoles(["ROLE_ADMIN"]);
             $userRepository->save($user, true);
 
-            return $this->redirectToRoute('manage_admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('manage_admins', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('security/backoffice/manage_admin/new.html.twig', [
+        return $this->renderForm('security/backoffice/manage_admins/new.html.twig', [
             'admin' => $user,
             'form' => $form,
         ]);
@@ -69,10 +69,10 @@ class AdminController extends AbstractController
             );
             $userRepository->save($user, true);
 
-            return $this->redirectToRoute('manage_admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('manage_admins', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('security/backoffice/manage_admin/edit.html.twig', [
+        return $this->renderForm('security/backoffice/manage_admins/edit.html.twig', [
             'admin' => $user,
             'form' => $form,
         ]);
@@ -86,14 +86,13 @@ class AdminController extends AbstractController
         if ($currentUser === $user) {
             $this->addFlash('danger', 'Vous ne pouvez pas supprimer votre compte.');
 
-            return $this->redirectToRoute('manage_admin');
+            return $this->redirectToRoute('manage_admins');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
         }
 
-        return $this->redirectToRoute('manage_admin', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('manage_admins', [], Response::HTTP_SEE_OTHER);
     }
-
 }

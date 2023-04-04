@@ -55,7 +55,7 @@ class ContactController extends AbstractController
     {
         $messages = $em->getRepository(ContactForm::class)->findAll();
 
-        return $this->render('security/backoffice/manage_message/index.html.twig', [
+        return $this->render('security/backoffice/manage_messages/index.html.twig', [
         'messages' => $messages,
     ]);
     }
