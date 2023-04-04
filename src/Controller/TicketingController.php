@@ -5,8 +5,12 @@ namespace App\Controller;
 
 use App\Entity\File;
 use App\Entity\Offer;
+use App\Entity\User;
+use App\Repository\OfferRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,7 +45,7 @@ class TicketingController extends AbstractController
         ]);
     }
 
-    #[Route('/backoffice-gerer-les-offres', name: 'manage_offers')]
+    #[Route('/backoffice/gerer-les-offres', name: 'manage_offers')]
     public function manageOffers(EntityManagerInterface $em): Response
     {
         $offers = $em->getRepository(Offer::class)->findAll();
@@ -49,5 +53,17 @@ class TicketingController extends AbstractController
         return $this->render('security/backoffice/manage_offers/index.html.twig',[
             'offers' => $offers,
         ]);
+    }
+
+    #[Route('backoffice/gerer-les-offres/{id}', name: 'app_offer_delete', methods: ['POST'])]
+    public function delete(Request $request, int $id, EntityManagerInterface $em, OfferRepository $offerRepository): Response
+    {
+        $currentOffer = $em->getRepository(Offer::class)->findBy(['id' => $id])[0];
+
+        if ($this->isCsrfTokenValid('delete'.$currentOffer->getId(), $request->request->get('_token'))) {
+            $offerRepository->remove($currentOffer, true);
+        }
+
+        return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
     }
 }

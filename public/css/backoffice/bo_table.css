@@ -13,13 +13,12 @@ th{
 }
 td{
     border: none;
-    text-align: center;
     padding: 10px 15px;
     inline-size: 150px;
     overflow-wrap: break-word;
     border-bottom: 3px solid #f8f9fd;
     font-size: 14px;
-    max-width: 150px;
+    max-width: 170px;
 }
 .btn-con{
     display: flex;
