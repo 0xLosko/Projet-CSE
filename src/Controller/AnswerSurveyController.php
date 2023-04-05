@@ -84,7 +84,6 @@ class AnswerSurveyController extends AbstractController
         $session = $request->getSession();
         $newActive = $questionRepository->findOneBy(['id' => $id]);
         $newActive->setAvailable(1);
-        // dd($newActive);
         // faire un try catch
         $questionRepository->save($newActive, true);
         $session->getFlashBag()->add('success', 'Le sondage a bien été activé.');
