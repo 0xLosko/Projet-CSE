@@ -42,8 +42,8 @@ class OfferType extends AbstractType
                 'label' => 'Type de l\'offre',
                 'choices' => [
                     'Type d\'offre' => [
-                        'Limité' => '0',
-                        'Permanents' => '1',
+                        'Poncutelle' => '0',
+                        'Permanente' => '1',
                     ],
                 ],
                 'constraints' => [
