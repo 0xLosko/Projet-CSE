@@ -17,7 +17,7 @@
     display: flex;
 }
 .nav-link-con a{
-    padding: 17px 35px;
+    padding: 17px 17px;
     color: #FFFFFF;
 }
 @media screen and (min-width: 1200px) {
