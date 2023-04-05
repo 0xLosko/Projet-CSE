@@ -1,5 +1,33 @@
 {% extends './security/backoffice/base.html.twig' %}
 
 {% block content %}
-    {{ test }}
+    <div class="home-con">
+        <div>
+            <h1>Gérer le sondage</h1>
+        </div>
+        <div>
+        {% if activeQuestion != null %}
+            <h2>Sondage actif</h2>
+            {{ activeQuestion.getTextQuestion() }}
+            <div>
+                <ul>
+                    {% for p in activeQuestion.getProposals() %}
+                        <li>{{ p.getTextProposal() }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="action">
+            {# <a class="add-btn" href="{{ path('statistic_survey') }}">Statistique du sondage</a> #}
+            <a class="add-btn" href="{{ path('t_o_survey') }}">Désactiver le sondage</a>
+        {% else %}
+            <h2>Aucun sondage n'est actif</h2>
+        </div>
+        <div class="actions">
+            <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
+        {% endif %}
+        </div>
+        <table>table</table>
+    </div>
+    <div class="statistic-active">statistic</div>
 {% endblock %}

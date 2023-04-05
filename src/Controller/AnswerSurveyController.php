@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Answer;
 use App\Form\AnswerType;
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,12 +49,52 @@ class AnswerSurveyController extends AbstractController
     }
 
     #[Route('/backoffice/gerer-sondage', name: 'manage_survey')]
-    public function manageSurvey(): Response
+    public function manageSurvey(
+        QuestionRepository $questionRepository,
+    ): Response
     {
-        // $responseContent = new ContentPage();
+        $activeQuestion = $questionRepository->findOneBy(
+            array('available' => 1)
+        );
 
         return $this->render('security/backoffice/manage_survey/index.html.twig', [
-            'test' => 'test',
+            'activeQuestion' => $activeQuestion,
+        ]);
+    }
+
+    #[Route('/backoffice/gerer-sondage/nouveau-sondage', name: 'new_survey')]
+    public function newSurvey(
+        Request $request,
+        AnswerRepository $answerRepository,
+    ): Response
+    {
+        return $this->render('security/backoffice/manage_survey/new.html.twig');
+    }
+
+    #[Route('/backoffice/gerer-sondage/desactiver-sondage', name: 't_o_survey')]
+    public function turnOffSurvey(
+        Request $request,
+        QuestionRepository $questionRepository,
+    ): Response
+    {
+        $session = $request->getSession();
+        $activeQuestion = $questionRepository->findOneBy(
+            array('available' => 1)
+        );
+        $activeQuestion->setAvailable(0);
+        $questionRepository->save($activeQuestion, true);
+        $session->getFlashBag()->add('success', 'Le sondage a bien été désactivé.');
+
+        return $this->redirectToRoute('manage_survey');
+    }
+
+    #[Route('backoffice/gerer-sondage/statistique', name: 'statistic_survey')]
+    public function statisticSurvey(
+        Request $request,
+        AnswerRepository $answerRepository,
+    ): Response
+    {
+        return $this->render('security/backoffice/manage_survey/statistic.html.twig', [
         ]);
     }
 }
