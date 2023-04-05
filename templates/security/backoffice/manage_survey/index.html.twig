@@ -5,29 +5,68 @@
         <div>
             <h1>Gérer le sondage</h1>
         </div>
-        <div>
-        {% if activeQuestion != null %}
-            <h2>Sondage actif</h2>
-            {{ activeQuestion.getTextQuestion() }}
+        <div class="active-survey">
             <div>
-                <ul>
-                    {% for p in activeQuestion.getProposals() %}
-                        <li>{{ p.getTextProposal() }}</li>
-                    {% endfor %}
-                </ul>
+            {% if activeQuestion != null %}
+                <h2>Sondage actif</h2>
+                {{ activeQuestion.getTextQuestion() }}
+                <div>
+                    <ul>
+                        {% for p in activeQuestion.getProposals() %}
+                            <li>{{ p.getTextProposal() }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
+
+            <div class="action">
+                {# <a class="add-btn" href="{{ path('statistic_survey') }}">Statistique du sondage</a> #}
+                <a class="add-btn" href="{{ path('t_off_survey') }}">Désactiver le sondage</a>
+            {% else %}
+                <h2>Aucun sondage n'est actif</h2>
+            </div>
+            <div class="actions">
+                <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
+            {% endif %}
+            </div>
+
+            <div class="statistic-active">statistic</div>
         </div>
-        <div class="action">
-            {# <a class="add-btn" href="{{ path('statistic_survey') }}">Statistique du sondage</a> #}
-            <a class="add-btn" href="{{ path('t_o_survey') }}">Désactiver le sondage</a>
-        {% else %}
-            <h2>Aucun sondage n'est actif</h2>
-        </div>
-        <div class="actions">
-            <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
-        {% endif %}
-        </div>
-        <table>table</table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Propositions</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            {% for survey in surveys %}
+                <tr>
+                    <td>{{ survey.textQuestion() }}</td>
+                    <td>
+                    {% for proposal in survey.getProposals() %}
+                        <p>{{ proposal.textProposal() }}</p>
+                    {% endfor %}
+                    </td>
+                    <td>{{ survey.dateQuestion()|date("m/d/Y") }}</td>
+                    <td>
+                        <div class="btn-con">
+                            <a href="">Stats</a>
+                        {% if survey.available() %}
+                            <a href="{{ path('t_off_survey') }}">Inactiver</a>
+                        {% else %}
+                            <a href="{{ path('t_on_survey', {'id': survey.id}) }}">Activer</a>
+                            {# path('route_name', {'id': survey.id}) #}
+                        {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <div class="statistic-active">statistic</div>
 {% endblock %}

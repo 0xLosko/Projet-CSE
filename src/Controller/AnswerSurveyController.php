@@ -19,7 +19,8 @@ class AnswerSurveyController extends AbstractController
     public function index(
         EntityManagerInterface $em, 
         Request $request,
-        QuestionRepository $questionRepository)
+        QuestionRepository $questionRepository
+    ): Response
     {
         $session = $request->getSession();
         $answer = new Answer();
@@ -56,9 +57,11 @@ class AnswerSurveyController extends AbstractController
         $activeQuestion = $questionRepository->findOneBy(
             array('available' => 1)
         );
+        $surveys = $questionRepository->findAll();
 
         return $this->render('security/backoffice/manage_survey/index.html.twig', [
             'activeQuestion' => $activeQuestion,
+            'surveys' => $surveys,
         ]);
     }
 
@@ -71,7 +74,25 @@ class AnswerSurveyController extends AbstractController
         return $this->render('security/backoffice/manage_survey/new.html.twig');
     }
 
-    #[Route('/backoffice/gerer-sondage/desactiver-sondage', name: 't_o_survey')]
+    #[Route('/backoffice/gerer-sondage/{id}/activer', name: 't_on_survey')]
+    public function turnOnSurvey(
+        Request $request,
+        int $id,
+        QuestionRepository $questionRepository,
+    ): Response
+    {
+        $session = $request->getSession();
+        $newActive = $questionRepository->findOneBy(['id' => $id]);
+        $newActive->setAvailable(1);
+        // dd($newActive);
+        // faire un try catch
+        $questionRepository->save($newActive, true);
+        $session->getFlashBag()->add('success', 'Le sondage a bien été activé.');
+
+        return $this->redirectToRoute('manage_survey');
+    }
+
+    #[Route('/backoffice/gerer-sondage/desactiver-sondage', name: 't_off_survey')]
     public function turnOffSurvey(
         Request $request,
         QuestionRepository $questionRepository,
@@ -88,7 +109,7 @@ class AnswerSurveyController extends AbstractController
         return $this->redirectToRoute('manage_survey');
     }
 
-    #[Route('backoffice/gerer-sondage/statistique', name: 'statistic_survey')]
+    #[Route('/backoffice/gerer-sondage/statistique', name: 'statistic_survey')]
     public function statisticSurvey(
         Request $request,
         AnswerRepository $answerRepository,
