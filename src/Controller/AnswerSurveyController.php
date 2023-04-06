@@ -82,6 +82,15 @@ class AnswerSurveyController extends AbstractController
     ): Response
     {
         $session = $request->getSession();
+        // désactiver le sondage actif
+        $activeQuestion = $questionRepository->findOneBy(
+            array('available' => 1)
+        );
+        if($activeQuestion != null) {
+            $activeQuestion->setAvailable(0);
+            $questionRepository->save($activeQuestion, true);
+        }
+
         $newActive = $questionRepository->findOneBy(['id' => $id]);
         $newActive->setAvailable(1);
         // faire un try catch
