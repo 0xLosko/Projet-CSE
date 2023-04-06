@@ -1,7 +1,11 @@
 .act-surv-con{
     display: flex;
+    margin-bottom: 50px;
 }
 
+.surv-con{
+    margin-top: 10%;
+}
 
 .statistic-active{
     margin-left: 100px;
