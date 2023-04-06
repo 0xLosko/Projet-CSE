@@ -57,9 +57,9 @@ class OfferType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Range([
-                        'min' => 1,
+                        'min' => 0,
                         'max' => 10,
-                        'notInRangeMessage' => 'Le numéro d\'importance doit être entre {{ min }} et {{ max }}',
+                        'notInRangeMessage' => 'Le numéro d\'importance doit être entre {{ min }} et {{ max }}, {{ min }} = offre non visible, {{ max }} = priorité maximal',
                     ]),
                 ],
             ])
