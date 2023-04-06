@@ -1,36 +1,47 @@
 {% extends './security/backoffice/base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_manage_survey.css') }}">
+{% endblock %}
+
 {% block content %}
     <div class="home-con">
         <div>
             <h1>Gérer le sondage</h1>
         </div>
-        <div class="active-survey">
+        <div class="act-surv-con">
             <div>
             {% if activeQuestion != null %}
-                <h2>Sondage actif</h2>
-                {{ activeQuestion.getTextQuestion() }}
                 <div>
-                    <ul>
-                        {% for p in activeQuestion.getProposals() %}
-                            <li>{{ p.getTextProposal() }}</li>
-                        {% endfor %}
-                    </ul>
+                    <h2>Sondage actif</h2>
+                    {{ activeQuestion.getTextQuestion() }}
+                    <div>
+                        <ul>
+                            {% for p in activeQuestion.getProposals() %}
+                                <li>{{ p.getTextProposal() }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div class="action">
-                {# <a class="add-btn" href="{{ path('statistic_survey') }}">Statistique du sondage</a> #}
-                <a class="add-btn" href="{{ path('t_off_survey') }}">Désactiver le sondage</a>
-            {% else %}
-                <h2>Aucun sondage n'est actif</h2>
-            </div>
-            <div class="actions">
-                <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
+                <div class="action">
+                    <a class="add-btn" href="{{ path('t_off_survey') }}">Désactiver le sondage</a>
+                </div>
+                {% else %}
+                <div>
+                    <h2>Aucun sondage n'est actif</h2>
+                </div>
+
+                <div class="action">
+                    <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
+                </div>
             {% endif %}
             </div>
 
-            <div class="statistic-active">statistic</div>
+            <div class="statistic-active">
+                statistic
+            </div>
         </div>
 
         <table class="table">
