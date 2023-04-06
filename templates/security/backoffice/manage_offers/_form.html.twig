@@ -1,3 +1,7 @@
+{% block javascripts %}
+    <script src="{{ asset('js/offer_form.js') }}"></script>
+{% endblock %}
+
 {{ form_start(form) }}
     {{ form_row(form.titleOffer, {'value' : offer.titleOffer|default()}) }}
     {{ form_row(form.descriptionOffer, {'value' : offer.descriptionOffer|default()}) }}
