@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class OfferType extends AbstractType
 {
@@ -99,16 +98,15 @@ class OfferType extends AbstractType
                 'label' => false,
                 'widget' => 'single_text',
                 'required' => false,
-                'constraints' => [
-                    new Assert\LessThanOrEqual([
-                        'propertyPath' => '',
-                        'message' => 'La date de fin doit être supérieure ou égale à la date de début.'
-                    ]),
-                ],
             ])
-            ->add('numberPlaces', TextType::class, [
+            ->add('numberPlaces', IntegerType::class, [
                 'label' => 'Nombre de places',
                 'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le nombre de place doit être supérieur a 1',
+                    ]),
+                ],
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();

@@ -45,7 +45,8 @@ class Offer
     #[Assert\GreaterThanOrEqual(propertyPath: "startDateValid", message: "La date de fin ne peut pas être inférieur à la date de début")]
     private ?\DateTimeInterface $endDateValid = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: false)]
+    #[Assert\GreaterThanOrEqual(value: 1, message: "Le nombre de place doit être supérieur a 1")]
     private ?int $numberPlaces = null;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: File::class)]
