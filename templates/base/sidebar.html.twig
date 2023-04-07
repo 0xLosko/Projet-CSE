@@ -49,20 +49,21 @@
     </div>
 
     <div class="sidebar-items-con">
-        <h2>Nos partenaires</h2>
-        {# Les info de contact #}
-        <div class="car-con">
-            {% for partner in rdmPartners %}
-                <div class="car-items-con-{{ partner.id }}" {% if not loop.first %}style="display:none;" {% endif %}id="wrap">
-                    <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile()) }}" alt="">
-                </div>
-            {% endfor %}
-        </div>
-        <div class="car-con-btn">
-            {% for partner in rdmPartners %}
-                <button class="btn-car{{ loop.first ? ' selected' : '' }}" value="{{ partner.id }}"></button>
-            {% endfor %}
-        </div>
-        <a class="discover-partners" href="{{ path('partnership') }}">Découvrir tous nos partenaires</a>
+        {% if rdmPartners is defined and rdmPartners[0] != 'error' %}
+            <h2>Nos partenaires</h2>
+            <div class="car-con">
+                {% for partner in rdmPartners %}
+                    <div class="car-items-con-{{ partner.id }}" {% if not loop.first %}style="display:none;" {% endif %}id="wrap">
+                        <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile()) }}" alt="">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="car-con-btn">
+                {% for partner in rdmPartners %}
+                    <button class="btn-car{{ loop.first ? ' selected' : '' }}" value="{{ partner.id }}"></button>
+                {% endfor %}
+            </div>
+            <a class="discover-partners" href="{{ path('partnership') }}">Découvrir tous nos partenaires</a>
+        {% endif %}
     </div>
 </div>
