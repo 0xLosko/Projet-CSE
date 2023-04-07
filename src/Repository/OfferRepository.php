@@ -53,18 +53,25 @@ class OfferRepository extends ServiceEntityRepository
                 ->select('o')
                 ->from('App\Entity\Offer', 'o')
                 ->where("o.typeOffer = '$typeOffer'")
-                ->andWhere('o.startDateDisplay < CURRENT_DATE()')
-                ->andWhere('o.endDateDisplay   > CURRENT_DATE()')
+                ->andWhere('o.startDateDisplay <= CURRENT_DATE()')
+                ->andWhere('o.endDateDisplay   >= CURRENT_DATE()')
                 ->setMaxResults($limit)
                 ->setFirstResult(($page * $limit) - $limit);
+            //limited Offers
+            if($typeOffer == 0){
+                $query->andWhere('o.sortNumber > 0')
+                    ->orderBy('o.sortNumber', 'DESC');
+            }
         } else {
+            //all Offers
             $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('o')
                 ->from('App\Entity\Offer', 'o')
-                ->where('o.startDateDisplay < CURRENT_DATE()')
-                ->andWhere('o.endDateDisplay   > CURRENT_DATE()')
+                ->where('o.startDateDisplay <= CURRENT_DATE()')
+                ->andWhere('o.endDateDisplay   >= CURRENT_DATE()')
                 ->setMaxResults($limit)
-                ->setFirstResult(($page * $limit) - $limit);
+                ->setFirstResult(($page * $limit) - $limit)
+                ->orderBy('o.endDateDisplay', 'ASC');
         }
 
         $paginator = new Paginator($query);
@@ -79,7 +86,6 @@ class OfferRepository extends ServiceEntityRepository
         $result['pages'] = $pages;
         $result['page'] = $page;
         $result['limit'] = $limit;
-
         return $result;
     }
 

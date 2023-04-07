@@ -6,6 +6,7 @@ use App\Entity\Offer;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class OfferType extends AbstractType
 {
@@ -39,13 +42,25 @@ class OfferType extends AbstractType
                 'label' => 'Type de l\'offre',
                 'choices' => [
                     'Type d\'offre' => [
-                        'Limité' => '0',
-                        'Permanents' => '1',
+                        'Poncutelle' => '0',
+                        'Permanente' => '1',
                     ],
                 ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le type ne peut pas être vide',
+                    ]),
+                ],
+            ])
+            ->add('sortNumber', IntegerType::class, [
+                'label' => 'Numéro d\'importance',
+                'label_attr' => ['class' => 'TypeCanHide'],
+                'required' => false,
+                'constraints' => [
+                    new Range([
+                        'min' => 0,
+                        'max' => 10,
+                        'notInRangeMessage' => 'Le numéro d\'importance doit être entre {{ min }} et {{ max }}, {{ min }} = offre non visible, {{ max }} = priorité maximal',
                     ]),
                 ],
             ])
@@ -75,21 +90,6 @@ class OfferType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('sortNumber', IntegerType::class, [
-                'label' => 'Numéro d\'importance',
-                'required' => false,
-                'constraints' => [
-                    new Range([
-                        'min' => 1,
-                        'max' => 10,
-                        'notInRangeMessage' => 'Le numéro d\'importance doit être entre {{ min }} et {{ max }}',
-                    ]),
-                ],
-                'attr' => [
-                    'min' => 1,
-                    'max' => 10,
-                ],
-            ])
             ->add('startDateValid', DateType::class, [
                 'label' => false,
                 'widget' => 'single_text',
@@ -100,17 +100,51 @@ class OfferType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('numberPlaces', TextType::class, [
+            ->add('numberPlaces', IntegerType::class, [
                 'label' => 'Nombre de places',
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le nombre de place doit être supérieur a 1',
+                    ]),
+                ],
+            ])
+            ->add('file1', FileType::class, [
+                'label' => 'Image 1 de l\'offre *' ,
+                'required' => ($options['isModify'] ? false : true),
+                'constraints' => ($options['isModify'] ? [] : [
+                    new NotBlank([
+                        'message' => 'Le fichier ne peut pas être vide.',
+                    ]),
+                ]),
+            ])
+            ->add('file2', FileType::class, [
+                'label' => 'Image 2 de l\'offre' ,
                 'required' => false,
             ])
-        ;
+            ->add('file3', FileType::class, [
+                'label' => 'Image 3 de l\'offre' ,
+                'required' => false,
+            ])
+            ->add('file4', FileType::class, [
+                'label' => 'Image 4 de l\'offre' ,
+                'required' => false,
+            ])
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $data = $event->getData();
+                if ($data['typeOffer'] === '1') {
+                    $data['sortNumber'] = null;
+                    $data['startDateValid'] = null;
+                    $data['endDateValid'] = null;
+                }
+                $event->setData($data);
+            });
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Offer::class,
+            'isModify' => false,
         ]);
+        $resolver->setAllowedTypes('isModify', 'bool');
     }
 }

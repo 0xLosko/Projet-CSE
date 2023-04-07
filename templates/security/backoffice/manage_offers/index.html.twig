@@ -25,9 +25,9 @@
                     <td>{{ offer.descriptionOffer }}</td>
                     <td>{{ offer.linkOffer }}</td>
                     <td>{{ offer.startDateDisplay|date('d/m/Y') }} au {{ offer.endDateDisplay|date('d/m/Y') }}</td>
-                    <td>{{ offer.startDateValid|date('d/m/Y') }} au {{ offer.endDateValid|date('d/m/Y') }}</td>
+                    <td>{{ offer.startDateValid ? offer.startDateValid|date('d/m/Y') ~ ' au ' ~ offer.endDateValid|date('d/m/Y') : 'date non renseignée' }}</td>
                     <td>{{ offer.numberPlaces }}</td>
-                    <td>{{ offer.sortNumber }}</td>
+                    <td>{{ offer.sortNumber ? offer.sortNumber : 'Pas de priorité' }}</td>
                     <td>{{ offer.typeOffer == 0 ? 'Ponctuelle' : 'Permanente' }}</td>
                     <td>
                         <div class="btn-con">

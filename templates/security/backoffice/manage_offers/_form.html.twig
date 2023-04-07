@@ -1,24 +1,46 @@
+{% block javascripts %}
+    <script src="{{ asset('js/offer_form.js') }}"></script>
+{% endblock %}
+
 {{ form_start(form) }}
     {{ form_row(form.titleOffer, {'value' : offer.titleOffer|default()}) }}
     {{ form_row(form.descriptionOffer, {'value' : offer.descriptionOffer|default()}) }}
     {{ form_row(form.linkOffer, {'value' : offer.linkOffer|default()}) }}
     {{ form_row(form.typeOffer, {'value' : offer.typeOffer|default()}) }}
-    {{ form_row(form.sortNumber, {'value' : offer.sortNumber|default()}) }}
+    {{ form_row(form.sortNumber, {'value' : offer.sortNumber|default(), 'attr': {'class': 'TypeCanHide'}}) }}
     <p>Date d'affichage</p>
     <div class="form-wrapper">
         {{ form_row(form.startDateDisplay, {'value' : offer.startDateDisplay|date('Y-m-d')|default()}) }}
         <div><p>au</p></div>
         {{ form_row(form.endDateDisplay, {'value' : offer.endDateDisplay|date('Y-m-d')|default()}) }}
     </div>
-    <p>Date de validité</p>
-    <div class="form-wrapper">
+    <p class="TypeCanHide">Date de validité</p>
+    <div class="form-wrapper TypeCanHide">
         {{ form_row(form.startDateValid, {'value' : offer.startDateValid|date('Y-m-d')|default()}) }}
         <div><p>au</p></div>
         {{ form_row(form.endDateValid, {'value' : offer.endDateValid|date('Y-m-d')|default()}) }}
     </div>
     {{ form_row(form.numberPlaces, {'value' : offer.numberPlaces|default()}) }}
+    {% if files is defined %}
+        {% for i in 0..3 %}
+            <div class="form-file-con">
+                {% if files[i] is defined %}
+                    <div class="form-file-img">
+                        <img src="{{ files[i].getPathFile() }}">
+                    </div>
+                {% endif %}
+                <div>
+                    {{ form_row(form['file' ~ (i + 1)]) }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {{ form_row(form.file1) }}
+        {{ form_row(form.file2) }}
+        {{ form_row(form.file3) }}
+        {{ form_row(form.file4) }}
+    {% endif %}
 <div class="form-btn-con">
     <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
 </div>
 {{ form_end(form) }}
-

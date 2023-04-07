@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 class Offer
@@ -28,10 +28,11 @@ class Offer
     #[ORM\Column(length: 255)]
     private ?string $linkOffer = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private ?\DateTimeInterface $startDateDisplay = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    #[Assert\GreaterThanOrEqual(propertyPath: "startDateDisplay", message: "La date de fin ne peut pas être inférieur à la date de début")]
     private ?\DateTimeInterface $endDateDisplay = null;
 
     #[ORM\Column(nullable: true)]
@@ -41,9 +42,11 @@ class Offer
     private ?\DateTimeInterface $startDateValid = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\GreaterThanOrEqual(propertyPath: "startDateValid", message: "La date de fin ne peut pas être inférieur à la date de début")]
     private ?\DateTimeInterface $endDateValid = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: false)]
+    #[Assert\GreaterThanOrEqual(value: 1, message: "Le nombre de place doit être supérieur a 1")]
     private ?int $numberPlaces = null;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: File::class)]
