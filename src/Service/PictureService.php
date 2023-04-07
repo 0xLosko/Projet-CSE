@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\File;
+use App\Entity\Offer;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -22,15 +23,18 @@ class PictureService
         $this->em = $em;
     }
 
-    public function add(UploadedFile $fileResponse, string $fileName, string $nameAltFile)
+    public function add(UploadedFile $fileResponse, ?string $fileName, ?string $nameAltFile, ?Offer $relatedOffer)
     {
         $originalFileName = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
         $file = new File();
         $file->setOriginalName($fileResponse->getClientOriginalName());
-        $file->setFileName($fileName);
-        $file->setAltFile($nameAltFile);
+        $file->setFileName($fileName ?? $fileResponse->getClientOriginalName());
+        $file->setAltFile($nameAltFile ?? $fileResponse->getClientOriginalName());
         $file->setSizeFile($fileResponse->getSize());
         $file->setDateFile(new \DateTime());
+        if(isset($relatedOffer)) {
+            $file->setOffer($relatedOffer);
+        }
 
         $safeFilename = $this->slugger->slug($originalFileName);
         $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileResponse->guessExtension();

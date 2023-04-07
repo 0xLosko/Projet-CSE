@@ -7,8 +7,10 @@ use App\Entity\File;
 use App\Entity\Offer;
 use App\Entity\User;
 use App\Form\OfferType;
+use App\Repository\FileRepository;
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -55,28 +57,35 @@ class TicketingController extends AbstractController
             'offers' => $offers,
         ]);
     }
-
-    #[Route('backoffice/gerer-les-offres/{id}/supprimer', name: 'app_offer_delete', methods: ['POST'])]
-    public function delete(Request $request, int $id, EntityManagerInterface $em, OfferRepository $offerRepository): Response
-    {
-        $currentOffer = $em->getRepository(Offer::class)->findBy(['id' => $id])[0];
-
-        if ($this->isCsrfTokenValid('delete'.$currentOffer->getId(), $request->request->get('_token'))) {
-            $offerRepository->remove($currentOffer, true);
-        }
-
-        return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
-    }
-
     #[Route('backoffice/gerer-les-offres/nouvelle-offre', name: 'app_offer_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OfferRepository $offerRepository): Response
+    public function new(Request $request, OfferRepository $offerRepository, PictureService $pictureService): Response
     {
         $offer = new Offer();
-        $form = $this->createForm(OfferType::class, $offer);
+        $form = $this->createForm(OfferType::class);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $response = $form->getData();
+            //insert offer
+            $offer->setTitleOffer($response['titleOffer']);
+            $offer->setDescriptionOffer($response['descriptionOffer']);
+            $offer->setLinkOffer($response['linkOffer']);
+            $offer->setTypeOffer($response['typeOffer']);
+            $offer->setNumberPlaces($response['numberPlaces']);
+            $offer->setSortNumber($response['sortNumber']);
+            $offer->setStartDateDisplay($response['startDateDisplay']);
+            $offer->setEndDateDisplay($response['endDateDisplay']);
+            $offer->setStartDateValid($response['startDateValid']);
+            $offer->setEndDateValid($response['endDateValid']);
             $offerRepository->save($offer, true);
+
+            //insert picture
+            for($i = 1; $i <= 4; $i++){
+                if(isset($response['file'.$i])){
+                    $pictureService->add($response['file'.$i], null, null , $offer);
+                }
+            }
 
             return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
         }
@@ -103,5 +112,25 @@ class TicketingController extends AbstractController
             'offer' => $offer,
             'form' => $form,
         ]);
+    }
+
+    #[Route('backoffice/gerer-les-offres/{id}/supprimer', name: 'app_offer_delete', methods: ['POST'])]
+    public function delete(Request $request, int $id, EntityManagerInterface $em, OfferRepository $offerRepository, FileRepository $fileRepository): Response
+    {
+        $currentOffer = $em->getRepository(Offer::class)->findBy(['id' => $id])[0];
+        $relatedFiles = $em->getRepository(File::class)->findBy(['offer' => $currentOffer]);
+        $pattern = "/\/uploads\/file\//";
+
+        if ($this->isCsrfTokenValid('delete'.$currentOffer->getId(), $request->request->get('_token'))) {
+            foreach ($relatedFiles as $rf){
+                $rfs = $rf->getPathFile();
+                $newFile = preg_replace($pattern, "", $rfs);
+                unlink($this->getParameter('file_directory') . '/' . $newFile);
+                $fileRepository->remove($rf, true);
+            }
+            $offerRepository->remove($currentOffer, true);
+        }
+
+        return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
     }
 }
