@@ -7,6 +7,7 @@ use App\Entity\Partner;
 use App\Form\PartnerType;
 use App\Repository\PartnerRepository;
 use App\Repository\FileRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,44 +48,23 @@ class PartnershipController extends AbstractController
     }
 
     #[Route('backoffice/gerer-les-partenaires/nouveau', name: 'app_partner_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $em, PictureService $pictureService): Response
     {
         $form = $this->createForm(PartnerType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $Response = $form->getData();
+            $response = $form->getData();
             //file insert
-
-            $fileResponse = $Response['file'];
-            $originalFileName = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
-            $file = new File();
-            $file->setOriginalName($fileResponse->getClientOriginalName());
-            $file->setFileName($Response['nameFile']);
-            $file->setAltFile($Response['nameAltFile']);
-            $file->setSizeFile($fileResponse->getSize());
-            $file->setDateFile(new \DateTime());
-
-            $safeFilename = $slugger->slug($originalFileName);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileResponse->guessExtension();
-            try {
-                $fileResponse->move(
-                    $this->getParameter('file_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                dd('Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
-            }
-            $file->setPathFile('/uploads/file/' . $newFilename);
-            $em->persist($file);
-            $em->flush();
+            $fileResponse = $response['file'];
+            $file = $pictureService->add($fileResponse, $response['nameFile'], $response['nameAltFile'], null);
 
             //insert partner
             $partner = new Partner();
-            $partner->setName($Response['name']);
-            $partner->setDescription($Response['description']);
-            $partner->setLink($Response['link']);
+            $partner->setName($response['name']);
+            $partner->setDescription($response['description']);
+            $partner->setLink($response['link']);
             $partner->setIdFile($file);
 
             $em->persist($partner);

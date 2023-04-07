@@ -21,6 +21,10 @@
         {{ form_row(form.endDateValid, {'value' : offer.endDateValid|date('Y-m-d')|default()}) }}
     </div>
     {{ form_row(form.numberPlaces, {'value' : offer.numberPlaces|default()}) }}
+    {{ form_row(form.file1) }}
+    {{ form_row(form.file2) }}
+    {{ form_row(form.file3) }}
+    {{ form_row(form.file4) }}
 <div class="form-btn-con">
     <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
 </div>

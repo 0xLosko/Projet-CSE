@@ -6,6 +6,7 @@ use App\Entity\Offer;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -101,12 +102,33 @@ class OfferType extends AbstractType
             ])
             ->add('numberPlaces', IntegerType::class, [
                 'label' => 'Nombre de places',
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le nombre de place doit être supérieur a 1',
                     ]),
                 ],
+            ])
+            ->add('file1', FileType::class, [
+                'label' => 'Images 1 de l\'offre *' ,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'vous devez selectionner au moins une images',
+                    ]),
+                ],
+            ])
+            ->add('file2', FileType::class, [
+                'label' => 'Images 2 de l\'offre' ,
+                'required' => false,
+            ])
+            ->add('file3', FileType::class, [
+                'label' => 'Images 3 de l\'offre' ,
+                'required' => false,
+            ])
+            ->add('file4', FileType::class, [
+                'label' => 'Images 4 de l\'offre' ,
+                'required' => false,
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();
@@ -117,12 +139,5 @@ class OfferType extends AbstractType
                 }
                 $event->setData($data);
             });
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Offer::class,
-        ]);
     }
 }
