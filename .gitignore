@@ -18,3 +18,11 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+# Ignorer les fichiers .DS_Store créés par Mac OS X
+.DS_Store
+
+# Ignorer le dossier .idea créé par PHPStorm
+.idea
+
+# Ignorer le dossier public/uploads
+public/uploads
