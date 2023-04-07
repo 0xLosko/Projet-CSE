@@ -11,6 +11,7 @@ use App\Repository\FileRepository;
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
 use App\Service\PictureService;
+use ContainerOMrWo3x\getOfferRepositoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -97,12 +98,44 @@ class TicketingController extends AbstractController
     }
 
     #[Route('backoffice/gerer-les-offres/{id}/modifier', name: 'app_offer_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository): Response
+    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository , EntityManagerInterface $em,PictureService $pictureService): Response
     {
-        $form = $this->createForm(OfferType::class, $offer);
+        $relatedFiles = $em->getRepository(File::class)->findBy(['offer' => $offer]);
+        $form = $this->createForm(OfferType::class,null,[
+            'isModify' => true,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $response = $form->getData();
+
+            //update picture
+            for($i = 1; $i <= 4; $i++){
+                if(isset($response['file'.$i])){
+                    //delete old if exist
+                    if(!empty($relatedFiles[$i - 1])) {
+                        $fileOld = $relatedFiles[$i - 1]->getPathFile();
+                        $pattern = "/\/uploads\/file\//";
+                        $newFile = preg_replace($pattern, "", $fileOld);
+                        unlink($this->getParameter('file_directory') . '/' . $newFile);
+                        $em->getRepository(File::class)->remove($relatedFiles[$i -1]);
+                    }
+                    //save new file
+                    $pictureService->add($response['file'.$i], null, null , $offer);
+                }
+            }
+
+            //update offer
+            $offer->setTitleOffer($response['titleOffer']);
+            $offer->setDescriptionOffer($response['descriptionOffer']);
+            $offer->setLinkOffer($response['linkOffer']);
+            $offer->setTypeOffer($response['typeOffer']);
+            $offer->setNumberPlaces($response['numberPlaces']);
+            $offer->setSortNumber($response['sortNumber']);
+            $offer->setStartDateDisplay($response['startDateDisplay']);
+            $offer->setEndDateDisplay($response['endDateDisplay']);
+            $offer->setStartDateValid($response['startDateValid']);
+            $offer->setEndDateValid($response['endDateValid']);
             $offerRepository->save($offer, true);
 
             return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
@@ -111,6 +144,7 @@ class TicketingController extends AbstractController
         return $this->renderForm('security/backoffice/manage_offers/edit.html.twig', [
             'offer' => $offer,
             'form' => $form,
+            'files' => $relatedFiles,
         ]);
     }
 

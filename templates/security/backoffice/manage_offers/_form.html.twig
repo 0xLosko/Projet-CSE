@@ -21,10 +21,25 @@
         {{ form_row(form.endDateValid, {'value' : offer.endDateValid|date('Y-m-d')|default()}) }}
     </div>
     {{ form_row(form.numberPlaces, {'value' : offer.numberPlaces|default()}) }}
-    {{ form_row(form.file1) }}
-    {{ form_row(form.file2) }}
-    {{ form_row(form.file3) }}
-    {{ form_row(form.file4) }}
+    {% if files is defined %}
+        {% for i in 0..3 %}
+            <div class="form-file-con">
+                {% if files[i] is defined %}
+                    <div class="form-file-img">
+                        <img src="{{ files[i].getPathFile() }}">
+                    </div>
+                {% endif %}
+                <div>
+                    {{ form_row(form['file' ~ (i + 1)]) }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {{ form_row(form.file1) }}
+        {{ form_row(form.file2) }}
+        {{ form_row(form.file3) }}
+        {{ form_row(form.file4) }}
+    {% endif %}
 <div class="form-btn-con">
     <button class="form-btn">{{ button_label|default('Enregistrer') }}</button>
 </div>

@@ -86,15 +86,15 @@ class PartnershipController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $Response = $form->getData();
+            $response = $form->getData();
             //update file
-            $fileResponse = $Response['file'];
+            $fileResponse = $response['file'];
             if(isset($fileResponse)){
                 $originalFileName = pathinfo($fileResponse->getClientOriginalName(), PATHINFO_FILENAME);
                 $file = new File();
                 $file->setOriginalName($fileResponse->getClientOriginalName());
-                $file->setFileName($Response['nameFile']);
-                $file->setAltFile($Response['nameAltFile']);
+                $file->setFileName($response['nameFile']);
+                $file->setAltFile($response['nameAltFile']);
                 $file->setSizeFile($fileResponse->getSize());
                 $file->setDateFile(new \DateTime());
 
@@ -119,17 +119,17 @@ class PartnershipController extends AbstractController
                 $fileRepository->save($file);
 
                 //update partner
-                $partner->setName($Response['name']);
-                $partner->setDescription($Response['description']);
-                $partner->setLink($Response['link']);
+                $partner->setName($response['name']);
+                $partner->setDescription($response['description']);
+                $partner->setLink($response['link']);
                 $partner->setIdFile($file);
 
             }
             else
             {
-                $partner->setName($Response['name']);
-                $partner->setDescription($Response['description']);
-                $partner->setLink($Response['link']);
+                $partner->setName($response['name']);
+                $partner->setDescription($response['description']);
+                $partner->setLink($response['link']);
             }
             $partnerRepository->save($partner, true);
 

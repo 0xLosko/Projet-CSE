@@ -110,24 +110,24 @@ class OfferType extends AbstractType
                 ],
             ])
             ->add('file1', FileType::class, [
-                'label' => 'Images 1 de l\'offre *' ,
-                'required' => true,
-                'constraints' => [
+                'label' => 'Image 1 de l\'offre *' ,
+                'required' => ($options['isModify'] ? false : true),
+                'constraints' => ($options['isModify'] ? [] : [
                     new NotBlank([
-                        'message' => 'vous devez selectionner au moins une images',
+                        'message' => 'Le fichier ne peut pas être vide.',
                     ]),
-                ],
+                ]),
             ])
             ->add('file2', FileType::class, [
-                'label' => 'Images 2 de l\'offre' ,
+                'label' => 'Image 2 de l\'offre' ,
                 'required' => false,
             ])
             ->add('file3', FileType::class, [
-                'label' => 'Images 3 de l\'offre' ,
+                'label' => 'Image 3 de l\'offre' ,
                 'required' => false,
             ])
             ->add('file4', FileType::class, [
-                'label' => 'Images 4 de l\'offre' ,
+                'label' => 'Image 4 de l\'offre' ,
                 'required' => false,
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
@@ -139,5 +139,12 @@ class OfferType extends AbstractType
                 }
                 $event->setData($data);
             });
+    }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'isModify' => false,
+        ]);
+        $resolver->setAllowedTypes('isModify', 'bool');
     }
 }

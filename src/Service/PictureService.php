@@ -60,8 +60,4 @@ class PictureService
 
         return $file;
     }
-
-    public function delete(string $fichier, ?string $folder = '', ?int $width = 250, ?int $height = 250)
-    {
-    }
 }
