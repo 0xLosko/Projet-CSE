@@ -10,29 +10,31 @@
     <div class="partner-con">
         <h1>Nos partenaires</h1>
         <div class="partner-items-con">
-            <div>
-                {% set i = 0 %}
-                {% for partner in partners %}
-                    {% set i = i + 1 %}
-                    <div class="partner-items">
-                        <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile())}}" alt="{{ asset(partner.getIdFile().getAltFile()) }}">
-                        <p>"{{ partner.description }}"</p>
-                        <div>
-                            <h2>{{ partner.name }}</h2>
-                            <img src="{{ asset('images/Vectorlink.svg') }}" onclick="location.href = '{{ partner.link }}'">
+            {% if partners != null %}
+                <div>
+                    {% set i = 0 %}
+                    {% for partner in partners %}
+                        {% set i = i + 1 %}
+                        <div class="partner-items">
+                            <img class="partner-img" src="{{ asset(partner.getIdFile().getPathFile())}}" alt="{{ asset(partner.getIdFile().getAltFile()) }}">
+                            <p>"{{ partner.description }}"</p>
+                            <div>
+                                <h2>{{ partner.name }}</h2>
+                                <img src="{{ asset('images/Vectorlink.svg') }}" onclick="location.href = '{{ partner.link }}'">
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="view-more">
-                {% if i == 9 %}
-                    <a class="view-more" href="{{ path('partnership-all')}}">Voir plus</a>
-                {% else %}
-                    <a class="view-more" href="{{ path('partnership') }}">Voir moins</a>
-                {% endif %}
-            </div>
-
+                    {% endfor %}
+                </div>
+                <div class="view-more">
+                    {% if i == 9 %}
+                        <a class="view-more" href="{{ path('partnership-all')}}">Voir plus</a>
+                    {% else %}
+                        <a class="view-more" href="{{ path('partnership') }}">Voir moins</a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>aucun partenaire n'est actuellement disponible</p>
+            {% endif %}
         </div>
-
     </div>
 {% endblock %}

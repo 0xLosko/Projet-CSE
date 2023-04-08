@@ -24,6 +24,10 @@ class PartnershipController extends AbstractController
     {
         $partners = $em->getRepository(Partner::class)->getPartners(true);
 
+        if(count($partners) == 0){
+            $partners = null;
+        }
+
         return $this->render('partnership/index.html.twig', [
             'partners' => $partners,
         ]);
