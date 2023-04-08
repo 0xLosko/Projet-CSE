@@ -1,0 +1,22 @@
+<button id="openModal" class="add-btn">Modifier la question</button>
+
+<div id="editQuestion" class="modal">
+    {% block javascripts %}
+        <script src="{{ asset('js/modal-edit-ques.js') }}"></script>
+    {% endblock %}
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Modifier la question du sondage</h2>
+        </div>
+        <div class="modal-body">
+            {{ form_start(questionForm) }}
+            {{ form_widget(questionForm.textQuestion, {'value' : activeQuestion.textQuestion, 'attr' : {'class' : 'textQuestion'}}) }}
+            <div>
+                <input type="submit" class="add-btn" value="Modifier"/>
+                <a class="add-btn" href="">Annuler</a>
+            </div>
+            {{ form_end(questionForm) }}
+        </div>
+    </div>
+</div>

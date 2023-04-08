@@ -1,0 +1,36 @@
+<div class="act-surv-con">
+    <div class="surv-con">
+    {% if activeQuestion != null %}
+        <div>
+            <h2>Sondage actif</h2>
+            {{ activeQuestion.getTextQuestion() }}
+            <div>
+                <ul>
+                    {% set proposals = [] %}
+                    {% for p in activeQuestion.getProposals() %}
+                        <li>{{ p.getTextProposal() }}</li>
+                        {% set proposals = proposals|merge([p]) %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="action">
+            {% include "security/backoffice/manage_survey/_edit.html.twig" %}
+            <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
+        </div>
+    </div>
+    <div class="statistic-active">
+        {% include "security/backoffice/manage_survey/statistics.html.twig" %}
+    </div>
+        {% else %}
+        <div>
+            <h2>Aucun sondage n'est actif</h2>
+        </div>
+
+        <div class="action">
+            <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
+        </div>
+    </div>
+    {% endif %}
+</div>

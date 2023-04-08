@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Answer;
+use App\Entity\Question;
 use App\Form\AnswerType;
+use App\Form\QuestionType;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,17 +52,29 @@ class AnswerSurveyController extends AbstractController
 
     #[Route('/backoffice/gerer-sondage', name: 'manage_survey')]
     public function manageSurvey(
+        Request $request,
         QuestionRepository $questionRepository,
     ): Response
     {
+        $session = $request->getSession();
         $activeQuestion = $questionRepository->findOneBy(
             array('available' => 1)
         );
         $surveys = $questionRepository->findAll();
 
+        $questionForm = $this->createForm(QuestionType::class);
+        $questionForm->handleRequest($request);
+        if($questionForm->isSubmitted() && $questionForm->isValid()) {
+            $activeQuestion->setTextQuestion($questionForm->getData()->getTextQuestion());
+            // try catch
+            $questionRepository->save($activeQuestion, true);
+            $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
+        }
+
         return $this->render('security/backoffice/manage_survey/index.html.twig', [
             'activeQuestion' => $activeQuestion,
             'surveys' => $surveys,
+            'questionForm' => $questionForm,
         ]);
     }
 
@@ -111,19 +124,36 @@ class AnswerSurveyController extends AbstractController
             array('available' => 1)
         );
         $activeQuestion->setAvailable(0);
+        // try catch
         $questionRepository->save($activeQuestion, true);
         $session->getFlashBag()->add('success', 'Le sondage a bien été désactivé.');
 
         return $this->redirectToRoute('manage_survey');
     }
 
-    #[Route('/backoffice/gerer-sondage/statistique', name: 'statistic_survey')]
+    // premet de consulter les stats de n'importe quel sondage
+    #[Route('/backoffice/gerer-sondage/{id}', name: 'show_survey')]
     public function statisticSurvey(
+        int $id,
         Request $request,
-        AnswerRepository $answerRepository,
+        QuestionRepository $questionRepository,
     ): Response
     {
-        return $this->render('security/backoffice/manage_survey/statistic.html.twig', [
+        $session = $request->getSession();
+        $selectedQuestion = $questionRepository->findOneBy(['id'=>$id]);
+
+        $questionForm = $this->createForm(QuestionType::class);
+        $questionForm->handleRequest($request);
+        if($questionForm->isSubmitted() && $questionForm->isValid()) {
+            $selectedQuestion->setTextQuestion($questionForm->getData()->getTextQuestion());
+            // try catch
+            $questionRepository->save($selectedQuestion, true);
+            $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
+        }
+
+        return $this->render('security/backoffice/manage_survey/one_survey.html.twig', [
+            'activeQuestion' => $selectedQuestion,
+            'questionForm' => $questionForm,
         ]);
     }
 }

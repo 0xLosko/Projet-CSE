@@ -7,45 +7,7 @@
 
 {% block content %}
     <div class="home-con">
-        <div>
-            <h1>Gérer le sondage</h1>
-        </div>
-        <div class="act-surv-con">
-            <div class="surv-con">
-            {% if activeQuestion != null %}
-                <div>
-                    <h2>Sondage actif</h2>
-                    {{ activeQuestion.getTextQuestion() }}
-                    <div>
-                        <ul>
-                            {% set proposals = [] %}
-                            {% for p in activeQuestion.getProposals() %}
-                                <li>{{ p.getTextProposal() }}</li>
-                                {% set proposals = proposals|merge([p]) %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="action">
-                    {# besoin ajout route modif question #}
-                    <a class="add-btn" href="">Modifier la question du sondage</a>
-                </div>
-            </div>
-            <div class="statistic-active">
-                {% include "security/backoffice/manage_survey/statistics.html.twig" %}
-            </div>
-                {% else %}
-                <div>
-                    <h2>Aucun sondage n'est actif</h2>
-                </div>
-
-                <div class="action">
-                    <a class="add-btn" href="{{ path('new_survey') }}">Ajouter un sondage</a>
-                </div>
-            </div>
-            {% endif %}
-        </div>
+        {% include "security/backoffice/manage_survey/_details_survey.html.twig" %}
 
         <table class="table">
             <thead>
@@ -56,8 +18,8 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
-            </tbody>
             {% for survey in surveys %}
                 <tr>
                     <td>{{ survey.textQuestion() }}</td>
@@ -69,12 +31,11 @@
                     <td>{{ survey.dateQuestion()|date("m/d/Y") }}</td>
                     <td>
                         <div class="btn-con">
-                            <a href="">Détails</a>
+                            <a href="{{ path('show_survey', {'id': survey.id}) }}">Détails</a>
                         {% if survey.available() %}
                             <a href="{{ path('t_off_survey') }}">Désactiver</a>
                         {% else %}
                             <a href="{{ path('t_on_survey', {'id': survey.id}) }}">Activer</a>
-                            {# path('route_name', {'id': survey.id}) #}
                         {% endif %}
                         </div>
                     </td>

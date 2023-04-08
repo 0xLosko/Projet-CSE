@@ -1,12 +1,74 @@
 .act-surv-con{
     display: flex;
     margin-bottom: 50px;
+    align-items: center;
 }
 
-.surv-con{
-    margin-top: 10%;
+.act-surv-con .add-btn{
+    margin-top: 30px;
+    margin-bottom: 0;
 }
 
 .statistic-active{
     margin-left: 100px;
+}
+
+@media(max-width: 992px){
+    .act-surv-con{
+        flex-direction: column;
+    }
+
+    .statistic-active{
+        margin: 0;
+    }
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content{
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+@-webkit-keyframes animatetop{
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+@keyframes animatetop{
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+.modal-header{
+    background-color: #1b3168;
+    color: #fff;
+    padding: 2px 16px;
+    margin-bottom: 10px;
+}
+.modal-body{
+    padding: 2px 16px;
+}
+.modal-body form div{
+    flex-direction: row;
+}
+.modal-body form .add-btn{
+    margin: 0;
 }
