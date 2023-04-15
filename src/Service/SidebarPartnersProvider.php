@@ -13,12 +13,12 @@ class SidebarPartnersProvider
     {
         $this->entityManager = $entityManager;
     }
-    public function getRandomPartners() : array
+    public function getRandomPartners()
     {
         $partners = $this->entityManager->getRepository(Partner::class)->findAll();
 
         if(count($partners) < 3) {
-            $partners = ['0' => 'error'];
+            $partners = null;
         } else {
             $randomKeys = array_rand($partners, 3);
             foreach($partners as $key => $partner){

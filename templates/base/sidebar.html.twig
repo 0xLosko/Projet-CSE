@@ -45,7 +45,7 @@
     </div>
 
     <div class="sidebar-items-con">
-        {% if rdmPartners is defined and rdmPartners[0] != 'error' %}
+        {% if rdmPartners is defined and rdmPartners != null %}
             <h2>Nos partenaires</h2>
             <div class="car-con">
                 {% for partner in rdmPartners %}
