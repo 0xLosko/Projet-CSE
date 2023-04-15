@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Form\FormEvent;
@@ -88,6 +89,10 @@ class OfferType extends AbstractType
                     new NotBlank([
                         'message' => 'La date de fin ne peut pas être vide',
                     ]),
+                    new GreaterThanOrEqual([
+                        'propertyPath' => 'parent.all[startDateDisplay].data',
+                        'message' => 'La date de fin ne peut pas être inférieur à la date de début',
+                    ]),
                 ],
             ])
             ->add('startDateValid', DateType::class, [
@@ -99,6 +104,15 @@ class OfferType extends AbstractType
                 'label' => false,
                 'widget' => 'single_text',
                 'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'La date de fin ne peut pas être vide',
+                    ]),
+                    new GreaterThanOrEqual([
+                        'propertyPath' => 'parent.all[startDateValid].data',
+                        'message' => 'La date de fin ne peut pas être inférieur à la date de début',
+                    ]),
+                ],
             ])
             ->add('numberPlaces', IntegerType::class, [
                 'label' => 'Nombre de places',

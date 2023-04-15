@@ -52,3 +52,20 @@ table {
     background-color: #B6A886;
     border-radius: 8px;
 }
+
+@media only screen and (max-width: 1000px) {
+    .main-con{
+        flex-direction: column;
+        max-width: 95%;
+    }
+    .main-con>div{
+        width: 100%;
+        padding: 0;
+    }
+    .sidebar-con{
+        display: flex;
+        width: 100%!important;
+        flex-direction: row;
+    }
+}
+

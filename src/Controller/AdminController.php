@@ -24,6 +24,7 @@ class AdminController extends AbstractController
             'admins' => $allAdmins,
         ]);
     }
+
     #[Route('backoffice/gerer-les-administrateurs/nouveau', name: 'app_admin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {

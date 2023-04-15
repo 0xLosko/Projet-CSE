@@ -111,3 +111,24 @@
 .proposal div input{
     width: auto;
 }
+
+@media only screen and (max-width: 1000px) {
+    .sidebar-con{
+        margin-top: 40px;
+    }
+    .sidebar-items-con{
+        margin: 5px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .sidebar-con>div:last-of-type {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebar-con>div:first-of-type {
+        display: none;
+    }
+}

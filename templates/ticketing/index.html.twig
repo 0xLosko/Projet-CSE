@@ -17,29 +17,33 @@
             <button type="submit">Filtrer</button>
         </form>
         <div class="offers-con">
-            {% for offer in Offers.data %}
-                <div class="offer-items">
-                    <div class="info-offer-con">
-                        <div class="info-offer-type"><p>{{ offer.typeOffer == 0 ? 'OFFRE PONCTUELLE' : 'OFFRE PERMANENTE' }}</p></div>
-                        <p>Publié le {{ offer.startDateDisplay|date("j/m/Y") }} - Du {{ offer.startDateValid|date("j/m/Y") }} au {{ offer.endDateValid|date("j/m/Y") }}</p>
+            {% if Offers.data is defined %}
+                {% for offer in Offers.data %}
+                    <div class="offer-items">
+                        <div class="info-offer-con">
+                            <div class="info-offer-type"><p>{{ offer.typeOffer == 0 ? 'OFFRE PONCTUELLE' : 'OFFRE PERMANENTE' }}</p></div>
+                            <p>Publié le {{ offer.startDateDisplay|date("j/m/Y") }} - Du {{ offer.startDateValid|date("j/m/Y") }} au {{ offer.endDateValid|date("j/m/Y") }}</p>
+                        </div>
+                        <div class="body-offer-items">
+                            <div class="title-offer"><h3>{{ offer.titleOffer }}</h3></div>
+                            <div><p>{{ offer.descriptionOffer }}</p></div>
+                        </div>
+                        <div class="footer-offer-items">
+                            <a href="{{ path('showOffer', {'id': offer.id}) }}">EN SAVOIR PLUS ></a>
+                        </div>
                     </div>
-                    <div class="body-offer-items">
-                        <div class="title-offer"><h3>{{ offer.titleOffer }}</h3></div>
-                        <div><p>{{ offer.descriptionOffer }}</p></div>
-                    </div>
-                    <div class="footer-offer-items">
-                        <a href="{{ path('showOffer', {'id': offer.id}) }}">EN SAVOIR PLUS ></a>
-                    </div>
-                </div>
-            {% endfor %}
-            {% set path = 'ticketing' %}
-            {% set pages = Offers.pages %}
-            {% set currentPage = Offers.page %}
-            {% if typeOffers != 3 %}
-                {% set pathParams = {typeoffre: typeOffers} %}
-                {% set path = path ~ '?' ~ pathParams|url_encode %}
+                {% endfor %}
+                {% set path = 'ticketing' %}
+                {% set pages = Offers.pages %}
+                {% set currentPage = Offers.page %}
+                {% if typeOffers != 3 %}
+                    {% set pathParams = {typeoffre: typeOffers} %}
+                    {% set path = path ~ '?' ~ pathParams|url_encode %}
+                {% endif %}
+                {% include "base/pagination.html.twig" %}
+            {% else %}
+                <p>Pas d'offre disponible pour le moment.</p>
             {% endif %}
-            {% include "base/pagination.html.twig" %}
         </div>
     </div>
 {% endblock %}
