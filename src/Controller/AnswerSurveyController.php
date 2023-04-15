@@ -14,10 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnswerSurveyController extends AbstractController
 {
     #[Route('/answerSurvey', name: 'answer', methods:"POST")]
-    public function index(
-        EntityManagerInterface $em, 
-        Request $request,
-        QuestionRepository $questionRepository)
+    public function index(EntityManagerInterface $em, Request $request, QuestionRepository $questionRepository)
     {
         $session = $request->getSession();
         $answer = new Answer();
