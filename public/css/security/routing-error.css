@@ -1,0 +1,24 @@
+.error-con{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding-left: 17px;
+}
+.error-con h1{
+    font-size: 1.5rem;
+}
+.error-con p{
+    margin: 20px 0;
+}
+.error-con button{
+    text-align: center;
+    border: 0;
+    width: fit-content;
+    padding: 5px 15px;
+    cursor: pointer;
+    height: 32px;
+    border-radius: 7px;
+    color: black;
+}
