@@ -39,6 +39,15 @@ class NewsletterRegistrationRepository extends ServiceEntityRepository
         }
     }
 
+    public function getEligibleEmail(): array
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('n.emailSubscriber')
+            ->from('App\Entity\NewsletterRegistration', 'n');
+
+        return $query->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return NewsletterRegistration[] Returns an array of NewsletterRegistration objects
 //     */

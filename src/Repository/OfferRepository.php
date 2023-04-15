@@ -88,14 +88,4 @@ class OfferRepository extends ServiceEntityRepository
         $result['limit'] = $limit;
         return $result;
     }
-
-//    public function findOneBySomeField($value): ?Offer
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
