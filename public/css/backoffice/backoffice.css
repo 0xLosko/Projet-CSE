@@ -5,7 +5,7 @@ body{
     margin-top: 50px!important;
     gap: 10%;
 }
-.sidebar-con{
+.sidebar-con-admin{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@ body{
     min-height: 400px;
     padding: 20px 20px;
 }
-.sidebar-con div{
+.sidebar-con-admin div{
     width: 100%;
     height: 40px;
     border-radius: 11px;
@@ -28,10 +28,10 @@ body{
     align-items: center;
     padding-left: 10px;
 }
-.sidebar-con div>a{
+.sidebar-con-admin div>a{
     color: #FFFFFF;
 }
-.sidebar-con div:hover{
+.sidebar-con-admin div:hover{
     background-color: #344b82;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -44,4 +44,16 @@ body{
 }
 .active_sb{
     background-color: #344b82;
+}
+
+@media only screen and (max-width: 1000px) {
+    .sidebar-con-admin{
+        margin-bottom: 40px;
+        gap: 15px;
+        padding: 20px 20px!important;
+        min-height: fit-content;
+    }
+    .sidebar-con-admin div{
+        padding: 0;
+    }
 }

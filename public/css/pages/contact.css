@@ -90,3 +90,33 @@ input[type=checkbox] {
     min-width: 0!important;
     margin: 5px 0 5px 24%;
 }
+
+@media screen and (max-width: 1000px){
+    .form-row{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: fit-content;
+    }
+    .form-row label{
+        width: 95%;
+        text-align: left!important;
+    }
+    .checkbox-con div{
+        flex-direction: column;
+    }
+    .form-con textarea, input {
+        width: 100%;
+        min-width: 250px;
+    }
+    .submit-con form-row div{
+        width: 100%;
+    }
+    .captcha-con div{
+        margin: 10px 20px;
+    }
+    .submit-con div{
+        margin: 10px 20px;
+    }
+}
