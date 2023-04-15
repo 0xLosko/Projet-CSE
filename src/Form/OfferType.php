@@ -105,9 +105,6 @@ class OfferType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'La date de fin ne peut pas être vide',
-                    ]),
                     new GreaterThanOrEqual([
                         'propertyPath' => 'parent.all[startDateValid].data',
                         'message' => 'La date de fin ne peut pas être inférieur à la date de début',

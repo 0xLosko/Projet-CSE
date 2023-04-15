@@ -10,6 +10,7 @@ use App\Form\OfferType;
 use App\Repository\FileRepository;
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
+use App\Service\OfferEmailService;
 use App\Service\PictureService;
 use ContainerOMrWo3x\getOfferRepositoryService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,7 +60,7 @@ class TicketingController extends AbstractController
         ]);
     }
     #[Route('backoffice/gerer-les-offres/nouvelle-offre', name: 'app_offer_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OfferRepository $offerRepository, PictureService $pictureService): Response
+    public function new(Request $request, OfferRepository $offerRepository, PictureService $pictureService, OfferEmailService $emailService): Response
     {
         $offer = new Offer();
         $form = $this->createForm(OfferType::class);
@@ -87,6 +88,8 @@ class TicketingController extends AbstractController
                     $pictureService->add($response['file'.$i], null, null , $offer);
                 }
             }
+            //send email
+            $emailService->sendOfferEmail($offer, false);
 
             return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
         }
@@ -98,7 +101,7 @@ class TicketingController extends AbstractController
     }
 
     #[Route('backoffice/gerer-les-offres/{id}/modifier', name: 'app_offer_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository , EntityManagerInterface $em,PictureService $pictureService): Response
+    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository , EntityManagerInterface $em, PictureService $pictureService, OfferEmailService $emailService): Response
     {
         $relatedFiles = $em->getRepository(File::class)->findBy(['offer' => $offer]);
         $form = $this->createForm(OfferType::class,null,[
@@ -137,6 +140,9 @@ class TicketingController extends AbstractController
             $offer->setStartDateValid($response['startDateValid']);
             $offer->setEndDateValid($response['endDateValid']);
             $offerRepository->save($offer, true);
+
+            //send email
+            $emailService->sendOfferEmail($offer, true);
 
             return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
         }
