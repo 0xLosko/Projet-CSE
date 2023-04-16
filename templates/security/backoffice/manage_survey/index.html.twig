@@ -1,5 +1,47 @@
 {% extends './security/backoffice/base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_manage_survey.css') }}">
+{% endblock %}
+
 {% block content %}
-    {{ test }}
+    <div class="home-con">
+        {% include "security/backoffice/manage_survey/_details_survey.html.twig" %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Propositions</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for survey in surveys %}
+                <tr>
+                    <td>{{ survey.textQuestion() }}</td>
+                    <td>
+                    {% for proposal in survey.getProposals() %}
+                        <p>{{ proposal.textProposal() }}</p>
+                    {% endfor %}
+                    </td>
+                    <td>{{ survey.dateQuestion()|date("m/d/Y") }}</td>
+                    <td>
+                        <div class="btn-con">
+                            <a href="{{ path('show_survey', {'id': survey.id}) }}">Détails</a>
+                        {% if survey.available() %}
+                            <a href="{{ path('t_off_survey') }}">Désactiver</a>
+                        {% else %}
+                            <a href="{{ path('t_on_survey', {'id': survey.id}) }}">Activer</a>
+                        {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

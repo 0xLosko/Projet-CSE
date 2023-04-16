@@ -1,0 +1,19 @@
+{% extends './security/backoffice/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_manage_survey.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="home-con">
+        <div>
+            <h1>Gérer le sondage</h1>
+        </div>
+        {% include "security/backoffice/manage_survey/_details_survey.html.twig" %}
+
+        <div class="return-link">
+            <a href="{{ path('manage_survey') }}">< Retourner aux sondages</a>
+        </div>
+    </div>
+{% endblock %}

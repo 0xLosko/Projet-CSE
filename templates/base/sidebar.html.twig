@@ -1,4 +1,5 @@
 <div class="sidebar-con">
+    {% if form != null %}
     <div class="survey">
         <h2>Votre avis compte</h2>
         <div class="survey-content">
@@ -25,6 +26,7 @@
             </div>
         {% endfor %}
     </div>
+    {% endif %}
 
     <div class="sidebar-items-con">
         <h2>Accès rapide</h2>
