@@ -47,6 +47,14 @@ class AnswerSurveyController extends AbstractController
         return $this->redirect($refererPathInfo);
     }
 
+    #[Route('/statistiques-sondage', name: 'view_stats_survey', methods:'GET')]
+    public function viewStats(QuestionRepository $questionRepository): Response
+    {
+        return $this->render('survey/_result_survey.html.twig', [
+            'survey' => $questionRepository->getActiveSurvey(),
+        ]);
+    }
+
     #[Route('/backoffice/gerer-sondage', name: 'manage_survey')]
     public function manageSurvey(
         Request $request,
