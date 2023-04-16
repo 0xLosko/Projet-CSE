@@ -73,6 +73,18 @@ class AnswerSurveyController extends AbstractController
             $questionRepository->save($activeQuestion, true);
             $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
         }
+        $session = $request->getSession();
+        $activeQuestion = $questionRepository->getActiveSurvey();
+        $surveys = $questionRepository->findAll();
+
+        $questionForm = $this->createForm(QuestionType::class);
+        $questionForm->handleRequest($request);
+        if($questionForm->isSubmitted() && $questionForm->isValid()) {
+            $activeQuestion->setTextQuestion($questionForm->getData()->getTextQuestion());
+            // try catch
+            $questionRepository->save($activeQuestion, true);
+            $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
+        }
 
         return $this->render('security/backoffice/manage_survey/index.html.twig', [
             'activeQuestion' => $activeQuestion,
@@ -173,6 +185,9 @@ class AnswerSurveyController extends AbstractController
 
         return $this->render('security/backoffice/manage_survey/one_survey.html.twig', [
             'activeQuestion' => $selectedQuestion,
+            'questionForm' => $questionForm,
+            'activeQuestion' => $activeQuestion,
+            'surveys' => $surveys,
             'questionForm' => $questionForm,
         ]);
     }
