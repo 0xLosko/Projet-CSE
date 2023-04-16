@@ -1,10 +1,42 @@
 {% extends "security/backoffice/base.html.twig" %}
 
-{% block content %}
-{# formulaire question #}
-{# formulaire propositions #}
-<div class="return-link">
-    <a href="{{ path('manage_survey') }}">< Retourner au sondage</a>
-</div>
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/backoffice/bo_manage_survey.css') }}">
+{% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/add-proposal.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="home-con">
+    <div class="surv-con">
+        {{ form_start(form) }}
+            {{ form_row(form.textQuestion, {'value' : survey.textQuestion|default()}) }}
+            <ul class="proposals" 
+                data-index="0" 
+                data-prototype="{{ form_widget(form.proposals.vars.prototype)|e('html_attr')}}"
+            >
+                {{ form_row(form.proposals) }}
+            </ul>
+            <div style="display:flex; flex-direction:row;">
+                {{ form_label(form.available) }}
+                {{ form_widget(form.available, {'value' : survey.proposal|default()}) }}
+            </div>
+            <button type="button" class="add_item_link" data-collection-holder-class="proposals">
+                Ajouter une proposition
+            </button>
+            <div class="act">
+                <a href="" class="add-btn">Réinitialiser le formulaire</a>
+                <input type="submit" class="add-btn" value="Enregistrer ce sondage"/>
+            </div>
+        {{ form_end(form) }}
+        {{ error }}
+    </div>
+
+    <div class="return-link">
+        <a href="{{ path('manage_survey') }}">< Retourner au sondage</a>
+    </div>
+</div>
 {% endblock %}

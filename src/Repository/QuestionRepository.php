@@ -39,6 +39,24 @@ class QuestionRepository extends ServiceEntityRepository
         }
     }
 
+    public function getActiveSurvey(): ?Question
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.available = 1')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function unactiveSurvey(): void
+    {
+        $survey = $this->getActiveSurvey();
+        if ($survey != null) {
+            $survey->setAvailable(false);
+            $this->save($survey, true);
+        }
+    }
+
 //    /**
 //     * @return Question[] Returns an array of Question objects
 //     */

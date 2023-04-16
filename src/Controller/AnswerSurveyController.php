@@ -6,7 +6,7 @@ use App\Entity\Answer;
 use App\Entity\Question;
 use App\Form\AnswerType;
 use App\Form\QuestionType;
-use App\Repository\AnswerRepository;
+use App\Form\SurveyType;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,19 +18,16 @@ class AnswerSurveyController extends AbstractController
 {
     #[Route('/answerSurvey', name: 'answer', methods:"POST")]
     public function index(
-        EntityManagerInterface $em, 
+        EntityManagerInterface $em,
         Request $request,
         QuestionRepository $questionRepository
     ): Response
     {
         $session = $request->getSession();
         $answer = new Answer();
-        $activeQuestion = $questionRepository->findOneBy(
-            array('available' => 1)
-        );
 
         $form = $this->createForm(AnswerType::class, $answer, [
-            'question' => $activeQuestion
+            'question' => $questionRepository->getActiveSurvey()
         ]);
         $form->handleRequest($request);
 
@@ -57,9 +54,7 @@ class AnswerSurveyController extends AbstractController
     ): Response
     {
         $session = $request->getSession();
-        $activeQuestion = $questionRepository->findOneBy(
-            array('available' => 1)
-        );
+        $activeQuestion = $questionRepository->getActiveSurvey();
         $surveys = $questionRepository->findAll();
 
         $questionForm = $this->createForm(QuestionType::class);
@@ -80,11 +75,39 @@ class AnswerSurveyController extends AbstractController
 
     #[Route('/backoffice/gerer-sondage/nouveau-sondage', name: 'new_survey')]
     public function newSurvey(
+        QuestionRepository $questionRepository,
         Request $request,
-        AnswerRepository $answerRepository,
     ): Response
     {
-        return $this->render('security/backoffice/manage_survey/new.html.twig');
+        $session = $request->getSession();
+        $error = "";
+        $survey = new Question();
+
+        $form = $this->createForm(SurveyType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $survey = $form->getData();
+            if (sizeof($survey->getProposals()) >= 2) {
+                if ($survey->isAvailable() == true && $questionRepository->getActiveSurvey() != null) {
+                    $questionRepository->unactiveSurvey();
+                }
+                $survey->setDateQuestion(new \DateTime('@'.strtotime('now')));
+                $questionRepository->save($survey, true);
+                $session->getFlashBag()->add('success', 'L\'enregistrement du sondage a été effectuée.');
+
+                return $this->redirectToRoute('new_survey');
+            }
+            else {
+                $error = "Un sondage doit comporter au moins 2 propositions.";
+            }
+        }
+
+        return $this->render('security/backoffice/manage_survey/new.html.twig', [
+            'form' => $form->createView(),
+            'surey' => $survey,
+            'error' => $error,
+        ]);
     }
 
     #[Route('/backoffice/gerer-sondage/{id}/activer', name: 't_on_survey')]
@@ -96,13 +119,7 @@ class AnswerSurveyController extends AbstractController
     {
         $session = $request->getSession();
         // désactiver le sondage actif
-        $activeQuestion = $questionRepository->findOneBy(
-            array('available' => 1)
-        );
-        if($activeQuestion != null) {
-            $activeQuestion->setAvailable(0);
-            $questionRepository->save($activeQuestion, true);
-        }
+        $questionRepository->unactiveSurvey();
 
         $newActive = $questionRepository->findOneBy(['id' => $id]);
         $newActive->setAvailable(1);
@@ -120,12 +137,7 @@ class AnswerSurveyController extends AbstractController
     ): Response
     {
         $session = $request->getSession();
-        $activeQuestion = $questionRepository->findOneBy(
-            array('available' => 1)
-        );
-        $activeQuestion->setAvailable(0);
-        // try catch
-        $questionRepository->save($activeQuestion, true);
+        $questionRepository->unactiveSurvey();
         $session->getFlashBag()->add('success', 'Le sondage a bien été désactivé.');
 
         return $this->redirectToRoute('manage_survey');
