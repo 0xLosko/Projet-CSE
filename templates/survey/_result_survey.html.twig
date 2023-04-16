@@ -2,67 +2,77 @@
 
 {% block content %}
     <div class="home-con">
-        <div class="act-surv-con">
-            <div class="surv-con">
-                <div>
-                    <h2>Sondage actif</h2>
-                    <p>
-                        {{ survey.getTextQuestion() }}
-                    </p>
+        {% set count = 0 %}
+        {% for p in survey.getProposals() %}
+            {% set count = count + p.answers|length %}
+        {% endfor %}
+
+        {% if count != 0 %}
+            <div class="act-surv-con">
+                <div class="surv-con">
                     <div>
-                        <ul>
-                            {% set proposals = [] %}
-                            {% for p in survey.getProposals() %}
-                                <li>{{ p.getTextProposal() }}</li>
-                                {% set proposals = proposals|merge([p]) %}
-                            {% endfor %}
-                        </ul>
+                        <h2>Sondage actif</h2>
+                        <p>
+                            {{ survey.getTextQuestion() }}
+                        </p>
+                        <div>
+                            <ul>
+                                {% set proposals = [] %}
+                                {% for p in survey.getProposals() %}
+                                    <li>{{ p.getTextProposal() }}</li>
+                                    {% set proposals = proposals|merge([p]) %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="statistic-active">
+                    {% set jsProposals = {} %}
+                    {% set emptyAnswer = true %}
+                    {% for proposal in proposals %}
+                        {% set temp = 0 %}
+                        {% set prop = proposal.getTextProposal() %}
+                        {% for answer in proposal.getAnswers() %}
+                            {% set temp = temp + 1 %}
+                        {% endfor %}
+                        {% set jsProposals = jsProposals|merge({(prop): temp}) %}
+                        {% if temp != 0 %}
+                            {% set emptyAnswer = false %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <div>
+                        {% if emptyAnswer == true %}
+                            <p>Aucune réponse n'a encore été fournie</p>
+                        {% endif %}
+                        <canvas id="doughnut"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="statistic-active">
-                {% set jsProposals = {} %}
-                {% set emptyAnswer = true %}
-                {% for proposal in proposals %}
-                    {% set temp = 0 %}
-                    {% set prop = proposal.getTextProposal() %}
-                    {% for answer in proposal.getAnswers() %}
-                        {% set temp = temp + 1 %}
-                    {% endfor %}
-                    {% set jsProposals = jsProposals|merge({(prop): temp}) %}
-                    {% if temp != 0 %}
-                        {% set emptyAnswer = false %}
-                    {% endif %}
-                {% endfor %}
 
-                <div>
-                    {% if emptyAnswer == true %}
-                        <p>Aucune réponse n'a encore été fournie</p>
-                    {% endif %}
-                    <canvas id="doughnut"></canvas>
-                </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const data = {{ jsProposals|json_encode()|raw }};
+                const labels = Object.keys(data);
+                const values = Object.values(data);
+                const ctx = document.getElementById('doughnut');
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '# de Votes',
+                            data: values,
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            </script>
+        {% else %}
+            <div>
+                <h2>Aucune réponse n'a été donnée</h2>
             </div>
-        </div>
+        {% endif %}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        const data = {{ jsProposals|json_encode()|raw }};
-        const labels = Object.keys(data);
-        const values = Object.values(data);
-        const ctx = document.getElementById('doughnut');
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '# de Votes',
-                    data: values,
-                    borderWidth: 1
-                }]
-            }
-        });
-    </script>
 {% endblock %}

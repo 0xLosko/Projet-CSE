@@ -134,10 +134,12 @@
 }
 
 .action-btn{
+    background-color: #fff;
     text-align: center;
     border: 0;
     width: 114px;
     height: 32px;
     border-radius: 7px;
     color: black;
+    font-size: 14px;
 }
