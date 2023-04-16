@@ -27,19 +27,19 @@ td{
     margin: 0;
 }
 .btn-con a, button, .add-btn, .btn{
-     font-family: 'Montserrat';
-     background-color: rgba(51, 51, 51, 0.05);
-     border-radius: 8px;
-     border-width: 0;
-     color: #333333;
-     cursor: pointer;
-     display: inline-block;
-     font-size: 14px;
-     font-weight: 500;
-     line-height: 20px;
-     list-style: none;
-     padding: 10px 12px;
-     text-align: center;
+    font-family: 'Montserrat';
+    background-color: rgba(51, 51, 51, 0.05);
+    border-radius: 8px;
+    border-width: 0;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 10px 12px;
+    text-align: center;
 }
 
 .add-btn{
