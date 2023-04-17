@@ -32,5 +32,5 @@ ici jdd
 ## Contributeurs
 
 * **Losko** - *Full stack* - [GITHUB](https://github.com/0xLosko)
-* **Tducrocq** - *Full stack* - [GITHUB](https://github.com/PurpleBooth)
+* **Tducrocq** - *Full stack* - [GITHUB](https://github.com/Tdcrq)
 
