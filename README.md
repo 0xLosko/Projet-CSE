@@ -11,7 +11,6 @@ L’application permet aux visiteurs du site d’obtenir des informations sur le
 
 
 ## Prérequis
-
 - PHP 8.1 ou une version supérieure.
 
 - Composer : Composer est un gestionnaire de dépendances pour PHP. Vous pouvez télécharger Composer à partir de getcomposer.org.
@@ -23,13 +22,26 @@ L’application permet aux visiteurs du site d’obtenir des informations sur le
 Une fois que vous avez installé les prérequis ci-dessus, vous pouvez suivre les instructions d'installation spécifiques pour votre application Symfony.
 
 ## Installation
-```
-Give examples
-```
+Voici les étapes pour installer l'application :
+
+1. [Téléchargez le zip à partir de Git](https://github.com/Projet-CSE/archive/main.zip) et décompressez-le dans le répertoire de votre choix.
+
+2. Ouvrez un terminal et accédez au répertoire du projet décompressé.
+
+3. Lancez la commande `composer install` pour installer les dépendances requises pour l'application.
+
+4. Si nécessaire, modifiez le fichier `.env` pour fournir les informations de connexion correctes à votre base de données.
+
+5. Lancez la commande "php bin/console doctrine:database:create" pour créer la base de données.
+
+6. Ensuite, lancez la commande "php bin/console doctrine:migrations:migrate" pour exécuter les migrations.
+
+7. Pour démarrer le serveur Symfony, exécutez la commande `symfony server:start`.
+
+Après avoir exécuté ces étapes, vous devriez être en mesure d'accéder à l'application en ouvrant votre navigateur Web et en visitant `http://localhost:8000` (ou une autre adresse fournie par Symfony).
 
 
 ## Jeu de données
-
 ici jdd
 
 
