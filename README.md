@@ -12,15 +12,20 @@ L’application permet aux visiteurs du site d’obtenir des informations sur le
 
 ## Prérequis
 
-What things you need to install the software and how to install them
+- PHP 8.1 ou une version supérieure.
 
+- Composer : Composer est un gestionnaire de dépendances pour PHP. Vous pouvez télécharger Composer à partir de getcomposer.org.
+
+- MySQL : Symfony utilise une base de données relationnelle pour stocker les données de l'application. Vous pouvez installer MySQL à partir de mysql.com.
+
+- Un serveur Web : Symfony peut être exécuté sur n'importe quel serveur Web compatible avec PHP, tel que Apache ou Nginx. Si vous n'en avez pas déjà un installé, vous pouvez installer Wamp (pour Windows), Mamp (pour Mac) ou Xampp (pour Windows, Mac et Linux).
+
+Une fois que vous avez installé les prérequis ci-dessus, vous pouvez suivre les instructions d'installation spécifiques pour votre application Symfony.
+
+## Installation
 ```
 Give examples
 ```
-
-## Installation
-
-ici install
 
 
 ## Jeu de données
