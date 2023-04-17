@@ -67,10 +67,5 @@
                 <div class="submit-con form-row"> {{ form_row(form.submit) }}</div>
             {{ form_end(form) }}
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="form-row">
-                {{ message }}
-            </div>
-        {% endfor %}
     </div>
 {% endblock %}

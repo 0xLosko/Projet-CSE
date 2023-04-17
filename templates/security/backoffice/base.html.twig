@@ -8,6 +8,7 @@
             <link rel="stylesheet" href="{{ asset('css/layout/nav.css') }}">
             <link rel="stylesheet" href="{{ asset('css/backoffice/bo_table.css') }}">
             <link rel="stylesheet" href="{{ asset('css/backoffice/bo_form.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/layout/toasts.css') }}">
             <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
         {% endblock %}
         {% block javascripts %}
@@ -41,6 +42,7 @@
             </div>
             {% block content %}
             {% endblock %}
+            {% include "./base/toasts.html.twig" %}
         </div>
     {% endblock %}
 </html>

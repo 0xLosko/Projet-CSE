@@ -30,7 +30,6 @@ class ContactController extends AbstractController
             $entityManager->persist($responseContact);
             $entityManager->flush();
             $form = $this->createForm(ContactFormType::class); // réinitialiser le formulaire
-            $session = $request->getSession();
 
             if ($data["subscribeToNewsletter"] == true) {
                 $subscriber = new NewsletterRegistration();
@@ -42,7 +41,7 @@ class ContactController extends AbstractController
                 $entityManager->flush();
             }
 
-            $session->getFlashBag()->add('success', 'Votre message a été envoyé avec succès.');
+            $this->addFlash('success', 'Votre message a été envoyé avec succès.');
         }
 
         return $this->render('contact/index.html.twig', [
@@ -51,7 +50,7 @@ class ContactController extends AbstractController
     }
 
     #[route(path: "backoffice/consulter-les-messages/", name:"manage_message")]
-    public  function viewMessages (Request $request, EntityManagerInterface $em): Response
+    public  function viewMessages (EntityManagerInterface $em): Response
     {
         $messages = $em->getRepository(ContactForm::class)->findAll();
 

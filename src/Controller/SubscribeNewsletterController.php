@@ -16,7 +16,6 @@ class SubscribeNewsletterController extends AbstractController
         Request $request)
     {
         $subscriber = new NewsletterRegistration();
-        $session = $request->getSession();
 
         $email = filter_var($request->request->get('email'), FILTER_VALIDATE_EMAIL);
         if($email) {
@@ -26,7 +25,7 @@ class SubscribeNewsletterController extends AbstractController
             // faire un try catch
             $em->persist($subscriber);
             $em->flush();
-            $session->getFlashBag()->add('success', 'Votre inscription a bien été effectuée.');
+            $this->addFlash('success', 'Votre inscription a bien été effectuée.');
         }
 
         $referer = $request->headers->get('referer');

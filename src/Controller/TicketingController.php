@@ -91,6 +91,8 @@ class TicketingController extends AbstractController
             //send email
             $emailService->sendOfferEmail($offer, false);
 
+            $this->addFlash('success', 'offre enregistré');
+
             return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -144,6 +146,8 @@ class TicketingController extends AbstractController
             //send email
             $emailService->sendOfferEmail($offer, true);
 
+            $this->addFlash('success', 'offre modifié');
+
             return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -169,6 +173,7 @@ class TicketingController extends AbstractController
                 $fileRepository->remove($rf, true);
             }
             $offerRepository->remove($currentOffer, true);
+            $this->addFlash('danger', 'offre supprimé');
         }
 
         return $this->redirectToRoute('manage_offers', [], Response::HTTP_SEE_OTHER);

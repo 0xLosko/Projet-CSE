@@ -43,6 +43,7 @@ class AdminController extends AbstractController
             );
             $user->setRoles(["ROLE_ADMIN"]);
             $userRepository->save($user, true);
+            $this->addFlash('success', 'Utilisateur sauvegardé');
 
             return $this->redirectToRoute('manage_admins', [], Response::HTTP_SEE_OTHER);
         }
@@ -72,6 +73,7 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('manage_admins', [], Response::HTTP_SEE_OTHER);
         }
+        $this->addFlash('success', 'Utilisateur modifié');
 
         return $this->renderForm('security/backoffice/manage_admins/edit.html.twig', [
             'admin' => $user,
@@ -93,6 +95,7 @@ class AdminController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
         }
+        $this->addFlash('danger', 'Utilisateur supprimé');
 
         return $this->redirectToRoute('manage_admins', [], Response::HTTP_SEE_OTHER);
     }

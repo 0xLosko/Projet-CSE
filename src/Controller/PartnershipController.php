@@ -71,8 +71,10 @@ class PartnershipController extends AbstractController
             $partner->setLink($response['link']);
             $partner->setIdFile($file);
 
+            //try catch
             $em->persist($partner);
             $em->flush();
+            $this->addFlash('success', 'Partenaire enregistré');
 
             return $this->redirectToRoute('manage_partners', [], Response::HTTP_SEE_OTHER);
         }
@@ -110,7 +112,7 @@ class PartnershipController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    dd('Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
+                    $this->addFlash('danger', 'Erreur lors de l\'insertion de l\'image, contactez un administrateur' . $e);
                 }
 
                 //delete old file in Server Storage
@@ -136,6 +138,7 @@ class PartnershipController extends AbstractController
                 $partner->setLink($response['link']);
             }
             $partnerRepository->save($partner, true);
+            $this->addFlash('success', 'Partenaire modifié');
 
             return $this->redirectToRoute('manage_partners', [], Response::HTTP_SEE_OTHER);
         }
@@ -156,6 +159,7 @@ class PartnershipController extends AbstractController
             unlink($this->getParameter('file_directory') . '/' . $newFile);
             $fileRepository->remove($partner->getIdFile(), true);
             $partnerRepository->remove($partner, true);
+            $this->addFlash('danger', 'Partenaire supprimé');
         }
 
         return $this->redirectToRoute('manage_partners', [], Response::HTTP_SEE_OTHER);

@@ -23,7 +23,6 @@ class AnswerSurveyController extends AbstractController
         QuestionRepository $questionRepository
     ): Response
     {
-        $session = $request->getSession();
         $answer = new Answer();
 
         $form = $this->createForm(AnswerType::class, $answer, [
@@ -38,7 +37,8 @@ class AnswerSurveyController extends AbstractController
             // faire un try catch
             $em->persist($answer);
             $em->flush();
-            $session->getFlashBag()->add('success', 'Votre réponse a bien été envoyée.');
+
+            $this->addFlash('success', 'Votre réponse a bien été envoyée.');
         }
 
         $referer = $request->headers->get('referer');
@@ -53,7 +53,6 @@ class AnswerSurveyController extends AbstractController
         QuestionRepository $questionRepository,
     ): Response
     {
-        $session = $request->getSession();
         $activeQuestion = $questionRepository->getActiveSurvey();
         $surveys = $questionRepository->findAll();
 
@@ -63,7 +62,7 @@ class AnswerSurveyController extends AbstractController
             $activeQuestion->setTextQuestion($questionForm->getData()->getTextQuestion());
             // try catch
             $questionRepository->save($activeQuestion, true);
-            $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
+            $this->addFlash('success', 'La modification de la question du sondage a été effectuée.');
         }
 
         return $this->render('security/backoffice/manage_survey/index.html.twig', [
@@ -79,7 +78,6 @@ class AnswerSurveyController extends AbstractController
         Request $request,
     ): Response
     {
-        $session = $request->getSession();
         $error = "";
         $survey = new Question();
 
@@ -94,7 +92,7 @@ class AnswerSurveyController extends AbstractController
                 }
                 $survey->setDateQuestion(new \DateTime('@'.strtotime('now')));
                 $questionRepository->save($survey, true);
-                $session->getFlashBag()->add('success', 'L\'enregistrement du sondage a été effectuée.');
+                $this->addFlash('success', 'L\'enregistrement du sondage a été effectuée.');
 
                 return $this->redirectToRoute('new_survey');
             }
@@ -117,7 +115,6 @@ class AnswerSurveyController extends AbstractController
         QuestionRepository $questionRepository,
     ): Response
     {
-        $session = $request->getSession();
         // désactiver le sondage actif
         $questionRepository->unactiveSurvey();
 
@@ -125,7 +122,7 @@ class AnswerSurveyController extends AbstractController
         $newActive->setAvailable(1);
         // faire un try catch
         $questionRepository->save($newActive, true);
-        $session->getFlashBag()->add('success', 'Le sondage a bien été activé.');
+        $this->addFlash('success', 'Le sondage a bien été activé.');
 
         return $this->redirectToRoute('manage_survey');
     }
@@ -136,9 +133,8 @@ class AnswerSurveyController extends AbstractController
         QuestionRepository $questionRepository,
     ): Response
     {
-        $session = $request->getSession();
         $questionRepository->unactiveSurvey();
-        $session->getFlashBag()->add('success', 'Le sondage a bien été désactivé.');
+        $this->addFlash('danger', 'Le sondage a bien été désactivé.');
 
         return $this->redirectToRoute('manage_survey');
     }
@@ -151,7 +147,6 @@ class AnswerSurveyController extends AbstractController
         QuestionRepository $questionRepository,
     ): Response
     {
-        $session = $request->getSession();
         $selectedQuestion = $questionRepository->findOneBy(['id'=>$id]);
 
         $questionForm = $this->createForm(QuestionType::class);
@@ -160,7 +155,7 @@ class AnswerSurveyController extends AbstractController
             $selectedQuestion->setTextQuestion($questionForm->getData()->getTextQuestion());
             // try catch
             $questionRepository->save($selectedQuestion, true);
-            $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
+            $this->addFlash('success', 'La modification de la question du sondage a été effectuée.');
         }
 
         return $this->render('security/backoffice/manage_survey/one_survey.html.twig', [

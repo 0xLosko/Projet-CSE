@@ -10,6 +10,7 @@
             <link rel="stylesheet" href="{{ asset('css/layout/sidebar.css') }}">
             <link rel="stylesheet" href="{{ asset('css/layout/footer.css') }}">
             <link rel="stylesheet" href="{{ asset('css/pages/partner.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/layout/toasts.css') }}">
             {% block css %}{% endblock %}
             <script src="{{ asset('js/nav-resp.js') }}"></script>
             <script src="{{ asset('js/car-partners.js') }}"></script>
@@ -33,7 +34,7 @@
                 {% block content %}
                 {% endblock %}
             </div>
-
+            {% include "./base/toasts.html.twig" %}
         {% endblock %}
     </body>
 
