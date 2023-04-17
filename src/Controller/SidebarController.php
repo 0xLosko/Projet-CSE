@@ -17,8 +17,8 @@ class SidebarController extends AbstractController
         SidebarPartnersProvider $sidePartners): Response
     {
         $rdmPartners = $sidePartners->getRandomPartners();
-
         $activeQuestion = $questionRepository->getActiveSurvey();
+
         if ($activeQuestion != null){
             $form = $this->createForm(AnswerType::class, null, [
                 'action' => $this->generateUrl('answer'), // on spécifie l'action sur laquelle on va transmettre nos données.
@@ -36,17 +36,15 @@ class SidebarController extends AbstractController
                 $data = $request->request->get('proposal');
             }
             $view = $form->createView();
-            $textQuestion = $activeQuestion->getTextQuestion();
         }
         else {
             $view = null;
             $data = null;
-            $textQuestion = null;
         }
 
         return $this->render('base/sidebar.html.twig', [
             'form' => $view,
-            'question' => $textQuestion,
+            'survey' => $activeQuestion,
             'rdmPartners' => $rdmPartners,
             'data' => $data,
         ]);

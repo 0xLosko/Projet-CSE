@@ -47,6 +47,14 @@ class AnswerSurveyController extends AbstractController
         return $this->redirect($refererPathInfo);
     }
 
+    #[Route('/statistiques-sondage', name: 'view_stats_survey', methods:'GET')]
+    public function viewStats(QuestionRepository $questionRepository): Response
+    {
+        return $this->render('survey/_result_survey.html.twig', [
+            'survey' => $questionRepository->getActiveSurvey(),
+        ]);
+    }
+
     #[Route('/backoffice/gerer-sondage', name: 'manage_survey')]
     public function manageSurvey(
         Request $request,
@@ -63,6 +71,18 @@ class AnswerSurveyController extends AbstractController
             // try catch
             $questionRepository->save($activeQuestion, true);
             $this->addFlash('success', 'La modification de la question du sondage a été effectuée.');
+        }
+        $session = $request->getSession();
+        $activeQuestion = $questionRepository->getActiveSurvey();
+        $surveys = $questionRepository->findAll();
+
+        $questionForm = $this->createForm(QuestionType::class);
+        $questionForm->handleRequest($request);
+        if($questionForm->isSubmitted() && $questionForm->isValid()) {
+            $activeQuestion->setTextQuestion($questionForm->getData()->getTextQuestion());
+            // try catch
+            $questionRepository->save($activeQuestion, true);
+            $session->getFlashBag()->add('success', 'La modification de la question du sondage a été effectuée.');
         }
 
         return $this->render('security/backoffice/manage_survey/index.html.twig', [
@@ -160,6 +180,9 @@ class AnswerSurveyController extends AbstractController
 
         return $this->render('security/backoffice/manage_survey/one_survey.html.twig', [
             'activeQuestion' => $selectedQuestion,
+            'questionForm' => $questionForm,
+            'activeQuestion' => $activeQuestion,
+            'surveys' => $surveys,
             'questionForm' => $questionForm,
         ]);
     }

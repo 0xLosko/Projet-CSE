@@ -5,7 +5,7 @@
         <div class="survey-content">
             {{ form_start(form) }}
                 <p>
-                    {{ question }}
+                    {{ survey.getTextQuestion() }}
                 </p>
                 <div class="proposals-con">
                     {% for p in form.proposal %}
@@ -15,9 +15,10 @@
                     {% endfor %}
                 </div>
                 <div class="survey-act">
-                    <button type="">Voir les réponses</button>
                     {{ form_row(form.send) }}
-                </div> 
+                    <a href="{{ path('view_stats_survey') }}" class="action-btn">Voir les réponses</a>
+                    {# <button onclick="document.location.href='{{ path('view_stats_survey') }}'" class="action-btn">Voir les réponses</button> #}
+                </div>
             {{ form_end(form) }}
         </div>
     </div>
