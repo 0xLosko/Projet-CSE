@@ -24,7 +24,7 @@ Une fois que vous avez installé les prérequis ci-dessus, vous pouvez suivre le
 ## Installation
 Voici les étapes pour installer l'application :
 
-1. [Téléchargez le zip à partir de Git](https://github.com/OxLosko/Projet-CSE/archive/main.zip) et décompressez-le dans le répertoire de votre choix.
+1. [Téléchargez le zip à partir de Git](https://github.com/0xLosko/Projet-CSE) et décompressez-le dans le répertoire de votre choix.
 
 2. Ouvrez un terminal et accédez au répertoire du projet décompressé.
 
