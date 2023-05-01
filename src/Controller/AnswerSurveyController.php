@@ -181,9 +181,6 @@ class AnswerSurveyController extends AbstractController
         return $this->render('security/backoffice/manage_survey/one_survey.html.twig', [
             'activeQuestion' => $selectedQuestion,
             'questionForm' => $questionForm,
-            'activeQuestion' => $activeQuestion,
-            'surveys' => $surveys,
-            'questionForm' => $questionForm,
         ]);
     }
 }
