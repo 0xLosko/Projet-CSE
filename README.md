@@ -42,7 +42,9 @@ Après avoir exécuté ces étapes, vous devriez être en mesure d'accéder à l
 
 
 ## Jeu de données
-ici jdd
+[Script SQL](https://github.com/0xLosko/Projet-CSE/blob/main/public/annexes/database/script_cse.sql) de création de la base de données avec jeu de données
+
+[Visualiser](https://github.com/0xLosko/Projet-CSE/blob/main/public/annexes/database/database_cse.docx) le schéma de la base de données
 
 
 
