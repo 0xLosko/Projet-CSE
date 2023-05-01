@@ -44,8 +44,13 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $oldHomeContent->setTextContent($responseContent->getTextContent());
-            $em->flush();
-            $this->addFlash('success', 'cette modification a été prise en compte.');
+            try {
+                $em->flush();
+                $this->addFlash('success', 'cette modification a été prise en compte.');
+            } catch (\Exception $e){
+                $this->redirectToRoute('manage_home');
+                $this->addFlash('error', 'cette modification a rencontré un problème.');
+            }
         }
 
         return $this->render('security/backoffice/manage_home/index.html.twig', [
