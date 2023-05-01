@@ -42,9 +42,18 @@ Après avoir exécuté ces étapes, vous devriez être en mesure d'accéder à l
 
 
 ## Jeu de données
-[Script SQL](https://github.com/0xLosko/Projet-CSE/blob/main/public/annexes/database/script_cse.sql) de création de la base de données avec jeu de données
 
-[Visualiser](https://github.com/0xLosko/Projet-CSE/blob/main/public/annexes/database/database_cse.docx) le schéma de la base de données
+1. [Téléchargez le script SQL](https://github.com/0xLosko/Projet-CSE/blob/main/public/annexes/database/script_cse.sql) de création de la base de données avec jeu de données
+
+2. Allez sur votre interface phpMyAdmin
+
+3. Cliquez sur l'onglet 'Importer'
+
+4. Cliquez sur le bouton 'Choisir un fichier' et sélectionner le script précédemment téléchargé
+
+5. Puis cliquez sur le bouton 'Executer' en bas de page
+
+Pour plus d'information sur la structure de la base : [visualisez](https://github.com/0xLosko/Projet-CSE/blob/main/public/annexes/database/database_cse.docx) le schéma de la base de données
 
 
 
