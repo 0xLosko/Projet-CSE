@@ -25,4 +25,4 @@
 .idea
 
 # Ignorer le dossier public/uploads
-public/uploads
+public/uploads/file
